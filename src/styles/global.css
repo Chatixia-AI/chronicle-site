@@ -1,22 +1,105 @@
 @import "tailwindcss";
 
-@theme {
+@theme inline {
   --font-display: "IBM Plex Sans", "IBM Plex Sans JP", system-ui, sans-serif;
   --font-body: "IBM Plex Sans", "IBM Plex Sans JP", system-ui, sans-serif;
   --font-plex-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-  /* Blueprint tokens, shared with chatixia.net and Chatixia Studio */
-  --color-bp-bg: #081a31;
-  --color-bp-bg2: #0a2140;
-  --color-bp-panel: #0d2a4d;
-  --color-bp-panel2: #10345e;
-  --color-bp-rule: #1d4575;
-  --color-bp-rule2: #5d86b6;
-  --color-bp-ink: #e8f2ff;
-  --color-bp-dim: #8eb1d8;
-  --color-bp-faint: #6a8db6;
-  --color-bp-gold: #ffb45e;
-  --color-bp-blue: #7cc7ff;
-  --color-bp-teal: #6fe3c1;
+  /* Blueprint tokens, shared with chatixia.net and Chatixia Studio; each theme sets the values below */
+  --color-bp-bg: var(--bp-bg);
+  --color-bp-bg2: var(--bp-bg2);
+  --color-bp-panel: var(--bp-panel);
+  --color-bp-panel2: var(--bp-panel2);
+  --color-bp-rule: var(--bp-rule);
+  --color-bp-rule2: var(--bp-rule2);
+  --color-bp-ink: var(--bp-ink);
+  --color-bp-dim: var(--bp-dim);
+  --color-bp-faint: var(--bp-faint);
+  --color-bp-gold: var(--bp-gold);
+  --color-bp-blue: var(--bp-blue);
+  --color-bp-teal: var(--bp-teal);
+  /* Buttons keep the bright gold with navy text in both themes */
+  --color-bp-cta: #ffb45e;
+  --color-bp-cta-hover: #ffc67f;
+  --color-bp-cta-ink: #081a31;
+}
+
+/* Dark is the blueprint itself. Light is the same drawing as a whiteprint: navy ink on pale paper.
+   The page follows the system until the header toggle picks one (data-theme on <html>). Terminal and editor
+   drawings carry .theme-dark, so they stay dark on a light page, as they would on screen. */
+:root,
+.theme-dark {
+  color-scheme: dark;
+  --bp-bg: #081a31;
+  --bp-bg2: #0a2140;
+  --bp-panel: #0d2a4d;
+  --bp-panel2: #10345e;
+  --bp-rule: #1d4575;
+  --bp-rule2: #5d86b6;
+  --bp-ink: #e8f2ff;
+  --bp-dim: #8eb1d8;
+  --bp-faint: #6a8db6;
+  --bp-gold: #ffb45e;
+  --bp-blue: #7cc7ff;
+  --bp-teal: #6fe3c1;
+  --bp-grid: rgba(93, 134, 182, 0.13);
+  --bp-grid-fine: rgba(93, 134, 182, 0.07);
+  --bp-stage: radial-gradient(ellipse at 50% 60%, #174674 0%, #0b2748 48%, #081a31 85%);
+  --bp-shadow: rgba(0, 0, 0, 0.7);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bp-bg: #f4f7fb;
+  --bp-bg2: #edf2f8;
+  --bp-panel: #ffffff;
+  --bp-panel2: #e8eff8;
+  --bp-rule: #cfdbea;
+  --bp-rule2: #8ba6c8;
+  --bp-ink: #0b1f38;
+  --bp-dim: #3d5878;
+  --bp-faint: #627b99;
+  --bp-gold: #a8620c;
+  --bp-blue: #1d5c96;
+  --bp-teal: #0c7c60;
+  --bp-grid: rgba(29, 92, 150, 0.1);
+  --bp-grid-fine: rgba(29, 92, 150, 0.05);
+  --bp-stage: radial-gradient(ellipse at 50% 60%, #ffffff 0%, #eef3fa 52%, #e2eaf5 90%);
+  --bp-shadow: rgba(11, 31, 56, 0.22);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --bp-bg: #f4f7fb;
+    --bp-bg2: #edf2f8;
+    --bp-panel: #ffffff;
+    --bp-panel2: #e8eff8;
+    --bp-rule: #cfdbea;
+    --bp-rule2: #8ba6c8;
+    --bp-ink: #0b1f38;
+    --bp-dim: #3d5878;
+    --bp-faint: #627b99;
+    --bp-gold: #a8620c;
+    --bp-blue: #1d5c96;
+    --bp-teal: #0c7c60;
+    --bp-grid: rgba(29, 92, 150, 0.1);
+    --bp-grid-fine: rgba(29, 92, 150, 0.05);
+    --bp-stage: radial-gradient(ellipse at 50% 60%, #ffffff 0%, #eef3fa 52%, #e2eaf5 90%);
+    --bp-shadow: rgba(11, 31, 56, 0.22);
+  }
+}
+
+/* .theme-dark is declared on its own element, so it wins inside a light page */
+.theme-dark {
+  color: var(--bp-ink);
+}
+
+body {
+  background-color: var(--bp-bg);
+}
+
+.bp-stage {
+  background: var(--bp-stage);
 }
 
 html {
@@ -39,12 +122,12 @@ html {
 
 /* Blueprint paper: a fine 24px grid with a stronger line every 96px. */
 .bp-paper {
-  background-color: var(--color-bp-bg);
+  background-color: var(--bp-bg);
   background-image:
-    linear-gradient(rgba(93, 134, 182, 0.13) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(93, 134, 182, 0.13) 1px, transparent 1px),
-    linear-gradient(rgba(93, 134, 182, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(93, 134, 182, 0.07) 1px, transparent 1px);
+    linear-gradient(var(--bp-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px),
+    linear-gradient(var(--bp-grid-fine) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-grid-fine) 1px, transparent 1px);
   background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
 }
 
@@ -59,7 +142,7 @@ html {
   width: 14px;
   height: 14px;
   pointer-events: none;
-  border-color: var(--color-bp-gold);
+  border-color: var(--bp-gold);
   border-style: solid;
 }
 .bp-ticks::before {
@@ -94,7 +177,7 @@ html {
   bottom: 0;
   left: 11px;
   width: 1px;
-  background: linear-gradient(to bottom, transparent, var(--color-bp-rule2) 6%, var(--color-bp-rule2) 94%, transparent);
+  background: linear-gradient(to bottom, transparent, var(--bp-rule2) 6%, var(--bp-rule2) 94%, transparent);
 }
 @media (min-width: 1024px) {
   .spine::before {
@@ -120,4 +203,13 @@ html {
 }
 .deck:hover .card-1 {
   transform: translate(-4px, 4px) rotate(-1deg);
+}
+
+/* The header toggle shows where it will take you: a sun on the dark page, a moon on the light one. */
+.theme-toggle .moon,
+:root[data-theme="light"] .theme-toggle .sun {
+  display: none;
+}
+:root[data-theme="light"] .theme-toggle .moon {
+  display: block;
 }

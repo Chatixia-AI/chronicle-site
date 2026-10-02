@@ -32,7 +32,19 @@ const nav = [
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL("/images/home.webp", Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#081a31" />
+    <meta name="theme-color" content="#081a31" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)" />
+    <script is:inline>
+      // Set the theme before the first paint: the visitor's choice if they made one, else the system's.
+      (() => {
+        let stored = null;
+        try { stored = localStorage.getItem("chronicle-theme"); } catch {}
+        const system = matchMedia("(prefers-color-scheme: light)");
+        const apply = (t) => (document.documentElement.dataset.theme = t);
+        apply(stored === "light" || stored === "dark" ? stored : system.matches ? "light" : "dark");
+        if (!stored) system.addEventListener("change", (e) => apply(e.matches ? "light" : "dark"));
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -43,7 +55,7 @@ const nav = [
   <body class="bp-paper min-h-screen font-body text-bp-ink">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-bp-gold focus:px-3 focus:py-2 focus:text-bp-bg"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-bp-cta focus:px-3 focus:py-2 focus:text-bp-cta-ink"
       >Skip to content</a
     >
     <header class="sticky top-0 z-40 border-b border-bp-rule/70 bg-bp-bg/85 backdrop-blur">
@@ -57,9 +69,22 @@ const nav = [
           {nav.map((item) => <a href={item.href} class="hover:text-bp-ink">{item.label}</a>)}
           <a href={links.github} class="hover:text-bp-ink">GitHub</a>
         </nav>
+        <button
+          type="button"
+          class="theme-toggle ml-auto inline-flex h-10 w-10 items-center justify-center rounded-md border border-bp-rule2/70 text-bp-dim hover:border-bp-gold hover:text-bp-ink md:ml-0"
+          aria-label="Switch to light theme"
+          title="Switch to light theme"
+        >
+          <svg class="sun h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"
+            ><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg
+          >
+          <svg class="moon h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+            ><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg
+          >
+        </button>
         <a
           href="/#install"
-          class="ml-auto inline-flex min-h-10 items-center rounded-md bg-bp-gold px-4 text-sm font-semibold text-bp-bg hover:bg-[#ffc67f] md:ml-0"
+          class="inline-flex min-h-10 items-center rounded-md bg-bp-cta px-4 text-sm font-semibold text-bp-cta-ink hover:bg-bp-cta-hover"
           >Install</a
         >
       </div>
@@ -77,7 +102,7 @@ const nav = [
             <span class="font-display font-semibold">Chronicle</span>
           </div>
           <p class="mt-3 max-w-xs text-sm leading-relaxed text-bp-dim">
-            A searchable memory of every coding-agent session you run. Part of
+            A searchable memory of every coding-agent session you run. Part of{" "}
             <a href={links.chatixia} class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold">Chatixia</a>.
           </p>
           <p class="mt-4 font-plex-mono text-[11px] uppercase tracking-[0.16em] text-bp-faint">MIT license · no telemetry</p>
@@ -125,5 +150,22 @@ const nav = [
         }
       </div>
     </footer>
+    <script>
+      // The header toggle flips the theme and remembers the choice (when storage is allowed).
+      const toggle = document.querySelector<HTMLButtonElement>(".theme-toggle")!;
+      const label = () => {
+        const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+        toggle.setAttribute("aria-label", `Switch to ${next} theme`);
+        toggle.title = `Switch to ${next} theme`;
+      };
+      label();
+      toggle.addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+        document.documentElement.dataset.theme = next;
+        try { localStorage.setItem("chronicle-theme", next); } catch {}
+        label();
+      });
+      new MutationObserver(label).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    </script>
   </body>
 </html>

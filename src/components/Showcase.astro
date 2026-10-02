@@ -18,7 +18,34 @@ const shots = [
       body="A local dashboard for browsing it all, on your Mac or on your phone through Tailscale."
     />
 
-    <div class="showcase mt-12">
+    <figure class="bp-ticks mt-12 border border-bp-rule2/80 bg-bp-panel/60 p-3 sm:p-4">
+      <div class="flex items-center justify-between pb-3 font-plex-mono text-[10px] uppercase tracking-[0.16em] text-bp-dim">
+        <span>A one-minute tour</span>
+        <span>Fig. 06</span>
+      </div>
+      <video
+        class="demo-video w-full rounded border border-bp-rule/70 bg-bp-bg"
+        src="/media/demo.mp4"
+        poster="/media/demo-poster.webp"
+        width="1440"
+        height="900"
+        controls
+        muted
+        loop
+        playsinline
+        preload="metadata"
+        aria-label="A one-minute tour of the Chronicle dashboard on demo data: Home, a session with its transcript and extracted knowledge, ⌘K search, the glossary Map and a weekly review"
+      ></video>
+      <figcaption class="mt-3 flex flex-wrap items-center justify-between gap-2 font-plex-mono text-[11px] uppercase tracking-[0.12em] text-bp-dim">
+        <span class="font-body text-[13px] normal-case tracking-normal">
+          Home, a session with what it taught, ⌘K search, the Map and a weekly review.
+        </span>
+        <span class="text-bp-faint">Made-up demo data</span>
+      </figcaption>
+    </figure>
+
+    <p class="mt-14 font-plex-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-bp-gold">Screen by screen</p>
+    <div class="showcase mt-5">
       <div role="tablist" aria-label="Dashboard screens" class="flex flex-wrap gap-2">
         {
           shots.map((s, i) => (
@@ -81,5 +108,19 @@ const shots = [
         next.focus();
       });
     });
+  }
+</script>
+
+<script>
+  // Play the tour while it's on screen, muted; leave it still for visitors who asked for less motion.
+  const video = document.querySelector<HTMLVideoElement>(".demo-video");
+  if (video && !matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
+    new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { threshold: 0.4 },
+    ).observe(video);
   }
 </script>

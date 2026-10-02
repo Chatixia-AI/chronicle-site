@@ -34,7 +34,7 @@ import { installCommand, links } from "../data/site";
       <div class="mt-5 flex flex-wrap gap-3">
         <a
           href={links.install}
-          class="inline-flex min-h-12 items-center gap-2 rounded-md bg-bp-gold px-5 py-3 font-semibold text-bp-bg hover:bg-[#ffc67f]"
+          class="inline-flex min-h-12 items-center gap-2 rounded-md bg-bp-cta px-5 py-3 font-semibold text-bp-cta-ink hover:bg-bp-cta-hover"
           >Get started <span aria-hidden="true">→</span></a
         >
         <a
@@ -48,7 +48,7 @@ import { installCommand, links } from "../data/site";
       </p>
     </div>
 
-    <figure class="bp-ticks relative mx-auto w-full min-w-0 max-w-[580px] border border-bp-rule2/80 bg-[radial-gradient(ellipse_at_50%_60%,#174674_0%,#0b2748_48%,#081a31_85%)] p-5 sm:p-7 lg:max-w-none">
+    <figure class="bp-ticks relative mx-auto w-full min-w-0 max-w-[580px] border border-bp-rule2/80 bp-stage p-5 sm:p-7 lg:max-w-none">
       <div class="flex items-center justify-between border-b border-bp-rule/80 pb-3 font-plex-mono text-[10px] uppercase tracking-[0.16em] text-bp-dim">
         <span>Log · billing-api</span>
         <span>Fig. 01</span>
@@ -57,7 +57,7 @@ import { installCommand, links } from "../data/site";
       <div class="deck relative mx-auto mt-16 mb-4 max-w-[440px]">
         <div class="card card-3 absolute inset-0 rounded-lg border border-bp-rule2/60 bg-bp-panel/70" aria-hidden="true"></div>
         <div class="card card-2 absolute inset-0 rounded-lg border border-bp-rule2/70 bg-bp-panel/85" aria-hidden="true"></div>
-        <article class="card card-1 ledger relative rounded-lg border border-bp-rule2 bg-bp-panel p-5 shadow-[0_24px_60px_-20px_rgba(0,0,0,.7)]">
+        <article class="card card-1 ledger relative rounded-lg border border-bp-rule2 bg-bp-panel p-5 shadow-[0_24px_60px_-20px_var(--bp-shadow)]">
           <p class="font-plex-mono text-[11px] text-bp-faint">
             Today 14:52 · Claude Code · <span class="text-bp-dim">fix/webhook-idempotency</span>
           </p>
