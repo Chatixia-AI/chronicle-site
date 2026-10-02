@@ -1,0 +1,50 @@
+/* The docs in chronicle.chatixia.net's blueprint colours. Material's palette sets these variables per scheme and
+   primary colour; the doubled attribute selectors outrank it. Light pages stay light for reading; the header is
+   navy in both, like the rest of the site. */
+
+[data-md-color-scheme][data-md-color-primary] {
+  --md-primary-fg-color: #081a31;
+  --md-primary-fg-color--light: #0d2a4d;
+  --md-primary-fg-color--dark: #06142a;
+  --md-primary-bg-color: #e8f2ff;
+  --md-primary-bg-color--light: #8eb1d8;
+}
+
+[data-md-color-scheme="default"][data-md-color-accent] {
+  --md-accent-fg-color: #b86e0f;
+  --md-accent-fg-color--transparent: rgba(184, 110, 15, 0.1);
+  --md-typeset-a-color: #1d5c96;
+}
+
+[data-md-color-scheme="slate"][data-md-color-accent] {
+  --md-hue: 213;
+  --md-default-bg-color: #081a31;
+  --md-default-fg-color: rgba(232, 242, 255, 0.86);
+  --md-default-fg-color--light: rgba(232, 242, 255, 0.62);
+  --md-code-bg-color: #0d2a4d;
+  --md-footer-bg-color: #06142a;
+  --md-footer-bg-color--dark: #051022;
+  --md-accent-fg-color: #ffb45e;
+  --md-accent-fg-color--transparent: rgba(255, 180, 94, 0.1);
+  --md-typeset-a-color: #7cc7ff;
+}
+
+.md-header {
+  border-bottom: 1px solid #1d4575;
+  box-shadow: none;
+}
+
+.md-header__title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset h1,
+.md-typeset h2 {
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.md-typeset h1 {
+  color: var(--md-default-fg-color);
+}

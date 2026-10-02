@@ -1,0 +1,15 @@
+# Layered over agents-chronicle's mkdocs.yml by scripts/build-docs.sh: the same docs, served under /docs/ of
+# chronicle.chatixia.net, in this site's type and colours, with the logo leading back to the home page.
+INHERIT: mkdocs.yml
+site_url: https://chronicle.chatixia.net/docs/
+
+theme:
+  font:
+    text: IBM Plex Sans
+    code: IBM Plex Mono
+
+extra_css:
+  - assets/chronicle-site.css
+
+extra:
+  homepage: https://chronicle.chatixia.net/

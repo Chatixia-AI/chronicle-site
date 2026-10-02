@@ -1,0 +1,25 @@
+---
+// An agent asking Chronicle over MCP before it re-derives a fix.
+import Frame from "./Frame.astro";
+---
+
+<Frame caption="Terminal · infra" fig="Fig. 04" note="The agent searched first, and skipped an afternoon of debugging">
+  <div class="rounded-md border border-bp-rule/80 bg-[#06142a] p-4 font-plex-mono text-[12.5px] leading-[1.7] [overflow-wrap:anywhere]">
+    <p>
+      <span class="text-bp-gold">you ›</span>{" "}
+      <span class="text-bp-ink">the deploy fails with "Not authorized to perform sts:AssumeRoleWithWebIdentity". seen this before?</span>
+    </p>
+    <p class="mt-3 text-bp-faint">
+      <span class="text-bp-teal">●</span> chronicle · search_knowledge("AssumeRoleWithWebIdentity")
+    </p>
+    <p class="pl-4 text-bp-faint">└ 1 gotcha · infra · established ×2</p>
+    <p class="mt-3">
+      <span class="text-bp-blue">agent ›</span>{" "}
+      <span class="text-bp-dim"
+        >Yes, in infra last week. For jobs with <span class="text-bp-ink">environment:</span>, the OIDC token's sub is{" "}
+        <span class="text-bp-ink">repo:ORG/REPO:environment:NAME</span>, so a trust policy matching the branch fails. I'll match
+        the environment instead.</span
+      >
+    </p>
+  </div>
+</Frame>

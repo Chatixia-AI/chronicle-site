@@ -1,0 +1,15 @@
+---
+// A section's numbered label, title and lead.
+interface Props {
+  label: string;
+  title: string;
+  body?: string;
+}
+const { label, title, body } = Astro.props;
+---
+
+<div class="max-w-[760px]">
+  <p class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-bp-gold">{label}</p>
+  <h2 class="mt-4 font-display text-[clamp(2.2rem,4.2vw,3.6rem)] font-semibold leading-[1.04] tracking-[-0.04em]">{title}</h2>
+  {body && <p class="mt-5 text-lg leading-relaxed text-bp-dim">{body}</p>}
+</div>

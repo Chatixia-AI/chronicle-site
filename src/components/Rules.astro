@@ -1,0 +1,60 @@
+---
+// The three rules from the roadmap, and the closing call to install.
+import CopyCommand from "./CopyCommand.astro";
+import SectionHead from "./SectionHead.astro";
+import { installCommand, links } from "../data/site";
+
+const rules = [
+  {
+    title: "It stays local.",
+    body: "No server of ours, no telemetry, no account. The archive and everything learned from it live on your own machines.",
+  },
+  {
+    title: "It runs on your login.",
+    body: "The one thing sent out is the analysis: a condensed digest, secrets redacted first, through your own Claude Code or Codex. No key of ours in the middle.",
+  },
+  {
+    title: "It says what it doesn't know.",
+    body: "Lessons start as seen once and earn trust as later sessions confirm them. Chronicle would rather say so than guess.",
+  },
+];
+---
+
+<section class="border-b border-bp-rule/70">
+  <div class="mx-auto max-w-[1280px] px-5 py-20 sm:px-10 lg:px-16 lg:py-28">
+    <SectionHead label="05 / The rules" title="Three rules it keeps." />
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {
+        rules.map((r, i) => (
+          <article class="border-t-2 border-bp-gold/80 bg-bp-panel/50 p-6">
+            <p class="font-plex-mono text-[11px] uppercase tracking-[0.18em] text-bp-faint">Rule {i + 1}</p>
+            <h3 class="mt-3 font-display text-2xl font-semibold tracking-tight">{r.title}</h3>
+            <p class="mt-3 leading-relaxed text-bp-dim">{r.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<section class="relative isolate overflow-hidden">
+  <div class="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[420px] w-[720px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-bp-blue/10 blur-[110px]" aria-hidden="true"></div>
+  <div class="mx-auto flex max-w-[860px] flex-col items-center px-5 py-24 text-center sm:px-10 lg:py-32">
+    <img src="/images/icon.webp" alt="" width="72" height="72" class="h-[72px] w-[72px]" />
+    <h2 class="mt-6 font-display text-[clamp(2.2rem,4.6vw,3.8rem)] font-semibold leading-[1.04] tracking-[-0.04em]">
+      Start keeping the record.
+    </h2>
+    <p class="mt-4 max-w-[560px] text-lg leading-relaxed text-bp-dim">
+      Install it once. Every session from then on, and the ones already on your Mac, becomes part of it.
+    </p>
+    <CopyCommand command={installCommand} class="mt-8 w-full max-w-[560px] text-left" />
+    <div class="mt-5 flex flex-wrap justify-center gap-3">
+      <a href={links.install} class="inline-flex min-h-12 items-center gap-2 rounded-md bg-bp-gold px-5 py-3 font-semibold text-bp-bg hover:bg-[#ffc67f]"
+        >Read the install guide <span aria-hidden="true">→</span></a
+      >
+      <a href={links.github} class="inline-flex min-h-12 items-center gap-2 rounded-md border border-bp-rule2 px-5 py-3 font-semibold hover:border-bp-teal hover:bg-bp-panel"
+        >Star it on GitHub</a
+      >
+    </div>
+  </div>
+</section>

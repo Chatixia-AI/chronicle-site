@@ -1,0 +1,129 @@
+---
+// Every page's shell: head, header and footer, in the Chatixia blueprint style.
+import "../styles/global.css";
+import { links } from "../data/site";
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const nav = [
+  { label: "What it does", href: "/#record" },
+  { label: "Install", href: "/#install" },
+  { label: "Docs", href: links.docs },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL("/images/home.webp", Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#081a31" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bp-paper min-h-screen font-body text-bp-ink">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-bp-gold focus:px-3 focus:py-2 focus:text-bp-bg"
+      >Skip to content</a
+    >
+    <header class="sticky top-0 z-40 border-b border-bp-rule/70 bg-bp-bg/85 backdrop-blur">
+      <div class="mx-auto flex h-16 max-w-[1280px] items-center gap-6 px-5 sm:px-10 lg:px-16">
+        <a href="/" class="flex items-center gap-2.5" aria-label="Chronicle home">
+          <img src="/images/icon.webp" alt="" width="28" height="28" class="h-7 w-7" />
+          <span class="font-display text-lg font-semibold tracking-tight">Chronicle</span>
+          <span class="hidden font-plex-mono text-[10px] uppercase tracking-[0.18em] text-bp-faint sm:inline">by Chatixia</span>
+        </a>
+        <nav aria-label="Main" class="ml-auto hidden items-center gap-7 text-sm text-bp-dim md:flex">
+          {nav.map((item) => <a href={item.href} class="hover:text-bp-ink">{item.label}</a>)}
+          <a href={links.github} class="hover:text-bp-ink">GitHub</a>
+        </nav>
+        <a
+          href="/#install"
+          class="ml-auto inline-flex min-h-10 items-center rounded-md bg-bp-gold px-4 text-sm font-semibold text-bp-bg hover:bg-[#ffc67f] md:ml-0"
+          >Install</a
+        >
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="border-t border-bp-rule/70 bg-bp-bg/80">
+      <div class="mx-auto grid max-w-[1280px] gap-10 px-5 py-14 sm:px-10 md:grid-cols-[1.4fr_1fr_1fr_1fr] lg:px-16">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <img src="/images/icon.webp" alt="" width="24" height="24" class="h-6 w-6" />
+            <span class="font-display font-semibold">Chronicle</span>
+          </div>
+          <p class="mt-3 max-w-xs text-sm leading-relaxed text-bp-dim">
+            A searchable memory of every coding-agent session you run. Part of
+            <a href={links.chatixia} class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold">Chatixia</a>.
+          </p>
+          <p class="mt-4 font-plex-mono text-[11px] uppercase tracking-[0.16em] text-bp-faint">MIT license · no telemetry</p>
+        </div>
+        {
+          [
+            {
+              title: "Product",
+              items: [
+                ["What it does", "/#record"],
+                ["Install", "/#install"],
+                ["Releases", links.releases],
+                ["Changelog", links.changelog],
+              ],
+            },
+            {
+              title: "Docs",
+              items: [
+                ["Getting started", links.install],
+                ["MCP server", `${links.docs}mcp/`],
+                ["VS Code extension", `${links.docs}vscode/`],
+                ["日本語", `${links.docs}ja/`],
+              ],
+            },
+            {
+              title: "Elsewhere",
+              items: [
+                ["GitHub", links.github],
+                ["PyPI", links.pypi],
+                ["chatixia.net", links.chatixia],
+              ],
+            },
+          ].map((col) => (
+            <div>
+              <p class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-bp-gold">{col.title}</p>
+              <ul class="mt-4 space-y-2.5 text-sm text-bp-dim">
+                {col.items.map(([label, href]) => (
+                  <li>
+                    <a href={href} class="hover:text-bp-ink">{label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </footer>
+  </body>
+</html>

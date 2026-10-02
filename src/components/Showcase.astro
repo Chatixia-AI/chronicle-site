@@ -1,0 +1,85 @@
+---
+// The dashboard, one screen at a time: tabs over real screenshots taken on the demo data.
+import SectionHead from "./SectionHead.astro";
+
+const shots = [
+  { id: "home", label: "Home", src: "/images/home.webp", alt: "Chronicle's Home page: this week's sessions, stats and recent knowledge", text: "This week at a glance: sessions, what they cost, what they taught." },
+  { id: "session", label: "A session", src: "/images/session.webp", alt: "A session page with its summary, outcome, extracted knowledge and full transcript", text: "Every session with its summary, outcome, the lessons taken from it, and the full transcript." },
+  { id: "search", label: "⌘K search", src: "/images/palette.webp", alt: "The ⌘K palette searching sessions, knowledge and pages at once", text: "One keystroke searches every session, every lesson and every page." },
+  { id: "map", label: "Map", src: "/images/map.webp", alt: "The glossary Map: your own vocabulary drawn as a collapsible mindmap", text: "Your own vocabulary, drawn as a map of how your projects connect." },
+];
+---
+
+<section id="dashboard" class="scroll-mt-20 border-b border-bp-rule/70">
+  <div class="mx-auto max-w-[1280px] px-5 py-20 sm:px-10 lg:px-16 lg:py-28">
+    <SectionHead
+      label="03 / The dashboard"
+      title="Read the whole record."
+      body="A local dashboard for browsing it all, on your Mac or on your phone through Tailscale."
+    />
+
+    <div class="showcase mt-12">
+      <div role="tablist" aria-label="Dashboard screens" class="flex flex-wrap gap-2">
+        {
+          shots.map((s, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`tab-${s.id}`}
+              aria-controls={`panel-${s.id}`}
+              aria-selected={i === 0 ? "true" : "false"}
+              tabindex={i === 0 ? 0 : -1}
+              class="rounded-md border border-bp-rule2/70 px-4 py-2 font-plex-mono text-[12px] uppercase tracking-[0.12em] text-bp-dim hover:text-bp-ink aria-selected:border-bp-gold aria-selected:bg-bp-panel aria-selected:text-bp-ink"
+            >
+              {s.label}
+            </button>
+          ))
+        }
+      </div>
+      {
+        shots.map((s, i) => (
+          <div role="tabpanel" id={`panel-${s.id}`} aria-labelledby={`tab-${s.id}`} hidden={i !== 0} class="mt-6">
+            <figure class="bp-ticks border border-bp-rule2/80 bg-bp-panel/60 p-3 sm:p-4">
+              <img
+                src={s.src}
+                alt={s.alt}
+                width="1440"
+                height="900"
+                loading={i === 0 ? "eager" : "lazy"}
+                class="w-full rounded border border-bp-rule/70"
+              />
+              <figcaption class="mt-3 flex flex-wrap items-center justify-between gap-2 font-plex-mono text-[11px] uppercase tracking-[0.12em] text-bp-dim">
+                <span class="normal-case tracking-normal text-[13px] font-body text-bp-dim">{s.text}</span>
+                <span class="text-bp-faint">Made-up demo data</span>
+              </figcaption>
+            </figure>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>(".showcase")) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const select = (tab: HTMLButtonElement) => {
+      for (const t of tabs) {
+        const on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        root.querySelector<HTMLElement>(`#${t.getAttribute("aria-controls")}`)!.hidden = !on;
+      }
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => select(tab));
+      tab.addEventListener("keydown", (e) => {
+        const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!step) return;
+        const next = tabs[(i + step + tabs.length) % tabs.length];
+        select(next);
+        next.focus();
+      });
+    });
+  }
+</script>

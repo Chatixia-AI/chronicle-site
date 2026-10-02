@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "IBM Plex Sans", "IBM Plex Sans JP", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "IBM Plex Sans JP", system-ui, sans-serif;
+  --font-plex-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  /* Blueprint tokens, shared with chatixia.net and Chatixia Studio */
+  --color-bp-bg: #081a31;
+  --color-bp-bg2: #0a2140;
+  --color-bp-panel: #0d2a4d;
+  --color-bp-panel2: #10345e;
+  --color-bp-rule: #1d4575;
+  --color-bp-rule2: #5d86b6;
+  --color-bp-ink: #e8f2ff;
+  --color-bp-dim: #8eb1d8;
+  --color-bp-faint: #6a8db6;
+  --color-bp-gold: #ffb45e;
+  --color-bp-blue: #7cc7ff;
+  --color-bp-teal: #6fe3c1;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Blueprint paper: a fine 24px grid with a stronger line every 96px. */
+.bp-paper {
+  background-color: var(--color-bp-bg);
+  background-image:
+    linear-gradient(rgba(93, 134, 182, 0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 134, 182, 0.13) 1px, transparent 1px),
+    linear-gradient(rgba(93, 134, 182, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 134, 182, 0.07) 1px, transparent 1px);
+  background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
+}
+
+/* Corner registration ticks on a drawing frame. */
+.bp-ticks {
+  position: relative;
+}
+.bp-ticks::before,
+.bp-ticks::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  border-color: var(--color-bp-gold);
+  border-style: solid;
+}
+.bp-ticks::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+}
+.bp-ticks::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Chronicle's own feel: a logbook. Ruled lines like a ledger page, and a spine the entries hang from. */
+.ledger {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 27px,
+    rgba(93, 134, 182, 0.16) 27px,
+    rgba(93, 134, 182, 0.16) 28px
+  );
+}
+
+.spine {
+  position: relative;
+}
+.spine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 11px;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--color-bp-rule2) 6%, var(--color-bp-rule2) 94%, transparent);
+}
+@media (min-width: 1024px) {
+  .spine::before {
+    left: 50%;
+  }
+}
+
+/* The stacked session cards in the hero fan out a little on hover, like a deck being riffled. */
+.deck .card {
+  transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.deck .card-3 {
+  transform: translate(28px, -36px) rotate(4deg);
+}
+.deck .card-2 {
+  transform: translate(14px, -18px) rotate(2deg);
+}
+.deck:hover .card-3 {
+  transform: translate(44px, -58px) rotate(7deg);
+}
+.deck:hover .card-2 {
+  transform: translate(22px, -29px) rotate(3.5deg);
+}
+.deck:hover .card-1 {
+  transform: translate(-4px, 4px) rotate(-1deg);
+}

@@ -1,0 +1,79 @@
+---
+// What Chronicle does, as entries in a logbook hung off a spine: each a claim, a scenario and a picture of it.
+import SectionHead from "./SectionHead.astro";
+import VisualKept from "./visuals/Kept.astro";
+import VisualKnowledge from "./visuals/Knowledge.astro";
+import VisualAsk from "./visuals/Ask.astro";
+import VisualEditor from "./visuals/Editor.astro";
+import { links } from "../data/site";
+
+const entries = [
+  {
+    tag: "Keep",
+    title: "Never lose a session.",
+    body: "Claude Code clears its transcripts after 30 days. Chronicle archives every session as it ends, from every agent you connect, so the conversation that fixed last month's outage is still there next year.",
+    more: ["What gets recorded", `${links.docs}analysis/`],
+    Visual: VisualKept,
+  },
+  {
+    tag: "Learn",
+    title: "Lessons, written down for you.",
+    body: "Chronicle reads each finished session with your own Claude Code or Codex and keeps what's worth keeping: fixes, gotchas, decisions, commands. They merge into a knowledge base per project, and earn trust each time another session confirms them.",
+    more: ["How analysis works", `${links.docs}analysis/`],
+    Visual: VisualKnowledge,
+  },
+  {
+    tag: "Ask",
+    title: "Your agents can ask.",
+    body: "Through its MCP server, an agent can search your past sessions before it re-derives anything: have we hit this error before, why did we choose Postgres here, how is this project deployed. Claude Desktop, Cursor, Windsurf and Gemini CLI can connect too.",
+    more: ["The MCP server", `${links.docs}mcp/`],
+    Visual: VisualAsk,
+  },
+  {
+    tag: "Find",
+    title: "Right next to your code.",
+    body: "The VS Code extension shows the sessions behind the file you have open, and every file agents worked on in your workspace. Why is this code like this? One click, and you're reading the session that wrote it.",
+    more: ["The VS Code extension", `${links.docs}vscode/`],
+    Visual: VisualEditor,
+  },
+];
+---
+
+<section id="record" class="scroll-mt-20 border-b border-bp-rule/70">
+  <div class="mx-auto max-w-[1280px] px-5 py-20 sm:px-10 lg:px-16 lg:py-28">
+    <SectionHead
+      label="02 / The record"
+      title="Every session becomes something you can use."
+      body="Chronicle keeps the raw record, reads it, and gives it back where you need it: in a dashboard, to your agents, and beside your code."
+    />
+
+    <ol class="spine mt-16 space-y-20 lg:space-y-28">
+      {
+        entries.map((e, i) => (
+          <li class="relative grid grid-cols-1 items-center gap-10 pl-10 lg:grid-cols-2 lg:gap-24 lg:pl-0">
+            <span
+              class="absolute left-[5px] top-1 h-[13px] w-[13px] rotate-45 border-2 border-bp-gold bg-bp-bg lg:left-1/2 lg:top-1/2 lg:-ml-[6px] lg:-mt-[6px]"
+              aria-hidden="true"
+            />
+            <div class:list={["min-w-0 max-w-[520px]", i % 2 ? "lg:order-2 lg:justify-self-start" : "lg:justify-self-end"]}>
+              <p class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-bp-teal">
+                Entry {String(i + 1).padStart(2, "0")} · {e.tag}
+              </p>
+              <h3 class="mt-3 font-display text-3xl font-semibold leading-tight tracking-[-0.03em] sm:text-4xl">{e.title}</h3>
+              <p class="mt-4 text-[17px] leading-[1.7] text-bp-dim">{e.body}</p>
+              <a
+                href={e.more[1]}
+                class="mt-5 inline-flex items-center gap-1.5 font-semibold text-bp-gold hover:text-[#ffc67f]"
+              >
+                {e.more[0]} <span aria-hidden="true">→</span>
+              </a>
+            </div>
+            <div class:list={["w-full min-w-0 max-w-[560px]", i % 2 ? "lg:order-1 lg:justify-self-end" : "lg:justify-self-start"]}>
+              <e.Visual />
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

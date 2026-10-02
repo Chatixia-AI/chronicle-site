@@ -1,0 +1,40 @@
+---
+// Knowledge pulled from one session, word for word from the demo data.
+import Frame from "./Frame.astro";
+
+const items = [
+  {
+    kind: "Fix",
+    color: "text-bp-teal border-bp-teal/40",
+    title: "Stripe retries webhooks: dedupe on event.id",
+    body: "Record each event.id in processed_events in the same transaction as the side effect, and return 200 for repeats.",
+  },
+  {
+    kind: "Decision",
+    color: "text-bp-blue border-bp-blue/40",
+    title: "Idempotency in Postgres, not Redis",
+    body: "The dedupe row commits atomically with the invoice update; a Redis key could be written while the transaction rolls back.",
+  },
+  {
+    kind: "Command",
+    color: "text-bp-gold border-bp-gold/40",
+    title: "Forward Stripe webhooks to the local API",
+    body: "stripe listen --forward-to localhost:8000/webhooks/stripe",
+    mono: true,
+  },
+];
+---
+
+<Frame caption="Knowledge · billing-api" fig="Fig. 03" note="Extracted automatically, then confirmed by later sessions">
+  <div class="space-y-3">
+    {
+      items.map((k) => (
+        <article class:list={["rounded-md border bg-bp-bg/70 p-3.5", k.color]}>
+          <p class="font-plex-mono text-[10px] font-semibold uppercase tracking-[0.16em]">{k.kind}</p>
+          <p class="mt-1 text-[15px] font-semibold leading-snug text-bp-ink">{k.title}</p>
+          <p class:list={["mt-1 text-[13px] leading-relaxed text-bp-dim", k.mono && "font-plex-mono text-[12px]"]}>{k.body}</p>
+        </article>
+      ))
+    }
+  </div>
+</Frame>

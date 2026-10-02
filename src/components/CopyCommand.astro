@@ -1,0 +1,38 @@
+---
+// A shell command with a copy button.
+interface Props {
+  command: string;
+  class?: string;
+}
+const { command, class: className = "" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "copy-command flex items-center gap-3 rounded-md border border-bp-rule2/80 bg-bp-bg/90 py-2 pl-4 pr-2 font-plex-mono text-[13px] sm:text-sm",
+    className,
+  ]}
+>
+  <span class="select-none text-bp-gold" aria-hidden="true">$</span>
+  <code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap text-bp-ink">{command}</code>
+  <button
+    type="button"
+    data-command={command}
+    class="shrink-0 rounded border border-bp-rule2/70 px-2.5 py-1 font-plex-mono text-[11px] uppercase tracking-[0.12em] text-bp-dim hover:border-bp-gold hover:text-bp-ink"
+    >Copy</button
+  >
+</div>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>(".copy-command button")) {
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.command ?? "");
+        button.textContent = "Copied";
+      } catch {
+        button.textContent = "Select it";
+      }
+      setTimeout(() => (button.textContent = "Copy"), 1800);
+    });
+  }
+</script>

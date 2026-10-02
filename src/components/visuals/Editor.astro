@@ -1,0 +1,64 @@
+---
+// The VS Code extension's two Explorer sections, drawn at the size they really are.
+import Frame from "./Frame.astro";
+
+const details = [
+  ["◷", "5h ago · Today 14:52"],
+  ["◉", "Claude Code · billing-api"],
+  ["⑂", "fix/webhook-idempotency"],
+  ["±", "+38 −4 lines"],
+  ["✓", "Outcome: completed"],
+  ["↗", "Open in Chronicle"],
+];
+const tree = [
+  ["▸", "alembic/versions", "2 sessions · 5h"],
+  ["▾", "app", "6 sessions · 5h"],
+  ["", "  billing.py", "3 sessions · 3d"],
+  ["", "  webhooks.py", "2 sessions · 5h"],
+  ["▸", "tests", "4 sessions · 5h"],
+];
+---
+
+<Frame caption="VS Code · Explorer" fig="Fig. 05" note="Sessions behind the open file, and the whole workspace">
+  <div class="rounded-md border border-bp-rule/80 bg-[#0b1726] text-[12.5px]">
+    <p class="border-b border-bp-rule/60 px-3 py-1.5 font-semibold uppercase tracking-wide text-[11px] text-bp-dim">
+      ▾ Chronicle: This File <span class="ml-1 font-normal normal-case text-bp-faint">webhooks.py</span>
+    </p>
+    <div class="px-3 py-2">
+      <p class="flex gap-2">
+        <span class="text-bp-faint">▾</span><span class="text-bp-blue">✎</span>
+        <span class="truncate">Stop double charges when Stripe retries…</span>
+        <span class="ml-auto shrink-0 text-bp-faint">5h ago</span>
+      </p>
+      <ul class="mt-1 space-y-0.5 pl-9 text-bp-dim">
+        {
+          details.map(([icon, text]) => (
+            <li class="flex gap-2">
+              <span class="w-3 text-center text-bp-faint">{icon}</span>
+              <span class:list={[text === "Open in Chronicle" && "text-bp-gold"]}>{text}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-1 flex gap-2 text-bp-dim">
+        <span class="text-bp-faint">▸</span><span class="text-bp-blue">✎</span>
+        <span class="truncate">Stop duplicate dunning emails after deploys</span>
+        <span class="ml-auto shrink-0 text-bp-faint">3d ago</span>
+      </p>
+    </div>
+    <p class="border-y border-bp-rule/60 px-3 py-1.5 font-semibold uppercase tracking-wide text-[11px] text-bp-dim">
+      ▾ Chronicle: Files in Workspace
+    </p>
+    <ul class="space-y-0.5 px-3 py-2 font-plex-mono text-[12px]">
+      {
+        tree.map(([twist, name, desc]) => (
+          <li class="flex gap-2 whitespace-pre">
+            <span class="w-3 text-bp-faint">{twist}</span>
+            <span class:list={[name.trim().includes(".") ? "text-bp-ink" : "text-bp-dim"]}>{name}</span>
+            <span class="ml-auto truncate text-bp-faint">{desc}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Frame>
