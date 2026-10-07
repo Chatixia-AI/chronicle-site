@@ -1,6 +1,15 @@
 ---
-// The VS Code extension's two Explorer sections, drawn at the size they really are.
+// The VS Code extension's two Explorer sections, drawn at the size they really are. The extension's own labels are
+// in English on both pages, as it shows them; the session titles are the user's words.
 import Frame from "./Frame.astro";
+import type { Lang } from "../../data/site";
+import { t } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang).visuals.editor;
 
 const details = [
   ["◷", "5h ago · Today 14:52"],
@@ -19,7 +28,7 @@ const tree = [
 ];
 ---
 
-<Frame caption="VS Code · Explorer" fig="Fig. 05" note="Sessions behind the open file, and the whole workspace">
+<Frame caption="VS Code · Explorer" fig="Fig. 05" note={s.note}>
   <div class="theme-dark rounded-md border border-bp-rule/80 bg-[#0b1726] text-[12.5px]">
     <p class="border-b border-bp-rule/60 px-3 py-1.5 font-semibold uppercase tracking-wide text-[11px] text-bp-dim">
       ▾ Chronicle: This File <span class="ml-1 font-normal normal-case text-bp-faint">webhooks.py</span>
@@ -27,7 +36,7 @@ const tree = [
     <div class="px-3 py-2">
       <p class="flex gap-2">
         <span class="text-bp-faint">▾</span><span class="text-bp-blue">✎</span>
-        <span class="truncate">Stop double charges when Stripe retries…</span>
+        <span class="truncate">{s.sessions[0]}</span>
         <span class="ml-auto shrink-0 text-bp-faint">5h ago</span>
       </p>
       <ul class="mt-1 space-y-0.5 pl-9 text-bp-dim">
@@ -42,7 +51,7 @@ const tree = [
       </ul>
       <p class="mt-1 flex gap-2 text-bp-dim">
         <span class="text-bp-faint">▸</span><span class="text-bp-blue">✎</span>
-        <span class="truncate">Stop duplicate dunning emails after deploys</span>
+        <span class="truncate">{s.sessions[1]}</span>
         <span class="ml-auto shrink-0 text-bp-faint">3d ago</span>
       </p>
     </div>

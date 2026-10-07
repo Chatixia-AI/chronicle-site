@@ -4,6 +4,9 @@ The website for [Chronicle](https://github.com/Chatixia-AI/agents-chronicle), at
 
 - `/`: the landing page, built here with [Astro](https://astro.build) and Tailwind, in the Chatixia blueprint style
   shared with [chatixia.net](https://chatixia.net).
+- `/ja/`: the same landing page in Japanese. The words live in `src/i18n/`: change a sentence in `en.ts`, then its
+  twin in `ja.ts` (TypeScript checks that both have the same keys). The header links the two; the docs have their own
+  Japanese pages at `/docs/ja/`.
 - `/docs/`: Chronicle's documentation. It is written and reviewed in `agents-chronicle`, next to the code, and built
   here as it is, with a small layer (`docs-theme/`) for the URL, fonts and colours.
 - The docs' old addresses (`/install/`, `/vscode/`, …) redirect to their place under `/docs/`, keeping `#anchors`.
@@ -29,8 +32,9 @@ checkout, such as one with unmerged docs changes.
 
 | Path | What |
 | --- | --- |
-| `src/pages/` | The pages: `index.astro`, `404.astro` |
-| `src/components/` | The home page's sections; `visuals/` holds the drawings beside each entry |
+| `src/pages/` | The pages: `index.astro` (English), `ja/index.astro` (Japanese), `404.astro` (both) |
+| `src/components/` | The home page (`Home.astro`) and its sections; `visuals/` holds the drawings beside each entry |
+| `src/i18n/` | Every word on the home page: `en.ts` and `ja.ts`, the same shape in each language |
 | `src/data/site.ts` | Links and the install command, shared by every page |
 | `src/styles/global.css` | Blueprint tokens (as on chatixia.net) and Chronicle's own logbook touches |
 | `docs-theme/` | Layered over the docs' `mkdocs.yml`: served under `/docs/`, Plex fonts, navy header |

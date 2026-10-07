@@ -1,35 +1,81 @@
 ---
-// Every page's shell: head, header and footer, in the Chatixia blueprint style.
+// Every page's shell: head, header and footer, in the Chatixia blueprint style, in English or Japanese.
 import "../styles/global.css";
-import { links } from "../data/site";
+import { docsPage, homePath, links, type Lang } from "../data/site";
+import { t } from "../i18n";
 
 interface Props {
   title: string;
   description: string;
+  lang?: Lang;
+  /** The page exists in both languages (the home page): link the other one, for readers and search engines. */
+  translated?: boolean;
 }
-const { title, description } = Astro.props;
+const { title, description, lang = "en", translated = false } = Astro.props;
+const s = t(lang).base;
+const other: Lang = lang === "ja" ? "en" : "ja";
+const home = homePath(lang);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const nav = [
-  { label: "What it does", href: "/#record" },
-  { label: "Install", href: "/#install" },
-  { label: "Docs", href: links.docs },
+  { label: s.nav.record, href: `${home}#record` },
+  { label: s.nav.install, href: `${home}#install` },
+  { label: s.nav.docs, href: docsPage(lang) },
+];
+const footer = [
+  {
+    title: s.footer.product,
+    items: [
+      [s.nav.record, `${home}#record`],
+      [s.nav.install, `${home}#install`],
+      [s.footer.releases, links.releases],
+      [s.footer.changelog, links.changelog],
+    ],
+  },
+  {
+    title: s.footer.docs,
+    items: [
+      [s.footer.gettingStarted, docsPage(lang, "install/")],
+      [s.footer.mcp, docsPage(lang, "mcp/")],
+      [s.footer.vscode, docsPage(lang, "vscode/")],
+      [s.footer.otherDocs.label, s.footer.otherDocs.page],
+    ],
+  },
+  {
+    title: s.footer.elsewhere,
+    items: [
+      ["GitHub", links.github],
+      ["PyPI", links.pypi],
+      ["chatixia.net", links.chatixia],
+    ],
+  },
 ];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {
+      translated && (
+        <>
+          <link rel="alternate" hreflang="en" href={new URL(homePath("en"), Astro.site)} />
+          <link rel="alternate" hreflang="ja" href={new URL(homePath("ja"), Astro.site)} />
+          <link rel="alternate" hreflang="x-default" href={new URL(homePath("en"), Astro.site)} />
+        </>
+      )
+    }
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === "ja" ? "ja_JP" : "en_US"} />
+    {translated && <meta property="og:locale:alternate" content={other === "ja" ? "ja_JP" : "en_US"} />}
     <meta property="og:image" content={new URL("/images/home.webp", Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#081a31" media="(prefers-color-scheme: dark)" />
@@ -56,37 +102,54 @@ const nav = [
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-bp-cta focus:px-3 focus:py-2 focus:text-bp-cta-ink"
-      >Skip to content</a
+      >{s.skip}</a
     >
     <header class="sticky top-0 z-40 border-b border-bp-rule/70 bg-bp-bg/85 backdrop-blur">
-      <div class="mx-auto flex h-16 max-w-[1280px] items-center gap-6 px-5 sm:px-10 lg:px-16">
-        <a href="/" class="flex items-center gap-2.5" aria-label="Chronicle home">
+      <div class="mx-auto flex h-16 max-w-[1280px] items-center gap-3 px-5 sm:gap-6 sm:px-10 lg:px-16">
+        <a href={home} class="flex shrink-0 items-center gap-2.5" aria-label={s.home}>
           <img src="/images/icon.webp" alt="" width="28" height="28" class="h-7 w-7" />
           <span class="font-display text-lg font-semibold tracking-tight">Chronicle</span>
-          <span class="hidden font-plex-mono text-[10px] uppercase tracking-[0.18em] text-bp-faint sm:inline">by Chatixia</span>
+          <span class="hidden font-plex-mono text-[10px] uppercase tracking-[0.18em] text-bp-faint sm:inline">{s.by}</span>
         </a>
         <nav aria-label="Main" class="ml-auto hidden items-center gap-7 text-sm text-bp-dim md:flex">
           {nav.map((item) => <a href={item.href} class="hover:text-bp-ink">{item.label}</a>)}
-          <a href={links.github} class="hover:text-bp-ink">GitHub</a>
+          <a href={links.github} class="hover:text-bp-ink">{s.nav.github}</a>
         </nav>
-        <button
-          type="button"
-          class="theme-toggle ml-auto inline-flex h-10 w-10 items-center justify-center rounded-md border border-bp-rule2/70 text-bp-dim hover:border-bp-gold hover:text-bp-ink md:ml-0"
-          aria-label="Switch to light theme"
-          title="Switch to light theme"
-        >
-          <svg class="sun h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"
-            ><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg
+        <div class="ml-auto flex items-center gap-2 md:ml-0">
+          {
+            translated && (
+              <a
+                href={homePath(other)}
+                hreflang={other}
+                lang={other}
+                title={s.other.title}
+                class="inline-flex h-10 items-center rounded-md border border-bp-rule2/70 px-3 text-sm text-bp-dim hover:border-bp-gold hover:text-bp-ink"
+              >
+                {s.other.label}
+              </a>
+            )
+          }
+          <button
+            type="button"
+            class="theme-toggle inline-flex h-10 w-10 items-center justify-center rounded-md border border-bp-rule2/70 text-bp-dim hover:border-bp-gold hover:text-bp-ink"
+            data-to-light={s.theme.light}
+            data-to-dark={s.theme.dark}
+            aria-label={s.theme.light}
+            title={s.theme.light}
           >
-          <svg class="moon h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-            ><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg
+            <svg class="sun h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"
+              ><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg
+            >
+            <svg class="moon h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+              ><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg
+            >
+          </button>
+          <a
+            href={`${home}#install`}
+            class="hidden min-h-10 items-center whitespace-nowrap rounded-md bg-bp-cta px-4 text-sm font-semibold text-bp-cta-ink hover:bg-bp-cta-hover min-[400px]:inline-flex"
+            >{s.cta}</a
           >
-        </button>
-        <a
-          href="/#install"
-          class="inline-flex min-h-10 items-center rounded-md bg-bp-cta px-4 text-sm font-semibold text-bp-cta-ink hover:bg-bp-cta-hover"
-          >Install</a
-        >
+        </div>
       </div>
     </header>
 
@@ -102,40 +165,12 @@ const nav = [
             <span class="font-display font-semibold">Chronicle</span>
           </div>
           <p class="mt-3 max-w-xs text-sm leading-relaxed text-bp-dim">
-            A searchable memory of every coding-agent session you run. Part of{" "}
-            <a href={links.chatixia} class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold">Chatixia</a>.
+            {s.footer.blurb[0]}<a href={links.chatixia} class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold">Chatixia</a>{s.footer.blurb[1]}
           </p>
-          <p class="mt-4 font-plex-mono text-[11px] uppercase tracking-[0.16em] text-bp-faint">MIT license · no telemetry</p>
+          <p class="mt-4 font-plex-mono text-[11px] uppercase tracking-[0.16em] text-bp-faint">{s.footer.license}</p>
         </div>
         {
-          [
-            {
-              title: "Product",
-              items: [
-                ["What it does", "/#record"],
-                ["Install", "/#install"],
-                ["Releases", links.releases],
-                ["Changelog", links.changelog],
-              ],
-            },
-            {
-              title: "Docs",
-              items: [
-                ["Getting started", links.install],
-                ["MCP server", `${links.docs}mcp/`],
-                ["VS Code extension", `${links.docs}vscode/`],
-                ["日本語", `${links.docs}ja/`],
-              ],
-            },
-            {
-              title: "Elsewhere",
-              items: [
-                ["GitHub", links.github],
-                ["PyPI", links.pypi],
-                ["chatixia.net", links.chatixia],
-              ],
-            },
-          ].map((col) => (
+          footer.map((col) => (
             <div>
               <p class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-bp-gold">{col.title}</p>
               <ul class="mt-4 space-y-2.5 text-sm text-bp-dim">
@@ -151,12 +186,14 @@ const nav = [
       </div>
     </footer>
     <script>
-      // The header toggle flips the theme and remembers the choice (when storage is allowed).
+      // The header toggle flips the theme and remembers the choice (when storage is allowed). Its label, in the
+      // page's language, says where it will take you.
       const toggle = document.querySelector<HTMLButtonElement>(".theme-toggle")!;
       const label = () => {
         const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
-        toggle.setAttribute("aria-label", `Switch to ${next} theme`);
-        toggle.title = `Switch to ${next} theme`;
+        const text = (next === "light" ? toggle.dataset.toLight : toggle.dataset.toDark) ?? "";
+        toggle.setAttribute("aria-label", text);
+        toggle.title = text;
       };
       label();
       toggle.addEventListener("click", () => {

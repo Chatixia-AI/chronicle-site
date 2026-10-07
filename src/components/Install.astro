@@ -2,59 +2,46 @@
 // Set up in three steps, with what you need and the app download.
 import CopyCommand from "./CopyCommand.astro";
 import SectionHead from "./SectionHead.astro";
-import { installCommand, links } from "../data/site";
+import { docsPage, installCommand, links, type Lang } from "../data/site";
+import { t } from "../i18n";
 
-const steps = [
-  {
-    n: "01",
-    title: "Install",
-    body: "Install the command line, then let it find the coding agents on your Mac, import their past sessions and start from login.",
-  },
-  {
-    n: "02",
-    title: "Work as usual",
-    body: "Use Claude Code, Codex, Copilot or Bob as you always do. Each session is recorded when it ends and read in the background.",
-  },
-  {
-    n: "03",
-    title: "Open the record",
-    body: "The dashboard runs at 127.0.0.1:8765. Press ⌘K to search everything, or ask your agent what it learned last week.",
-  },
-];
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang).install;
 ---
 
 <section id="install" class="scroll-mt-20 border-b border-bp-rule/70">
   <div class="mx-auto max-w-[1280px] px-5 py-20 sm:px-10 lg:px-16 lg:py-28">
-    <SectionHead
-      label="01 / Set up"
-      title="Running in a minute."
-      body="Chronicle installs with uv and reads your agents' files without changing them. The analysis runs through your own Claude Code or Codex login."
-    />
+    <SectionHead label={s.label} title={s.title} body={s.body} />
     <ol class="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
       {
-        steps.map((s) => (
+        s.steps.map((step, i) => (
           <li class="bp-ticks flex flex-col border border-bp-rule2/70 bg-bp-panel/70 p-6">
-            <p class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-bp-gold">Step {s.n}</p>
-            <h3 class="mt-3 font-display text-2xl font-semibold tracking-tight">{s.title}</h3>
-            <p class="mt-3 leading-relaxed text-bp-dim">{s.body}</p>
+            <p class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-bp-gold">
+              {s.step} {String(i + 1).padStart(2, "0")}
+            </p>
+            <h3 class="mt-3 font-display text-2xl font-semibold tracking-tight">{step.title}</h3>
+            <p class="mt-3 leading-relaxed text-bp-dim">{step.body}</p>
           </li>
         ))
       }
     </ol>
     <div class="mt-5 grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
-      <CopyCommand command={installCommand} />
-      <CopyCommand command="chronicle install" />
+      <CopyCommand lang={lang} command={installCommand} />
+      <CopyCommand lang={lang} command="chronicle install" />
     </div>
     <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-bp-dim">
       <p>
-        <span class="font-plex-mono text-[11px] uppercase tracking-[0.16em] text-bp-faint">Needs</span>
-        <span class="ml-2">macOS 13 or later, and a logged-in Claude Code or Codex</span>
+        <span class="font-plex-mono text-[11px] uppercase tracking-[0.16em] text-bp-faint">{s.needs}</span>
+        <span class="ml-2">{s.requirements}</span>
       </p>
       <a href={links.releases} class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold"
-        >Prefer an app? Download it for Apple silicon</a
+        >{s.app}</a
       >
-      <a href={links.install} class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold"
-        >What the install sets up</a
+      <a href={docsPage(lang, "install/")} class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold"
+        >{s.setsUp}</a
       >
     </div>
   </div>
