@@ -3,7 +3,7 @@
 @theme inline {
   --font-display: "IBM Plex Sans", "IBM Plex Sans JP", system-ui, sans-serif;
   --font-body: "IBM Plex Sans", "IBM Plex Sans JP", system-ui, sans-serif;
-  --font-plex-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --font-plex-mono: "IBM Plex Mono", "IBM Plex Sans JP", ui-monospace, Menlo, monospace;
   /* Blueprint tokens, shared with chatixia.net and Chatixia Studio; each theme sets the values below */
   --color-bp-bg: var(--bp-bg);
   --color-bp-bg2: var(--bp-bg2);
@@ -212,4 +212,16 @@ html {
 }
 :root[data-theme="light"] .theme-toggle .moon {
   display: block;
+}
+
+/* Japanese (the /ja/ page, and Japanese lines on the English one). The tight tracking that suits the Latin headlines
+   crowds kana and kanji, so Japanese headings keep normal spacing and wrap evenly; lines break between phrases where
+   the browser can tell them apart, and never before small kana or closing punctuation. */
+:lang(ja) {
+  word-break: auto-phrase;
+  line-break: strict;
+}
+:lang(ja) :is(h1, h2, h3) {
+  letter-spacing: 0;
+  text-wrap: balance;
 }

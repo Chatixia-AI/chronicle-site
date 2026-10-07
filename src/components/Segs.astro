@@ -1,0 +1,12 @@
+---
+// A run of text from the strings, with its { code } parts set in monospace (or in codeClass).
+import type { Seg } from "../i18n";
+
+interface Props {
+  segs: Seg[];
+  codeClass?: string;
+}
+const { segs, codeClass = "font-plex-mono text-bp-ink" } = Astro.props;
+---
+
+{segs.map((seg) => (typeof seg === "string" ? seg : <code class={codeClass}>{seg.code}</code>))}

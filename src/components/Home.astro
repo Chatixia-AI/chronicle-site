@@ -1,0 +1,27 @@
+---
+// The landing page, in either language: / renders it in English, /ja/ in Japanese.
+import Base from "../layouts/Base.astro";
+import Hero from "./Hero.astro";
+import Install from "./Install.astro";
+import Record from "./Record.astro";
+import Showcase from "./Showcase.astro";
+import Sources from "./Sources.astro";
+import Rules from "./Rules.astro";
+import type { Lang } from "../data/site";
+import { t } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const { meta } = t(lang);
+---
+
+<Base lang={lang} title={meta.title} description={meta.description} translated>
+  <Hero lang={lang} />
+  <Install lang={lang} />
+  <Record lang={lang} />
+  <Showcase lang={lang} />
+  <Sources lang={lang} />
+  <Rules lang={lang} />
+</Base>

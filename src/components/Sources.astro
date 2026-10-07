@@ -1,27 +1,22 @@
 ---
 // Which agents Chronicle records, and when.
 import SectionHead from "./SectionHead.astro";
-import { links } from "../data/site";
+import { docsPage, type Lang } from "../data/site";
+import { t } from "../i18n";
 
-const agents = [
-  { name: "Claude Code", when: "as each session ends" },
-  { name: "Codex", when: "every 15 minutes, once idle" },
-  { name: "GitHub Copilot", when: "VS Code and Copilot CLI" },
-  { name: "IBM Bob", when: "every 15 minutes" },
-  { name: "claude.ai and ChatGPT", when: "from your data export" },
-];
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang).sources;
 ---
 
 <section class="border-b border-bp-rule/70">
   <div class="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 px-5 py-20 sm:px-10 lg:grid-cols-[.9fr_1.1fr] lg:px-16 lg:py-24">
-    <SectionHead
-      label="04 / Sources"
-      title="One record for every agent."
-      body="All of them share one dashboard, one knowledge base and one set of MCP tools. Connect more any time from Settings, or with chronicle connect."
-    />
+    <SectionHead label={s.label} title={s.title} body={s.body} />
     <ul class="grid content-start gap-2.5">
       {
-        agents.map((a) => (
+        s.agents.map((a) => (
           <li class="flex items-center justify-between gap-4 border border-bp-rule2/60 bg-bp-panel/60 px-4 py-3.5">
             <span class="font-semibold">{a.name}</span>
             <span class="text-right font-plex-mono text-[11px] text-bp-faint">{a.when}</span>
@@ -30,10 +25,10 @@ const agents = [
       }
       <li class="mt-2 flex items-center border border-dashed border-bp-rule2/60 px-4 py-3.5 text-sm text-bp-dim">
         <span>
-          Claude Desktop, Cursor, Windsurf and Gemini CLI can use the <a
-            href={`${links.docs}mcp/`}
-            class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold">MCP server</a
-          > too.
+          {s.mcp[0]}<a
+            href={docsPage(lang, "mcp/")}
+            class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold">{s.mcp[1]}</a
+          >{s.mcp[2]}
         </span>
       </li>
     </ul>

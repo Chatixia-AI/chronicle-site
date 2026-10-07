@@ -1,10 +1,15 @@
 ---
-// A shell command with a copy button.
+// A shell command with a copy button, labelled in the page's language.
+import type { Lang } from "../data/site";
+import { t } from "../i18n";
+
 interface Props {
   command: string;
+  lang: Lang;
   class?: string;
 }
-const { command, class: className = "" } = Astro.props;
+const { command, lang, class: className = "" } = Astro.props;
+const s = t(lang).copy;
 ---
 
 <div
@@ -18,8 +23,11 @@ const { command, class: className = "" } = Astro.props;
   <button
     type="button"
     data-command={command}
+    data-copy={s.copy}
+    data-copied={s.copied}
+    data-select={s.select}
     class="shrink-0 rounded border border-bp-rule2/70 px-2.5 py-1 font-plex-mono text-[11px] uppercase tracking-[0.12em] text-bp-dim hover:border-bp-gold hover:text-bp-ink"
-    >Copy</button
+    >{s.copy}</button
   >
 </div>
 
@@ -28,11 +36,11 @@ const { command, class: className = "" } = Astro.props;
     button.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(button.dataset.command ?? "");
-        button.textContent = "Copied";
+        button.textContent = button.dataset.copied ?? "";
       } catch {
-        button.textContent = "Select it";
+        button.textContent = button.dataset.select ?? "";
       }
-      setTimeout(() => (button.textContent = "Copy"), 1800);
+      setTimeout(() => (button.textContent = button.dataset.copy ?? ""), 1800);
     });
   }
 </script>
