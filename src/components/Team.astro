@@ -1,0 +1,53 @@
+---
+// A hub for a team: what it shares, what stays on each computer, and how teammates' lessons come back.
+import SectionHead from "./SectionHead.astro";
+import VisualTeam from "./visuals/Team.astro";
+import { docsPage, type Lang } from "../data/site";
+import { t } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang).team;
+---
+
+<section id="team" class="scroll-mt-20 border-b border-bp-rule/70">
+  <div class="mx-auto max-w-[1280px] px-5 py-20 sm:px-10 lg:px-16 lg:py-28">
+    <SectionHead label={s.label} title={s.title} body={s.body} />
+
+    <div class="mt-14 grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16">
+      <ol class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        {
+          s.points.map((p, i) => (
+            <li class="flex flex-col border-t-2 border-bp-teal/70 bg-bp-panel/50 p-6">
+              <p class="font-plex-mono text-[11px] uppercase tracking-[0.18em] text-bp-faint">
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <h3 class="mt-3 font-display text-xl font-semibold leading-snug tracking-tight">
+                <a href={docsPage(lang, p.page)} class="hover:text-bp-gold">{p.title}</a>
+              </h3>
+              <p class="mt-3 flex-1 leading-relaxed text-bp-dim">{p.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <div class="w-full min-w-0 max-w-[560px] lg:justify-self-end">
+        <VisualTeam lang={lang} />
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a
+        href={docsPage(lang, "join-a-hub/")}
+        class="inline-flex min-h-12 items-center gap-2 rounded-md border border-bp-rule2 px-5 py-3 font-semibold hover:border-bp-teal hover:bg-bp-panel"
+        >{s.join} <span aria-hidden="true">→</span></a
+      >
+      <a
+        href={docsPage(lang, "docker/")}
+        class="inline-flex min-h-12 items-center gap-2 rounded-md border border-bp-rule2 px-5 py-3 font-semibold hover:border-bp-teal hover:bg-bp-panel"
+        >{s.run} <span aria-hidden="true">→</span></a
+      >
+    </div>
+  </div>
+</section>

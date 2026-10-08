@@ -1,7 +1,7 @@
 ---
 // The dashboard, one screen at a time: tabs over real screenshots taken on the demo data.
 import SectionHead from "./SectionHead.astro";
-import type { Lang } from "../data/site";
+import { docsPage, type Lang } from "../data/site";
 import { t } from "../i18n";
 
 interface Props {
@@ -15,6 +15,8 @@ const images = [
   { id: "session", src: "/images/session.webp" },
   { id: "search", src: "/images/palette.webp" },
   { id: "map", src: "/images/map.webp" },
+  { id: "project", src: "/images/project.webp" },
+  { id: "review", src: "/images/reviews.webp" },
 ];
 const shots = s.shots.map((shot, i) => ({ ...shot, ...images[i] }));
 ---
@@ -89,6 +91,20 @@ const shots = s.shots.map((shot, i) => ({ ...shot, ...images[i] }));
         ))
       }
     </div>
+
+    <p class="mt-16 font-plex-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-bp-gold">{s.more}</p>
+    <ul class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        s.extras.map((x) => (
+          <li class="bp-ticks flex flex-col border border-bp-rule2/70 bg-bp-panel/60 p-5">
+            <h3 class="font-display text-lg font-semibold tracking-tight">
+              <a href={docsPage(lang, x.page)} class="hover:text-bp-gold">{x.title}</a>
+            </h3>
+            <p class="mt-2 text-[15px] leading-relaxed text-bp-dim">{x.body}</p>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>
 

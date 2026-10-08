@@ -14,7 +14,7 @@ export const en = {
     skip: "Skip to content",
     home: "Chronicle home",
     by: "by Chatixia",
-    nav: { record: "What it does", install: "Install", docs: "Docs", github: "GitHub" },
+    nav: { record: "What it does", install: "Install", team: "Teams", docs: "Docs", github: "GitHub" },
     cta: "Install",
     theme: { light: "Switch to light theme", dark: "Switch to dark theme" },
     // The link to the page in the other language, written in that language.
@@ -29,6 +29,7 @@ export const en = {
       gettingStarted: "Getting started",
       mcp: "MCP server",
       vscode: "VS Code extension",
+      hub: "A hub for your team",
       otherDocs: { label: "日本語", page: "/docs/ja/" },
       elsewhere: "Elsewhere",
     },
@@ -68,7 +69,7 @@ export const en = {
   install: {
     label: "01 / Set up",
     title: "Running in a minute.",
-    body: "Chronicle installs with uv and reads your agents' files without changing them. The analysis runs through your own Claude Code or Codex login, or a model provider you choose, Ollama on your own Mac included.",
+    body: "Chronicle installs with uv and reads your agents' files without changing them. The analysis runs through your own Claude Code, Codex or IBM Bob, or a model provider's API with your own key: Anthropic, Amazon Bedrock, OpenAI, Azure OpenAI, OpenRouter, or Ollama on your own Mac.",
     step: "Step",
     steps: [
       {
@@ -85,7 +86,7 @@ export const en = {
       },
     ],
     needs: "Needs",
-    requirements: "macOS 13 or later, and Claude Code, Codex or a model provider for the analysis",
+    requirements: "macOS 13 or later, and Claude Code, Codex, IBM Bob or a model provider for the analysis",
     app: "Prefer an app? Download it for Apple silicon",
     setsUp: "What the install sets up",
   },
@@ -105,7 +106,7 @@ export const en = {
       {
         tag: "Learn",
         title: "Lessons, written down for you.",
-        body: "Chronicle reads each finished session with your own Claude Code or Codex, or a model provider you choose, and keeps what's worth keeping: fixes, gotchas, decisions, commands. They merge into a knowledge base per project, and earn trust each time another session confirms them.",
+        body: "Chronicle reads each finished session with your own Claude Code, Codex or IBM Bob, or a model provider you choose, and keeps what's worth keeping: fixes, gotchas, decisions, commands. They merge into a knowledge base per project, and earn trust each time another session confirms them.",
         more: "How analysis works",
       },
       {
@@ -126,7 +127,7 @@ export const en = {
   showcase: {
     label: "03 / The dashboard",
     title: "Read the whole record.",
-    body: "A local dashboard for browsing it all: on your Mac, on your phone, or on one hub that your other computers and your team share.",
+    body: "A local dashboard for browsing it all: on your Mac, on your phone through Tailscale, or on one hub that your other computers and your team share.",
     tour: "A one-minute tour",
     tourAlt:
       "A one-minute tour of the Chronicle dashboard on demo data: Home, a session with its transcript and extracted knowledge, ⌘K search, the glossary Map and a weekly review",
@@ -155,6 +156,39 @@ export const en = {
         alt: "The glossary Map: your own vocabulary drawn as a collapsible mindmap",
         text: "Your own vocabulary, drawn as a map of how your projects connect.",
       },
+      {
+        label: "A project",
+        alt: "A project page: its sessions, time and cost, the knowledge base Chronicle keeps for it, and its gotchas and decisions",
+        text: "A knowledge base for each project: its gotchas, decisions and commands, rewritten as sessions add to them.",
+      },
+      {
+        label: "Weekly review",
+        alt: "A weekly review: the week's headline, active time, sessions and cost against the week before, and the knowledge captured",
+        text: "Each finished week, written up: what changed, where the time went, and what it taught.",
+      },
+    ],
+    more: "Also in the dashboard",
+    extras: [
+      {
+        title: "Systems map",
+        body: "Every project as a system, with its parts and where it is deployed, and lines where one project uses another. Drawn from your manifests and what sessions did, never by a model.",
+        page: "dashboard/#systems-map",
+      },
+      {
+        title: "Artifacts",
+        body: "The documents, pages, diagrams, decks, pull requests and commits your agents made, each linked to its session and marked when the file has changed or is gone.",
+        page: "dashboard/#artifacts",
+      },
+      {
+        title: "Suggestions",
+        body: "Lines for CLAUDE.md or AGENTS.md from what keeps going wrong and what keeps being confirmed. Nothing is written until you approve it, and Undo takes it back out.",
+        page: "suggestions/",
+      },
+      {
+        title: "Project groups",
+        body: "Put related projects under one heading, by hand or by the folder they share, and filter sessions by the whole group.",
+        page: "dashboard/#project-groups",
+      },
     ],
   },
 
@@ -165,6 +199,7 @@ export const en = {
     agents: [
       { name: "Claude Code", when: "as each session ends" },
       { name: "Codex", when: "every 15 minutes, once idle" },
+      { name: "Codex Cloud", when: "tasks, through the codex CLI" },
       { name: "GitHub Copilot", when: "VS Code and Copilot CLI" },
       { name: "IBM Bob", when: "every 15 minutes" },
       { name: "Google Antigravity", when: "every 15 minutes" },
@@ -173,18 +208,48 @@ export const en = {
     mcp: ["Claude Desktop, Cursor, Windsurf and Gemini CLI can use the ", "MCP server", " too."],
   },
 
+  team: {
+    label: "05 / Your team",
+    title: "One agent learns it. The whole team knows it.",
+    body: "Run a hub on a server your team already has, and each person's Chronicle shares what it learned there. Transcripts can stay on each computer: the hub takes the lessons, and hands everyone's agents what their teammates learned in the same repositories.",
+    points: [
+      {
+        title: "A hub in Docker.",
+        body: "One compose file runs the hub, HTTPS through Caddy and a Postgres team store on any server. The hub analyzes nothing, so it needs no model and no API key.",
+        page: "docker/",
+      },
+      {
+        title: "Lessons travel, transcripts stay.",
+        body: "Each computer analyzes its own sessions and sends the hub only each one's summary and the project's lessons. Prompts, commands, file paths and transcripts never leave it.",
+        page: "devices/#sharing-knowledge-only",
+      },
+      {
+        title: "Teammates' lessons, in your agent.",
+        body: "After each push, your computer gets back what teammates learned in the same repositories, wherever each person cloned them. The MCP tools and start-of-session notes include them, marked as teammates'.",
+        page: "join-a-hub/",
+      },
+      {
+        title: "People, roles and projects.",
+        body: "Invite each person as an admin, a member or read-only with a one-time code. Admins choose which projects each person sees, and every invite, sign-in and change goes into an audit log.",
+        page: "devices/#people-and-roles",
+      },
+    ],
+    join: "Joining your team's hub",
+    run: "Running a hub in Docker",
+  },
+
   rules: {
-    label: "05 / The rules",
+    label: "06 / The rules",
     title: "Three rules it keeps.",
     rule: "Rule",
     rules: [
       {
         title: "It stays local.",
-        body: "No server of ours, no telemetry, no account. The archive and everything learned from it live on your own machines.",
+        body: "No server of ours, no telemetry, no account. The archive and everything learned from it live on your own machines, and a team's hub runs on a server your team chooses.",
       },
       {
         title: "It runs on your account.",
-        body: "The one thing sent out is the analysis: a condensed digest, secrets redacted first, through your own Claude Code or Codex login or your own API key. With Ollama, nothing leaves your Mac at all. No key of ours in the middle.",
+        body: "The one thing sent out is the analysis: a condensed digest, secrets redacted first, through your own Claude Code, Codex or Bob login or your own API key. With Ollama, nothing leaves your Mac at all. No key of ours in the middle.",
       },
       {
         title: "It says what it doesn't know.",
@@ -248,6 +313,24 @@ export const en = {
         { code: "repo:ORG/REPO:environment:NAME" },
         ", so a trust policy matching the branch fails. I'll match the environment instead.",
       ] as Seg[],
+    },
+    team: {
+      caption: "Hub · billing-api",
+      note: "Knowledge only: the transcript never left Mika's laptop",
+      laptop: "Mika's laptop",
+      stays: "stays here",
+      sent: "sent",
+      rows: [
+        { what: "Transcript, prompts, commands", sent: false },
+        { what: "Session summary", sent: true },
+        { what: "3 lessons about billing-api", sent: true },
+      ],
+      hub: "The team's hub",
+      hubMeta: "billing-api · 4 people · 58 lessons",
+      kind: "Gotcha",
+      lesson: "Stripe webhook signatures need the raw request body",
+      from: "from Mika's sessions",
+      you: "Your agent, next session",
     },
     editor: {
       // The extension's own labels stay in English: that's how it looks. Session titles are the user's words.

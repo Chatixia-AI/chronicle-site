@@ -1,0 +1,62 @@
+---
+// A team's hub taking knowledge only: one laptop sends a lesson but keeps the transcript, and the next session on
+// another computer starts with it. The agent's notes are the real start-of-session text (agents-chronicle hooks.py),
+// so they stay in English on both pages, as the terminal drawing does.
+import Frame from "./Frame.astro";
+import type { Lang } from "../../data/site";
+import { t } from "../../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang).visuals.team;
+---
+
+<Frame caption={s.caption} fig="Fig. 07" note={s.note}>
+  <div class="grid gap-3">
+    <div class="rounded-md border border-bp-rule2/60 bg-bp-bg/70 p-3.5">
+      <p class="font-plex-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-bp-dim">{s.laptop}</p>
+      <ul class="mt-2 space-y-1.5 text-[13.5px]">
+        {
+          s.rows.map((r) => (
+            <li class="flex items-center justify-between gap-3">
+              <span class:list={[r.sent ? "text-bp-ink" : "text-bp-dim"]}>{r.what}</span>
+              <span
+                class:list={[
+                  "shrink-0 font-plex-mono text-[10.5px] uppercase tracking-[0.12em]",
+                  r.sent ? "text-bp-teal" : "text-bp-gold",
+                ]}
+              >
+                {r.sent ? `↓ ${s.sent}` : `● ${s.stays}`}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="relative rounded-md border border-bp-teal/50 bg-bp-bg/70 p-3.5">
+      <div class="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <p class="font-plex-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-bp-teal">{s.hub}</p>
+        <p class="font-plex-mono text-[10.5px] text-bp-faint">{s.hubMeta}</p>
+      </div>
+      <article class="mt-2.5 border-l-2 border-bp-teal/60 pl-3">
+        <p class="font-plex-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-bp-teal">{s.kind}</p>
+        <p class="mt-0.5 text-[14.5px] font-semibold leading-snug text-bp-ink">{s.lesson}</p>
+        <p class="mt-0.5 font-plex-mono text-[11px] text-bp-faint">{s.from}</p>
+      </article>
+    </div>
+
+    <div>
+      <p class="mb-1.5 font-plex-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-bp-dim">↓ {s.you}</p>
+      <div class="theme-dark rounded-md border border-bp-rule/80 bg-[#06142a] p-3.5 font-plex-mono text-[12px] leading-[1.7] [overflow-wrap:anywhere]">
+        <p class="text-bp-faint">From teammates' sessions in this project (via the team hub):</p>
+        <p class="text-bp-ink">
+          - <span class="text-bp-teal">[gotcha]</span> Stripe webhook signatures need the raw request body{" "}
+          <span class="text-bp-faint">(from Mika)</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</Frame>
