@@ -37,7 +37,7 @@ checkout, such as one with unmerged docs changes.
 | `src/i18n/` | Every word on the home page: `en.ts` and `ja.ts`, the same shape in each language |
 | `src/data/site.ts` | Links and the install command, shared by every page |
 | `src/styles/global.css` | Blueprint tokens (as on chatixia.net) and Chronicle's own logbook touches |
-| `docs-theme/` | Layered over the docs' `mkdocs.yml`: served under `/docs/`, Plex fonts, navy header |
+| `docs-theme/` | Layered over the docs' `mkdocs.yml`: served under `/docs/`, Plex fonts, navy header; `overrides/` gives the `/docs/ja/` pages Japanese labels, their own navigation and an English/日本語 link per page |
 | `scripts/` | The docs build and the redirect pages |
 
 ## Publishing

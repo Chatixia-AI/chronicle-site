@@ -1,0 +1,61 @@
+{#-
+  Chronicle: Material 9.7.7's partials/footer.html, with the previous and next links kept within the page's language.
+  Compare with the original when Material is updated.
+-#}
+{% import "partials/chronicle-lang.html" as chronicle with context %}
+<footer class="md-footer">
+  {% if "navigation.footer" in features %}
+    {% set here = chronicle.code(page) %}
+    {% set prev = page.previous_page if page.previous_page and chronicle.code(page.previous_page) == here else none %}
+    {% set next = page.next_page if page.next_page and chronicle.code(page.next_page) == here else none %}
+    {% if prev or next %}
+      {% if page.meta and page.meta.hide %}
+        {% set hidden = "hidden" if "footer" in page.meta.hide %}
+      {% endif %}
+      <nav class="md-footer__inner md-grid" aria-label="{{ lang.t('footer') }}" {{ hidden }}>
+        {% if prev %}
+          {% set direction = lang.t("footer.previous") %}
+          <a href="{{ prev.url | url }}" class="md-footer__link md-footer__link--prev" aria-label="{{ direction }}: {{ prev.title | e }}">
+            <div class="md-footer__button md-icon">
+              {% set icon = config.theme.icon.previous or "material/arrow-left" %}
+              {% include ".icons/" ~ icon ~ ".svg" %}
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                {{ direction }}
+              </span>
+              <div class="md-ellipsis">
+                {{ prev.title }}
+              </div>
+            </div>
+          </a>
+        {% endif %}
+        {% if next %}
+          {% set direction = lang.t("footer.next") %}
+          <a href="{{ next.url | url }}" class="md-footer__link md-footer__link--next" aria-label="{{ direction }}: {{ next.title | e }}">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                {{ direction }}
+              </span>
+              <div class="md-ellipsis">
+                {{ next.title }}
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              {% set icon = config.theme.icon.next or "material/arrow-right" %}
+              {% include ".icons/" ~ icon ~ ".svg" %}
+            </div>
+          </a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  {% endif %}
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      {% include "partials/copyright.html" %}
+      {% if config.extra.social %}
+        {% include "partials/social.html" %}
+      {% endif %}
+    </div>
+  </div>
+</footer>
