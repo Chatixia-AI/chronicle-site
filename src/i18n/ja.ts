@@ -13,7 +13,7 @@ export const ja: Strings = {
     skip: "本文へ移動",
     home: "Chronicle ホーム",
     by: "by Chatixia",
-    nav: { record: "できること", install: "インストール", docs: "ドキュメント", github: "GitHub" },
+    nav: { record: "できること", install: "インストール", team: "チーム", docs: "ドキュメント", github: "GitHub" },
     cta: "インストール",
     theme: { light: "ライトテーマに切り替え", dark: "ダークテーマに切り替え" },
     other: { label: "English", title: "Read this page in English" },
@@ -27,6 +27,7 @@ export const ja: Strings = {
       gettingStarted: "はじめに",
       mcp: "MCP サーバー",
       vscode: "VS Code 拡張機能",
+      hub: "チームのハブ",
       otherDocs: { label: "English", page: "/docs/" },
       elsewhere: "関連リンク",
     },
@@ -65,7 +66,7 @@ export const ja: Strings = {
   install: {
     label: "01 / セットアップ",
     title: "1 分で動き出す。",
-    body: "Chronicle は uv でインストールし、エージェントのファイルを変更せずに読みます。分析はあなた自身の Claude Code や Codex のログイン、または選んだモデルプロバイダーで行います。Mac 上の Ollama も使えます。",
+    body: "Chronicle は uv でインストールし、エージェントのファイルを変更せずに読みます。分析はあなた自身の Claude Code、Codex、IBM Bob、またはあなたのキーで使うモデルプロバイダーの API で行います。Anthropic、Amazon Bedrock、OpenAI、Azure OpenAI、OpenRouter、そして Mac 上の Ollama も使えます。",
     step: "ステップ",
     steps: [
       {
@@ -82,7 +83,7 @@ export const ja: Strings = {
       },
     ],
     needs: "必要なもの",
-    requirements: "macOS 13 以降と、分析に使う Claude Code、Codex、またはモデルプロバイダー",
+    requirements: "macOS 13 以降と、分析に使う Claude Code、Codex、IBM Bob、またはモデルプロバイダー",
     app: "アプリがよければ、Apple シリコン版をダウンロード",
     setsUp: "インストールで設定されるもの",
   },
@@ -102,7 +103,7 @@ export const ja: Strings = {
       {
         tag: "学習",
         title: "教訓を、代わりに書き留める。",
-        body: "Chronicle は終わったセッションを、あなた自身の Claude Code や Codex、または選んだモデルプロバイダーで読み、修正、落とし穴、決定、コマンドなど、残す価値のあるものを保存します。それらはプロジェクトごとのナレッジベースにまとまり、別のセッションで確かめられるたびに信頼度が上がります。",
+        body: "Chronicle は終わったセッションを、あなた自身の Claude Code、Codex、IBM Bob、または選んだモデルプロバイダーで読み、修正、落とし穴、決定、コマンドなど、残す価値のあるものを保存します。それらはプロジェクトごとのナレッジベースにまとまり、別のセッションで確かめられるたびに信頼度が上がります。",
         more: "分析の仕組み",
       },
       {
@@ -123,7 +124,7 @@ export const ja: Strings = {
   showcase: {
     label: "03 / ダッシュボード",
     title: "記録のすべてを読む。",
-    body: "すべてを眺められるローカルのダッシュボード。Mac でも、スマートフォンでも、ほかのコンピューターやチームと共有する 1 台のハブでも開けます。",
+    body: "すべてを眺められるローカルのダッシュボード。Mac でも、Tailscale 経由のスマートフォンでも、ほかのコンピューターやチームと共有する 1 台のハブでも開けます。",
     tour: "1 分でわかるツアー",
     tourAlt:
       "デモデータで見る Chronicle ダッシュボードの 1 分ツアー：ホーム、トランスクリプトと抽出したナレッジを含むセッション、⌘K 検索、用語集のマップ、週次の振り返り",
@@ -152,6 +153,39 @@ export const ja: Strings = {
         alt: "用語集のマップ：自分の用語を折りたためるマインドマップで表示",
         text: "自分の用語を、プロジェクト同士のつながりを示すマップに。",
       },
+      {
+        label: "プロジェクト",
+        alt: "プロジェクトのページ：セッション、時間とコスト、Chronicle が保つナレッジベース、落とし穴と決定",
+        text: "プロジェクトごとのナレッジベース。落とし穴、決定、コマンドを、セッションが増えるたびに書き直します。",
+      },
+      {
+        label: "週次の振り返り",
+        alt: "週次の振り返り：その週の見出し、前週と比べた作業時間・セッション数・コスト、得られたナレッジ",
+        text: "終わった週ごとに、何が変わり、どこに時間を使い、何を学んだかをまとめます。",
+      },
+    ],
+    more: "ダッシュボードにはほかにも",
+    extras: [
+      {
+        title: "システムマップ",
+        body: "各プロジェクトを、構成要素とデプロイ先を持つシステムとして描き、あるプロジェクトが別のプロジェクトを使うところを線で結びます。描くのはモデルではなく、マニフェストとセッションの実際の作業です。",
+        page: "dashboard/#システムマップ",
+      },
+      {
+        title: "成果物",
+        body: "エージェントが作ったドキュメント、ページ、図、スライド、プルリクエスト、コミット。それぞれ作ったセッションにつながり、ファイルが変わったり消えたりすると印がつきます。",
+        page: "dashboard/#成果物",
+      },
+      {
+        title: "提案",
+        body: "繰り返しうまくいかないことや、何度も確かめられたことから、CLAUDE.md や AGENTS.md に書く 1 行を提案します。承認するまで何も書かず、元に戻すこともできます。",
+        page: "suggestions/",
+      },
+      {
+        title: "プロジェクトのグループ",
+        body: "関連するプロジェクトを、手で、または共通のフォルダーでひとつの見出しにまとめ、グループ全体でセッションを絞り込めます。",
+        page: "dashboard/#プロジェクトのグループ",
+      },
     ],
   },
 
@@ -162,6 +196,7 @@ export const ja: Strings = {
     agents: [
       { name: "Claude Code", when: "セッションが終わるたびに" },
       { name: "Codex", when: "15 分ごと（アイドル後）" },
+      { name: "Codex Cloud", when: "タスクを codex CLI 経由で" },
       { name: "GitHub Copilot", when: "VS Code と Copilot CLI" },
       { name: "IBM Bob", when: "15 分ごと" },
       { name: "Google Antigravity", when: "15 分ごと" },
@@ -170,18 +205,48 @@ export const ja: Strings = {
     mcp: ["Claude Desktop、Cursor、Windsurf、Gemini CLI も ", "MCP サーバー", " を使えます。"],
   },
 
+  team: {
+    label: "05 / チーム",
+    title: "ひとりのエージェントが学び、チーム全員が知る。",
+    body: "チームのサーバーでハブを動かせば、各自の Chronicle が学んだことをそこで共有します。トランスクリプトは各自のコンピューターに残せます。ハブが受け取るのは教訓だけで、同じリポジトリでチームメイトが学んだことを、全員のエージェントに返します。",
+    points: [
+      {
+        title: "Docker でハブを動かす。",
+        body: "compose ファイルひとつで、ハブ、Caddy による HTTPS、Postgres のチームストアがどのサーバーでも動きます。ハブは何も分析しないので、モデルも API キーも要りません。",
+        page: "docker/",
+      },
+      {
+        title: "教訓は共有し、トランスクリプトは残す。",
+        body: "各コンピューターは自分のセッションを自分で分析し、ハブには各セッションの要約とプロジェクトの教訓だけを送ります。プロンプト、コマンド、ファイルパス、トランスクリプトは外に出ません。",
+        page: "devices/#ナレッジだけを共有する",
+      },
+      {
+        title: "チームメイトの教訓を、あなたのエージェントに。",
+        body: "送るたびに、同じリポジトリでチームメイトが学んだことが返ってきます。各自がどこにクローンしていても同じです。MCP ツールとセッション開始時のメモに、チームメイトのものとして含まれます。",
+        page: "join-a-hub/",
+      },
+      {
+        title: "利用者、ロール、プロジェクト。",
+        body: "一人ずつ、管理者、メンバー、閲覧のみのいずれかとして、一度だけ使えるコードで招待します。各自が見られるプロジェクトは管理者が決め、招待、サインイン、変更はすべて監査ログに残ります。",
+        page: "devices/#利用者とロール",
+      },
+    ],
+    join: "チームのハブに参加する",
+    run: "Docker でハブを動かす",
+  },
+
   rules: {
-    label: "05 / ルール",
+    label: "06 / ルール",
     title: "守っている 3 つのルール。",
     rule: "ルール",
     rules: [
       {
         title: "ローカルにとどまる。",
-        body: "私たちのサーバーも、テレメトリも、アカウントもありません。アーカイブとそこから学んだことはすべて、あなた自身のマシンにあります。",
+        body: "私たちのサーバーも、テレメトリも、アカウントもありません。アーカイブとそこから学んだことはすべて、あなた自身のマシンにあります。チームのハブも、チームが選んだサーバーで動きます。",
       },
       {
         title: "あなたのアカウントで動く。",
-        body: "外に送るのは分析だけです。秘密情報を伏せた要約を、あなた自身の Claude Code や Codex のログイン、またはあなたの API キーで送ります。Ollama なら Mac の外には何も出ません。間に私たちのキーは入りません。",
+        body: "外に送るのは分析だけです。秘密情報を伏せた要約を、あなた自身の Claude Code、Codex、Bob のログイン、またはあなたの API キーで送ります。Ollama なら Mac の外には何も出ません。間に私たちのキーは入りません。",
       },
       {
         title: "わからないことは、わからないと言う。",
@@ -245,6 +310,24 @@ export const ja: Strings = {
         { code: "repo:ORG/REPO:environment:NAME" },
         " になるので、ブランチに一致させる信頼ポリシーは失敗します。代わりに environment に一致させます。",
       ],
+    },
+    team: {
+      caption: "ハブ · billing-api",
+      note: "ナレッジのみ：トランスクリプトは Mika のノート PC から出ていない",
+      laptop: "Mika のノート PC",
+      stays: "ここに残る",
+      sent: "送信",
+      rows: [
+        { what: "トランスクリプト、プロンプト、コマンド", sent: false },
+        { what: "セッションの要約", sent: true },
+        { what: "billing-api の教訓 3 件", sent: true },
+      ],
+      hub: "チームのハブ",
+      hubMeta: "billing-api · 4 人 · 教訓 58 件",
+      kind: "落とし穴",
+      lesson: "Stripe の Webhook 署名の検証には生のリクエストボディが必要",
+      from: "Mika のセッションから",
+      you: "あなたのエージェント、次のセッションで",
     },
     editor: {
       note: "開いているファイルの背後のセッションと、ワークスペース全体",

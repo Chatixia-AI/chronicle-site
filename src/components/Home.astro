@@ -6,6 +6,7 @@ import Install from "./Install.astro";
 import Record from "./Record.astro";
 import Showcase from "./Showcase.astro";
 import Sources from "./Sources.astro";
+import Team from "./Team.astro";
 import Rules from "./Rules.astro";
 import type { Lang } from "../data/site";
 import { t } from "../i18n";
@@ -23,5 +24,6 @@ const { meta } = t(lang);
   <Record lang={lang} />
   <Showcase lang={lang} />
   <Sources lang={lang} />
+  <Team lang={lang} />
   <Rules lang={lang} />
 </Base>

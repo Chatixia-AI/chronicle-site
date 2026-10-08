@@ -19,6 +19,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 const nav = [
   { label: s.nav.record, href: `${home}#record` },
   { label: s.nav.install, href: `${home}#install` },
+  { label: s.nav.team, href: `${home}#team` },
   { label: s.nav.docs, href: docsPage(lang) },
 ];
 const footer = [
@@ -27,6 +28,7 @@ const footer = [
     items: [
       [s.nav.record, `${home}#record`],
       [s.nav.install, `${home}#install`],
+      [s.nav.team, `${home}#team`],
       [s.footer.releases, links.releases],
       [s.footer.changelog, links.changelog],
     ],
@@ -37,6 +39,7 @@ const footer = [
       [s.footer.gettingStarted, docsPage(lang, "install/")],
       [s.footer.mcp, docsPage(lang, "mcp/")],
       [s.footer.vscode, docsPage(lang, "vscode/")],
+      [s.footer.hub, docsPage(lang, "join-a-hub/")],
       [s.footer.otherDocs.label, s.footer.otherDocs.page],
     ],
   },
