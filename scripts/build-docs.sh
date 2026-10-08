@@ -22,6 +22,7 @@ fi
 cp "$here/docs-theme/mkdocs.site.yml" "$src/mkdocs.site.yml"
 mkdir -p "$src/docs/assets"
 cp "$here/docs-theme/chronicle-site.css" "$src/docs/assets/chronicle-site.css"
+cp "$here/public/favicon-32.png" "$src/docs/assets/favicon.png"
 
 rm -rf "$out"
 (cd "$src" && NO_MKDOCS_2_WARNING=1 uv run --locked --only-group docs mkdocs build --strict -f mkdocs.site.yml -d "$out")

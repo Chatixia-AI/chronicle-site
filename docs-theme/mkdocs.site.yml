@@ -4,6 +4,8 @@ INHERIT: mkdocs.yml
 site_url: https://chronicle.chatixia.net/docs/
 
 theme:
+  # The site's own favicon (the app's icon at 32 px), not the 1024 px app icon the docs use as their logo
+  favicon: assets/favicon.png
   font:
     text: IBM Plex Sans
     code: IBM Plex Mono
