@@ -1,0 +1,8 @@
+{#-
+  Chronicle: Material's language.html, choosing the language per page rather than once for the site, so the
+  Japanese docs get Japanese labels (検索, 目次, 次, 前) and <html lang="ja">.
+-#}
+{% import "partials/chronicle-lang.html" as chronicle with context %}
+{% import "partials/languages/" ~ chronicle.code(page) ~ ".html" as lang %}
+{% import "partials/languages/en.html" as fallback %}
+{% macro t(key) %}{{ lang.t(key) or fallback.t(key) or key }}{% endmacro %}

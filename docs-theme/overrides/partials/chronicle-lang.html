@@ -1,0 +1,18 @@
+{#- Chronicle: which language a docs page is in, and its twin in the other language.
+    The Japanese docs are the pages under ja/ (docs/ja/ in agents-chronicle), with the same file names. -#}
+{% macro code(page) -%}
+  {{ "ja" if page and page.file and page.file.src_uri.startswith("ja/") else "en" }}
+{%- endmacro %}
+
+{#- The site's home page in this page's language: / or /ja/. -#}
+{% macro home(config, page) -%}
+  {{ config.extra.homepage ~ ("ja/" if code(page) == "ja" else "") }}
+{%- endmacro %}
+
+{#- The same page in the other language, or that language's docs home when it has no twin. -#}
+{% macro twin(page, nav) -%}
+  {%- set url = page.url if page and page.url is string else "" -%}
+  {%- set target = url[3:] if code(page) == "ja" else "ja/" ~ url -%}
+  {%- set fallback = "" if code(page) == "ja" else "ja/" -%}
+  {{ target if nav.pages | selectattr("url", "equalto", target) | list else fallback }}
+{%- endmacro %}

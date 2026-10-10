@@ -1,9 +1,13 @@
 # Layered over agents-chronicle's mkdocs.yml by scripts/build-docs.sh: the same docs, served under /docs/ of
-# chronicle.chatixia.net, in this site's type and colours, with the logo leading back to the home page.
+# chronicle.chatixia.net, in this site's type and colours, with the logo leading back to the home page, and the
+# Japanese pages under /docs/ja/ in Japanese throughout.
 INHERIT: mkdocs.yml
 site_url: https://chronicle.chatixia.net/docs/
 
 theme:
+  # Template overrides that make the 日本語 pages a Japanese site of their own (see overrides/): Japanese labels,
+  # a navigation of their own, and a link to the same page in the other language
+  custom_dir: site-overrides
   # The site's own favicon (the app's icon at 32 px), not the 1024 px app icon the docs use as their logo
   favicon: assets/favicon.png
   font:
