@@ -17,7 +17,7 @@ const details = [
   ["⑂", "fix/webhook-idempotency"],
   ["±", "+38 −4 lines"],
   ["✓", "Outcome: completed"],
-  ["↗", "Open in Interlatch"],
+  ["↗", "Open in Chronicle"],
 ];
 const tree = [
   ["▸", "alembic/versions", "2 sessions · 5h"],
@@ -31,7 +31,7 @@ const tree = [
 <Frame caption="VS Code · Explorer" fig="Fig. 05" note={s.note}>
   <div class="theme-dark rounded-md border border-bp-rule/80 bg-[#0b1726] text-[12.5px]">
     <p class="border-b border-bp-rule/60 px-3 py-1.5 font-semibold uppercase tracking-wide text-[11px] text-bp-dim">
-      ▾ Interlatch: This File <span class="ml-1 font-normal normal-case text-bp-faint">webhooks.py</span>
+      ▾ Chronicle: This File <span class="ml-1 font-normal normal-case text-bp-faint">webhooks.py</span>
     </p>
     <div class="px-3 py-2">
       <p class="flex gap-2">
@@ -44,7 +44,7 @@ const tree = [
           details.map(([icon, text]) => (
             <li class="flex gap-2">
               <span class="w-3 text-center text-bp-faint">{icon}</span>
-              <span class:list={[text === "Open in Interlatch" && "text-bp-gold"]}>{text}</span>
+              <span class:list={[text === "Open in Chronicle" && "text-bp-gold"]}>{text}</span>
             </li>
           ))
         }
@@ -56,7 +56,7 @@ const tree = [
       </p>
     </div>
     <p class="border-y border-bp-rule/60 px-3 py-1.5 font-semibold uppercase tracking-wide text-[11px] text-bp-dim">
-      ▾ Interlatch: Files in Workspace
+      ▾ Chronicle: Files in Workspace
     </p>
     <ul class="space-y-0.5 px-3 py-2 font-plex-mono text-[12px]">
       {
