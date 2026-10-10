@@ -55,36 +55,26 @@ full changelog. Release headlines stay in their source language; dates and the s
 | `src/styles/global.css` | Blueprint tokens (as on chatixia.net) and the logbook styling |
 | `docs-theme/` | Layered over the docs' `mkdocs.yml`: served under `/docs/`, Plex fonts, navy header; `overrides/` gives the `/docs/ja/` pages Japanese labels, their own navigation and an English/日本語 link per page |
 | `scripts/` | The docs build and the redirect pages |
-| `old-domain/` | Not part of this site: the page chronicle.chatixia.net serves at every path, from a repository of its own (see Publishing) |
+| `old-domain/` | Not part of this site: the Firebase site behind chronicle.chatixia.net, which sends every path to interlatch.com with a 301 (`firebase.json`); its two pages are only a fallback |
 
 ## Publishing
 
-`.github/workflows/deploy.yml` builds on every push and pull request, and publishes to GitHub Pages from `main` once
-the repository variable `PAGES_LIVE` is `true`. It also runs when `agents-chronicle` sends a `docs-updated` event,
-and once a day. The upstream repository sends `docs-updated` with a fine-grained token that has Contents: write on
-this repository.
+`.github/workflows/deploy.yml` builds on every push and pull request, and publishes from `main` to Firebase Hosting,
+project `interlatch` (`.firebaserc`): the site to the Hosting site `interlatch`, and `old-domain/` to the Hosting site
+`chronicle-chatixia-net`. It also runs when `agents-chronicle` sends a `docs-updated` event, and once a day. The
+upstream repository sends `docs-updated` with a fine-grained token that has Contents: write on this repository.
+Publishing uses the repository secret `FIREBASE_SERVICE_ACCOUNT_INTERLATCH`, a service account key that
+`firebase init hosting:github` creates and stores.
 
 Canonicals, language alternates, the docs' `site_url` (and so their sitemap) and the old-path redirects all use
-`https://interlatch.com`. The domain itself is set outside the code:
+`https://interlatch.com`. The domains are set outside the code, in the Firebase console (Hosting › the site ›
+Add custom domain), which shows the DNS records each one needs:
 
-1. **DNS for interlatch.com** (Namecheap › Advanced DNS): `A` records for `@` to `185.199.108.153`,
-   `185.199.109.153`, `185.199.110.153` and `185.199.111.153`; `AAAA` records for `@` to `2606:50c0:8000::153`,
-   `2606:50c0:8001::153`, `2606:50c0:8002::153` and `2606:50c0:8003::153`; `CNAME` `www` to
-   `chatixia-ai.github.io.` (GitHub then sends www to the bare domain). Remove any parking or URL redirect records
-   on `@` and `www`; leave the mail forwarding records alone. Safe to do any time before the switch.
-2. **Verify the domain** for the organization (Chatixia-AI › Settings › Pages › Add a domain), with the
-   `_github-pages-challenge-chatixia-ai` TXT record it asks for, so no other account can claim it.
-3. **The custom domain**: here, Settings › Pages › Custom domain `interlatch.com`, then Enforce HTTPS once the
-   certificate is issued (`gh api -X PUT repos/Chatixia-AI/chronicle-site/pages -f cname=interlatch.com`, then
-   again with `-F https_enforced=true`). A `CNAME` file isn't needed: GitHub ignores it for workflow deployments.
-4. **The old address.** GitHub serves a custom domain from one repository only, so once this repository takes
-   interlatch.com, chronicle.chatixia.net needs a repository of its own: a public `Chatixia-AI/chronicle-redirect`
-   with the two pages in `old-domain/` at its root, Pages from its `main` branch, custom domain
-   `chronicle.chatixia.net`, Enforce HTTPS. Its DNS (a `CNAME` to `chatixia-ai.github.io` at dnsv.jp) stays as it
-   is. Every old URL lands on the same path at interlatch.com, query and `#anchor` included, and the old docs paths
-   then follow this site's own redirects into `/docs/`. The old address is down for the few minutes between steps
-   3 and 4.
+- **interlatch.com** and **www.interlatch.com** (redirecting to interlatch.com) on the site `interlatch`; their DNS is
+  at Namecheap (Advanced DNS). Leave the mail forwarding records alone.
+- **chronicle.chatixia.net** on the site `chronicle-chatixia-net`, which answers every path with a 301 to the same
+  path on interlatch.com (query included; browsers keep the `#anchor`), and the old docs paths then follow this
+  site's own redirects into `/docs/`. Its DNS is at dnsv.jp.
 
-GitHub Pages can't send a real HTTP 301, so the old address redirects in the page. If search ranking needs a 301,
-host chronicle.chatixia.net on Firebase Hosting instead, where chatixia.net already lives, with one redirect rule
-from `/:path*` to `https://interlatch.com/:path`.
+To try a change on a temporary address first: `firebase hosting:channel:deploy preview --only site` after a full
+build (see Work on it).

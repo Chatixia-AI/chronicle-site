@@ -1,6 +1,7 @@
 # Builds interlatch.com: the landing page (Astro, this repo) and the docs (MkDocs, from agents-chronicle,
-# served under /docs/), then publishes them to GitHub Pages. Pull requests only build, so a broken page or docs link
-# fails before it reaches main. Publishing waits for the repository variable PAGES_LIVE=true (see README).
+# served under /docs/), then publishes them to Firebase Hosting (project interlatch, see README), together with the
+# site that redirects chronicle.chatixia.net. Pull requests only build, so a broken page or docs link fails before
+# it reaches main.
 name: Deploy
 
 on:
@@ -16,7 +17,7 @@ on:
 permissions: {}
 
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: false
 
 jobs:
@@ -47,21 +48,36 @@ jobs:
       - run: scripts/build-docs.sh
         env:
           CHRONICLE_SRC: .cache/agents-chronicle
-      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         if: github.event_name != 'pull_request'
         with:
+          name: dist
           path: dist
+          retention-days: 1
 
   deploy:
     needs: build
-    if: github.event_name != 'pull_request' && vars.PAGES_LIVE == 'true'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      contents: read
     steps:
-      - id: deployment
-        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346  # v5.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333  # v8.0.2
+        with:
+          name: dist
+          path: dist
+      - uses: FirebaseExtended/action-hosting-deploy@500ac625ca2dd40cbd15f7659af953801858032a  # v0.11.0
+        with:
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_INTERLATCH }}
+          projectId: interlatch
+          channelId: live
+          target: site
+      - uses: FirebaseExtended/action-hosting-deploy@500ac625ca2dd40cbd15f7659af953801858032a  # v0.11.0
+        with:
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_INTERLATCH }}
+          projectId: interlatch
+          channelId: live
+          target: old-domain
