@@ -1,5 +1,7 @@
 ---
-// The opening: the promise on the left, a deck of logged sessions on the right with Tink keeping the record.
+// The opening: the promise on the left, a deck of logged sessions on the right with Tink keeping the record,
+// ticking items off the clipboard.
+import CastLoop from "./CastLoop.astro";
 import CopyCommand from "./CopyCommand.astro";
 import Segs from "./Segs.astro";
 import { docsPage, installCommand, type Lang } from "../data/site";
@@ -85,11 +87,12 @@ const s = t(lang).hero;
             </p>
           </div>
         </article>
-        <img
-          src="/images/tink.webp"
+        <CastLoop
+          name="hero"
           alt={s.card.tink}
-          width="720"
-          height="494"
+          width={380}
+          height={260}
+          eager
           class="pointer-events-none absolute -bottom-10 -right-6 w-[150px] drop-shadow-[0_12px_24px_rgba(0,0,0,.5)] sm:-right-12 sm:w-[190px]"
         />
       </div>
