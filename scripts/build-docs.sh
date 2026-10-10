@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Builds Chronicle's documentation into dist/docs/ and leaves a redirect at each of its old URLs.
+# Builds Interlatch's documentation into dist/docs/ and leaves a redirect at each of its old URLs.
 #
 # The docs are written and reviewed in Chatixia-AI/agents-chronicle, next to the code they describe. This
 # builds them as they are, with a small config on top (docs-theme/mkdocs.site.yml) that serves them under
