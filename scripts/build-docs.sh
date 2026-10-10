@@ -23,6 +23,7 @@ fi
 cp "$here/docs-theme/mkdocs.site.yml" "$src/mkdocs.site.yml"
 mkdir -p "$src/docs/assets"
 cp "$here/docs-theme/chronicle-site.css" "$src/docs/assets/chronicle-site.css"
+cp "$here/public/favicon-32.png" "$src/docs/assets/favicon.png"
 rm -rf "$src/site-overrides" && cp -R "$here/docs-theme/overrides" "$src/site-overrides"
 
 rm -rf "$out"

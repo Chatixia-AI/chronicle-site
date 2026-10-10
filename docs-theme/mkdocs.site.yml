@@ -8,6 +8,8 @@ theme:
   # Template overrides that make the 日本語 pages a Japanese site of their own (see overrides/): Japanese labels,
   # a navigation of their own, and a link to the same page in the other language
   custom_dir: site-overrides
+  # The site's own favicon (the app's icon at 32 px), not the 1024 px app icon the docs use as their logo
+  favicon: assets/favicon.png
   font:
     text: IBM Plex Sans
     code: IBM Plex Mono
