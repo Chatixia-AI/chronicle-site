@@ -8,6 +8,7 @@ import Showcase from "./Showcase.astro";
 import Sources from "./Sources.astro";
 import Team from "./Team.astro";
 import Rules from "./Rules.astro";
+import Help from "./Help.astro";
 import type { Lang } from "../data/site";
 import { t } from "../i18n";
 
@@ -26,4 +27,5 @@ const { meta } = t(lang);
   <Sources lang={lang} />
   <Team lang={lang} />
   <Rules lang={lang} />
+  <Help lang={lang} />
 </Base>

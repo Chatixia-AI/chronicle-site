@@ -4,6 +4,6 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: "https://chronicle.chatixia.net",
+  site: "https://interlatch.com",
   vite: { plugins: [tailwindcss()] },
 });

@@ -1,8 +1,10 @@
 # Layered over agents-chronicle's mkdocs.yml by scripts/build-docs.sh: the same docs, served under /docs/ of
-# chronicle.chatixia.net, in this site's type and colours, with the logo leading back to the home page, and the
+# interlatch.com, in this site's type and colours, with the logo leading back to the home page, and the
 # Japanese pages under /docs/ja/ in Japanese throughout.
 INHERIT: mkdocs.yml
-site_url: https://chronicle.chatixia.net/docs/
+site_name: Interlatch
+site_description: Shared memory for your coding agents. Keep sessions, fixes and decisions with their project and source.
+site_url: https://interlatch.com/docs/
 
 theme:
   # Template overrides that make the 日本語 pages a Japanese site of their own (see overrides/): Japanese labels,
@@ -18,4 +20,4 @@ extra_css:
   - assets/chronicle-site.css
 
 extra:
-  homepage: https://chronicle.chatixia.net/
+  homepage: https://interlatch.com/

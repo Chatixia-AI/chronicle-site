@@ -1,4 +1,4 @@
-# Builds chronicle.chatixia.net: the landing page (Astro, this repo) and the docs (MkDocs, from agents-chronicle,
+# Builds interlatch.com: the landing page (Astro, this repo) and the docs (MkDocs, from agents-chronicle,
 # served under /docs/), then publishes them to GitHub Pages. Pull requests only build, so a broken page or docs link
 # fails before it reaches main. Publishing waits for the repository variable PAGES_LIVE=true (see README).
 name: Deploy
@@ -42,6 +42,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run check
       - run: pnpm run build
+        env:
+          CHRONICLE_SRC: .cache/agents-chronicle
       - run: scripts/build-docs.sh
         env:
           CHRONICLE_SRC: .cache/agents-chronicle
