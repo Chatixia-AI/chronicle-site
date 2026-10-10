@@ -1,5 +1,6 @@
 ---
 // What Chronicle does, as entries in a logbook hung off a spine: each a claim, a scenario and a picture of it.
+import CastLoop from "./CastLoop.astro";
 import SectionHead from "./SectionHead.astro";
 import VisualKept from "./visuals/Kept.astro";
 import VisualKnowledge from "./visuals/Knowledge.astro";
@@ -13,14 +14,15 @@ interface Props {
 }
 const { lang } = Astro.props;
 const s = t(lang).record;
-// Each entry's drawing and "read more" page, in the order of s.entries.
+// Each entry's drawing, "read more" page and the cast loop under its text, in the order of s.entries:
+// Pip files a session into the book, Tink hands pages to Lumi, Dex's scroll is searched, Pip carries a lesson to the code.
 const extras = [
-  { page: "analysis/", Visual: VisualKept },
-  { page: "analysis/", Visual: VisualKnowledge },
-  { page: "mcp/", Visual: VisualAsk },
-  { page: "vscode/", Visual: VisualEditor },
+  { page: "analysis/", Visual: VisualKept, cast: "filing" },
+  { page: "analysis/", Visual: VisualKnowledge, cast: "analyze" },
+  { page: "mcp/", Visual: VisualAsk, cast: "search" },
+  { page: "vscode/", Visual: VisualEditor, cast: "editor" },
 ];
-const entries = s.entries.map((e, i) => ({ ...e, href: docsPage(lang, extras[i].page), Visual: extras[i].Visual }));
+const entries = s.entries.map((e, i) => ({ ...e, href: docsPage(lang, extras[i].page), Visual: extras[i].Visual, cast: extras[i].cast }));
 ---
 
 <section id="record" class="scroll-mt-20 border-b border-bp-rule/70">
@@ -47,6 +49,12 @@ const entries = s.entries.map((e, i) => ({ ...e, href: docsPage(lang, extras[i].
               >
                 {e.more} <span aria-hidden="true">→</span>
               </a>
+              <CastLoop
+                name={e.cast}
+                width={560}
+                height={240}
+                class="pointer-events-none -mb-6 -ml-5 mt-4 block w-[320px] max-w-full drop-shadow-[0_10px_18px_rgba(0,0,0,.35)] sm:w-[380px]"
+              />
             </div>
             <div class:list={["w-full min-w-0 max-w-[560px]", i % 2 ? "lg:order-1 lg:justify-self-end" : "lg:justify-self-start"]}>
               <e.Visual lang={lang} />

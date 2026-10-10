@@ -1,5 +1,6 @@
 ---
 // A hub for a team: what it shares, what stays on each computer, and how teammates' lessons come back.
+import CastLoop from "./CastLoop.astro";
 import SectionHead from "./SectionHead.astro";
 import VisualTeam from "./visuals/Team.astro";
 import { docsPage, type Lang } from "../data/site";
@@ -33,6 +34,8 @@ const s = t(lang).team;
         }
       </ol>
       <div class="w-full min-w-0 max-w-[560px] lg:justify-self-end">
+        <!-- A lesson goes up from one laptop to the hub and down to two teammates'; the transcript stays where it was. -->
+        <CastLoop name="team" width={640} height={360} class="pointer-events-none relative z-10 -mb-10 -mt-6 w-full" />
         <VisualTeam lang={lang} />
       </div>
     </div>

@@ -1,0 +1,53 @@
+---
+// A short loop of the Blueprint Cast, the characters from Chatixia Studio's films. It shows a still frame and plays
+// the loop only while it's on screen, once the page has loaded, and never for a visitor who asks for reduced motion.
+// The loops are rendered in agents-chronicle (packaging/icons3d) and copied to public/media/cast/.
+interface Props {
+  name: string;
+  width: number;
+  height: number;
+  alt?: string;
+  eager?: boolean;
+  class?: string;
+}
+const { name, width, height, alt = "", eager = false, class: cls } = Astro.props;
+---
+
+<img
+  src={`/media/cast/${name}-still.webp`}
+  data-loop={`/media/cast/${name}.webp`}
+  width={width}
+  height={height}
+  alt={alt}
+  aria-hidden={alt ? undefined : "true"}
+  loading={eager ? "eager" : "lazy"}
+  decoding="async"
+  class:list={["cast-loop", cls]}
+/>
+
+<script>
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  const still = new WeakMap<HTMLImageElement, string>();
+  const showing = (img: HTMLImageElement, url: string) => img.src === new URL(url, location.href).href;
+  function start() {
+    const imgs = [...document.querySelectorAll<HTMLImageElement>("img.cast-loop[data-loop]")];
+    const seen = new Set<Element>();
+    const apply = (img: HTMLImageElement) => {
+      if (!still.has(img)) still.set(img, img.getAttribute("src")!);
+      // off screen it goes back to the still, so it costs nothing there and starts from the top when seen again
+      const want = seen.has(img) && !reduce.matches ? img.dataset.loop! : still.get(img)!;
+      if (!showing(img, want)) img.src = want;
+    };
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) seen.add(e.target);
+        else seen.delete(e.target);
+        apply(e.target as HTMLImageElement);
+      }
+    }, { rootMargin: "80px 0px" });
+    imgs.forEach((img) => io.observe(img));
+    reduce.addEventListener("change", () => imgs.forEach(apply));
+  }
+  if (document.readyState === "complete") start();
+  else addEventListener("load", start, { once: true });
+</script>

@@ -34,6 +34,7 @@ checkout, such as one with unmerged docs changes.
 | --- | --- |
 | `src/pages/` | The pages: `index.astro` (English), `ja/index.astro` (Japanese), `404.astro` (both) |
 | `src/components/` | The home page (`Home.astro`) and its sections; `visuals/` holds the drawings beside each entry |
+| `public/media/cast/` | The Blueprint Cast loops (Chatixia Studio's characters) and a still of each, rendered in `agents-chronicle` under `packaging/icons3d`; `CastLoop.astro` plays one only while it's on screen, and never for reduced motion |
 | `src/i18n/` | Every word on the home page: `en.ts` and `ja.ts`, the same shape in each language |
 | `src/data/site.ts` | Links and the install command, shared by every page |
 | `src/styles/global.css` | Blueprint tokens (as on chatixia.net) and Chronicle's own logbook touches |
