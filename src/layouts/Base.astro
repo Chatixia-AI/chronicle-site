@@ -8,7 +8,7 @@ interface Props {
   title: string;
   description: string;
   lang?: Lang;
-  /** The page exists in both languages (the home page): link the other one, for readers and search engines. */
+  /** The page exists in both languages (the home page): declare the other one to search engines (hreflang). */
   translated?: boolean;
 }
 const { title, description, lang = "en", translated = false } = Astro.props;
@@ -115,26 +115,28 @@ const footer = [
           <span class="font-display text-lg font-semibold tracking-tight">Chronicle</span>
           <span class="hidden font-plex-mono text-[10px] uppercase tracking-[0.18em] text-bp-faint sm:inline">{s.by}</span>
         </a>
-        <nav aria-label="Main" class="ml-auto hidden items-center gap-7 text-sm text-bp-dim md:flex">
+        <nav aria-label="Main" class="ml-auto hidden items-center gap-7 text-sm text-bp-dim lg:flex">
           {nav.map((item) => <a href={item.href} class="hover:text-bp-ink">{item.label}</a>)}
           <a href={links.github} class="hover:text-bp-ink">{s.nav.github}</a>
         </nav>
-        <div class="ml-auto flex items-center gap-3 md:ml-0">
-          <!-- The language link and the theme toggle share one small control, so they don't compete with the menu. -->
+        <div class="ml-auto flex items-center gap-3 lg:ml-0">
+          <a
+            href={`${home}#install`}
+            class="hidden min-h-10 items-center whitespace-nowrap rounded-md bg-bp-cta px-4 text-sm font-semibold text-bp-cta-ink hover:bg-bp-cta-hover min-[400px]:inline-flex"
+            >{s.cta}</a
+          >
+          <!-- The language link and the theme toggle: one small control at the far right, the same size on every page,
+               so after switching language the way back is right under the pointer. -->
           <div class="flex h-8 items-center divide-x divide-bp-rule2/50 rounded-md border border-bp-rule2/50 text-bp-faint">
-            {
-              translated && (
-                <a
-                  href={homePath(other)}
-                  hreflang={other}
-                  lang={other}
-                  title={s.other.title}
-                  class="flex h-full items-center px-2.5 text-xs hover:text-bp-ink"
-                >
-                  {s.other.label}
-                </a>
-              )
-            }
+            <a
+              href={homePath(other)}
+              hreflang={other}
+              lang={other}
+              title={s.other.title}
+              class="flex h-full w-16 items-center justify-center text-xs hover:text-bp-ink"
+            >
+              {s.other.label}
+            </a>
             <button
               type="button"
               class="theme-toggle flex h-full w-8 items-center justify-center hover:text-bp-ink"
@@ -151,11 +153,6 @@ const footer = [
               >
             </button>
           </div>
-          <a
-            href={`${home}#install`}
-            class="hidden min-h-10 items-center whitespace-nowrap rounded-md bg-bp-cta px-4 text-sm font-semibold text-bp-cta-ink hover:bg-bp-cta-hover min-[400px]:inline-flex"
-            >{s.cta}</a
-          >
         </div>
       </div>
     </header>
