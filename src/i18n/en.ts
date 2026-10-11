@@ -14,9 +14,13 @@ export const en = {
     skip: "Skip to content",
     home: "Interlatch home",
     by: "by Chatixia",
-    nav: { record: "What it does", install: "Install", team: "Teams", docs: "Docs", github: "GitHub" },
+    nav: { label: "Main", record: "What it does", install: "Install", team: "Teams", docs: "Docs", github: "GitHub" },
+    // The header's menu button on narrow screens, where the links above don't fit.
+    menu: "Menu",
     cta: "Install",
     theme: { light: "Switch to light theme", dark: "Switch to dark theme" },
+    // Read out for the social preview image (og:image).
+    imageAlt: "Interlatch's Home page: this week's sessions, stats and recent knowledge",
     // The link to the page in the other language, written in that language.
     other: { label: "日本語", title: "日本語のページへ" },
     footer: {
@@ -51,12 +55,12 @@ export const en = {
   hero: {
     kicker: "Shared memory for your coding agents",
     title: ["Different agents.", "Knowledge that stays."],
-    body: "Interlatch records the sessions of every coding agent you use, on your own Mac. Each lesson it takes from them stays linked to the session, project and agent it came from, and earns trust as later work confirms it.",
+    body: "Each new session starts without what the last one figured out. Interlatch records your Claude Code, Codex, Copilot, Bob and Antigravity sessions on your own Mac. Each lesson stays linked to the session, project and agent it came from, and earns trust as later work confirms it.",
     // The tagline in the other language, under the English one.
     aside: { lang: "ja", text: "エージェントが変わっても、学びは残る。" },
     start: "Get started",
     see: "See how memory carries forward",
-    facts: "macOS 13+ · free and open source · no telemetry",
+    facts: "macOS 13+ · needs uv · free and open source · no telemetry",
     card: {
       log: "Shared memory · billing-api",
       meta: "Today 14:52 · Claude Code · ",
@@ -83,7 +87,7 @@ export const en = {
   install: {
     label: "01 / Set up",
     title: "Connect your agents. Keep what they learn.",
-    body: "Interlatch installs with uv and reads your agents' session files without changing them. It keeps the record and has the lessons ready for the next session. The analysis runs through your own Claude Code, Codex or IBM Bob, or a model provider's API with your own key: Anthropic, Amazon Bedrock, OpenAI, Azure OpenAI, OpenRouter, or Ollama on your own Mac.",
+    body: "Interlatch installs with uv and reads your agents' session files without changing them. It keeps the record and has the lessons ready for the next session. The analysis runs through your own Claude Code or Codex login, IBM Bob with a Bob API key, or a model provider's API with your own key: Anthropic, Amazon Bedrock, OpenAI, Azure OpenAI, OpenRouter, or Ollama on your own Mac. It counts toward your own plan or key, and the sessions from before you installed are analyzed in the background, newest first, six every 15 minutes.",
     step: "Step",
     steps: [
       {
@@ -100,7 +104,7 @@ export const en = {
       },
     ],
     needs: "Needs",
-    requirements: "macOS 13 or later, and Claude Code, Codex, IBM Bob or a model provider for the analysis",
+    requirements: "macOS 13 or later, uv, and an agent login or API key for the analysis",
     app: "Prefer an app? Download it for Apple silicon",
     setsUp: "What the install sets up",
   },
@@ -114,13 +118,13 @@ export const en = {
       {
         tag: "Keep",
         title: "Keep the session behind the fix.",
-        body: "Claude Code clears transcripts after 30 days. Interlatch keeps sessions from the agents you connect, with their project and source, so the conversation behind last month's fix is still there when you need it.",
+        body: "Claude Code clears transcripts after 30 days by default. Interlatch keeps sessions from the agents you connect, with their project and source, so the conversation behind last month's fix is still there when you need it.",
         more: "What gets recorded",
       },
       {
         tag: "Learn",
         title: "Keep the lesson attached to its evidence.",
-        body: "Interlatch reads each finished session with your own Claude Code, Codex or IBM Bob, or a model provider you choose, and keeps fixes, gotchas, decisions and commands as project knowledge. Each lesson points back to its source session and earns trust as later work confirms it, so you can check the reasoning before reusing the answer.",
+        body: "Interlatch reads each finished session with the agent or model you choose, and keeps fixes, gotchas, decisions and commands as project knowledge. Each lesson points back to its source session and earns trust as later work confirms it, so you can check the reasoning before reusing the answer.",
         more: "How analysis works",
       },
       {
@@ -168,7 +172,7 @@ export const en = {
       {
         label: "Map",
         alt: "The glossary Map: your own vocabulary drawn as a collapsible mindmap",
-        text: "Your own vocabulary, drawn as a map of how your projects connect.",
+        text: "Your own vocabulary as a mindmap: each term, where your projects use it, and the lessons it came from.",
       },
       {
         label: "A project",
@@ -239,7 +243,7 @@ export const en = {
       },
       {
         title: "Teammates' lessons, in your agent.",
-        body: "After each push, your computer gets back what teammates learned in the same repositories, wherever each person cloned them. The MCP tools and start-of-session notes include them, marked as teammates'.",
+        body: "After each push, your computer gets back what teammates learned in the same repositories, wherever each person cloned them. The MCP tools include them, marked as teammates', and so do start-of-session notes if you turn them on.",
         page: "join-a-hub/",
       },
       {
@@ -287,16 +291,18 @@ export const en = {
       },
       {
         title: "Your models. Your accounts.",
-        body: "Analysis runs through your own Claude Code, Codex or Bob login or your own API key, with secrets redacted first. With Ollama, it never leaves your Mac. Memory retrieved through MCP goes to the connected agent and the model you use there. No key of ours in the middle.",
+        body: "Analysis runs through your own Claude Code or Codex login, a Bob API key or your own provider key, with secrets redacted first. With Ollama, it never leaves your Mac. Memory retrieved through MCP goes only to the agent you connected and its model. No key of ours in the middle.",
       },
       {
         title: "Keep the evidence in reach.",
-        body: "Extracted lessons stay linked to their source sessions and earn trust as later sessions confirm them. You and your agents can check the evidence and judge whether a lesson applies to the work ahead.",
+        body: "Each lesson shows how far it's been confirmed: seen once, established\u00a0×2, and canonical once three sessions spread over two weeks or more agree. The session it came from is one click away, and agents get the same label through MCP, so you and they can judge whether it fits the work ahead.",
       },
     ],
     closing: {
       title: "Give the next agent a head start.",
       body: "Bring in the sessions already on your Mac and connect the agents you use. Keep what they learn attached to your projects, ready to carry into the next task.",
+      // Under the command, which installs Interlatch and then sets it up; the middle part links to uv's install page.
+      needs: ["Needs ", "uv", " and macOS 13 or later."],
       guide: "Read the install guide",
       star: "Star it on GitHub",
     },

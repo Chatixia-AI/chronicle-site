@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Builds Interlatch's documentation into dist/docs/ and leaves a redirect at each of its old URLs.
+# Builds Interlatch's documentation into dist/docs/, then checks that firebase.json redirects each of its old URLs.
 #
-# The docs are written and reviewed in Chatixia-AI/agents-chronicle, next to the code they describe. This
-# builds them as they are, with a small config on top (docs-theme/mkdocs.site.yml) that serves them under
-# /docs/, matches this site's look, points the docs logo back at the home page, and gives the Japanese pages
-# (/docs/ja/) Japanese labels, a navigation of their own and a link to each page in the other language.
+# The docs are written and reviewed in Chatixia-AI/interlatch (agents-chronicle before the rename), next to the code
+# they describe. This builds them as they are, with a small config on top (docs-theme/mkdocs.site.yml) that serves
+# them under /docs/, matches this site's look, points the docs logo back at the home page, and gives the Japanese
+# pages (/docs/ja/) Japanese labels, a navigation of their own and a link to each page in the other language.
 #
-# CHRONICLE_SRC: a checkout of agents-chronicle (CI checks it out there); cloned from GitHub when missing.
+# CHRONICLE_SRC: a checkout of that repository (CI checks it out there); cloned from GitHub when missing.
 # Needs uv. Run after `pnpm run build`, which writes the rest of dist/.
 set -euo pipefail
 
@@ -16,7 +16,7 @@ case "$src" in /*) ;; *) src="$PWD/$src" ;; esac
 out="$here/dist/docs"
 
 if [ ! -d "$src/.git" ]; then
-  git clone --depth 1 https://github.com/Chatixia-AI/agents-chronicle "$src"
+  git clone --depth 1 https://github.com/Chatixia-AI/interlatch "$src"
 fi
 [ -d "$here/dist" ] || { echo "dist/ is missing: run pnpm run build first" >&2; exit 1; }
 

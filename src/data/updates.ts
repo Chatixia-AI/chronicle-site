@@ -30,7 +30,7 @@ async function loadUpdates(): Promise<Update[]> {
     // CI uses the same checkout as the docs. Local builds fetch the published changelog.
     const source = process.env.CHRONICLE_SRC;
     if (source) return parseUpdates(await readFile(join(source, "CHANGELOG.md"), "utf8"));
-    const response = await fetch("https://raw.githubusercontent.com/Chatixia-AI/agents-chronicle/main/CHANGELOG.md", {
+    const response = await fetch("https://raw.githubusercontent.com/Chatixia-AI/interlatch/main/CHANGELOG.md", {
       signal: AbortSignal.timeout(10_000),
     });
     if (!response.ok) throw new Error(`Changelog returned HTTP ${response.status}`);

@@ -20,4 +20,6 @@ extra_css:
   - assets/chronicle-site.css
 
 extra:
-  homepage: https://interlatch.com/
+  # The logo's link (partials/chronicle-lang.html adds ja/ on the Japanese pages). A path, not a full URL, so it stays
+  # on whichever address serves the docs: interlatch.com, interlatch.web.app or a preview channel.
+  homepage: /

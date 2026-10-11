@@ -10,24 +10,30 @@ interface Props {
   lang?: Lang;
   /** The page exists in both languages (the home page): declare the other one to search engines (hreflang). */
   translated?: boolean;
+  /** Keep the page out of search results (the 404 page): no canonical or og:url, which it has no address of its own for. */
+  noindex?: boolean;
 }
-const { title, description, lang = "en", translated = false } = Astro.props;
+const { title, description, lang = "en", translated = false, noindex = false } = Astro.props;
 const s = t(lang).base;
 const other: Lang = lang === "ja" ? "en" : "ja";
 const home = homePath(lang);
 const canonical = new URL(Astro.url.pathname, Astro.site);
+// The social preview image, at its real size. https://interlatch.com/... works only once the domain is connected.
+const ogImage = { url: new URL("/images/home.webp", Astro.site), width: 1440, height: 900 };
+// In the order the sections come on the page; the header shows them inline from lg up and in its menu below that.
 const nav = [
-  { label: s.nav.record, href: `${home}#record` },
   { label: s.nav.install, href: `${home}#install` },
+  { label: s.nav.record, href: `${home}#record` },
   { label: s.nav.team, href: `${home}#team` },
   { label: s.nav.docs, href: docsPage(lang) },
+  { label: s.nav.github, href: links.github },
 ];
 const footer = [
   {
     title: s.footer.product,
     items: [
-      [s.nav.record, `${home}#record`],
       [s.nav.install, `${home}#install`],
+      [s.nav.record, `${home}#record`],
       [s.nav.team, `${home}#team`],
       [s.footer.releases, links.releases],
       [s.footer.changelog, links.changelog],
@@ -66,7 +72,7 @@ const footer = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
     {
       translated && (
         <>
@@ -79,14 +85,19 @@ const footer = [
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta property="og:site_name" content={productName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:locale" content={lang === "ja" ? "ja_JP" : "en_US"} />
     {translated && <meta property="og:locale:alternate" content={other === "ja" ? "ja_JP" : "en_US"} />}
-    <meta property="og:image" content={new URL("/images/home.webp", Astro.site)} />
+    <meta property="og:image" content={ogImage.url} />
+    <meta property="og:image:width" content={String(ogImage.width)} />
+    <meta property="og:image:height" content={String(ogImage.height)} />
+    <meta property="og:image:alt" content={s.imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image:alt" content={s.imageAlt} />
     <meta name="theme-color" content="#081a31" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)" />
     <script is:inline>
@@ -102,8 +113,10 @@ const footer = [
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- IBM Plex Sans JP only on the Japanese page: its CSS alone is about 90 KB. The few Japanese words on an English
+         page use the system's Japanese font. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans+JP:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      href={`https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400${lang === "ja" ? "&family=IBM+Plex+Sans+JP:wght@400;500;600" : ""}&family=IBM+Plex+Mono:wght@400;500;600&display=swap`}
       rel="stylesheet"
     />
   </head>
@@ -120,11 +133,39 @@ const footer = [
           <span class="font-display text-lg font-semibold tracking-tight">{productName}</span>
           <span class="hidden font-plex-mono text-[10px] uppercase tracking-[0.18em] text-bp-faint sm:inline">{s.by}</span>
         </a>
-        <nav aria-label="Main" class="ml-auto hidden items-center gap-7 text-sm text-bp-dim lg:flex">
-          {nav.map((item) => <a href={item.href} class="hover:text-bp-ink">{item.label}</a>)}
-          <a href={links.github} class="hover:text-bp-ink">{s.nav.github}</a>
+        <nav aria-label={s.nav.label} class="ml-auto hidden items-center gap-7 text-sm text-bp-dim lg:flex">
+          {nav.map((item) => <a href={item.href} class="whitespace-nowrap hover:text-bp-ink">{item.label}</a>)}
         </nav>
         <div class="ml-auto flex items-center gap-3 lg:ml-0">
+          <!-- Below lg the links above don't fit: the same links in a menu. A <details> opens and closes from the
+               keyboard as well as the mouse; the script below closes it on Escape, on a click outside and on a link. -->
+          <details class="site-menu lg:hidden">
+            <summary
+              aria-label={s.menu}
+              title={s.menu}
+              class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-bp-rule2/50 text-bp-dim hover:text-bp-ink"
+            >
+              <svg class="open h-[16px] w-[16px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"
+                ><path d="M4 7h16M4 12h16M4 17h16"></path></svg
+              >
+              <svg class="close h-[16px] w-[16px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"
+                ><path d="M6 6l12 12M18 6L6 18"></path></svg
+              >
+            </summary>
+            <nav aria-label={s.nav.label} class="absolute inset-x-0 top-full border-b border-bp-rule/70 bg-bp-bg shadow-[0_18px_40px_-24px_var(--bp-shadow)]">
+              <ul class="mx-auto max-w-[1280px] px-5 py-2 sm:px-10">
+                {
+                  nav.map((item) => (
+                    <li class="border-b border-bp-rule/50 last:border-0">
+                      <a href={item.href} class="flex min-h-11 items-center whitespace-nowrap text-base text-bp-dim hover:text-bp-ink">
+                        {item.label}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </nav>
+          </details>
           <a
             href={`${home}#install`}
             class="hidden min-h-10 items-center whitespace-nowrap rounded-md bg-bp-cta px-4 text-sm font-semibold text-bp-cta-ink hover:bg-bp-cta-hover min-[400px]:inline-flex"
@@ -212,6 +253,20 @@ const footer = [
         label();
       });
       new MutationObserver(label).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+      // The narrow-screen menu closes on Escape (focus goes back to its button), on a click outside it, and when one
+      // of its links is followed: most of them are on this page, so nothing else would close it.
+      const menu = document.querySelector<HTMLDetailsElement>(".site-menu")!;
+      const summary = menu.querySelector("summary")!;
+      menu.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape" || !menu.open) return;
+        menu.open = false;
+        summary.focus();
+      });
+      document.addEventListener("click", (e) => {
+        if (menu.open && !menu.contains(e.target as Node)) menu.open = false;
+      });
+      for (const link of menu.querySelectorAll("a")) link.addEventListener("click", () => (menu.open = false));
     </script>
   </body>
 </html>

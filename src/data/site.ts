@@ -1,6 +1,6 @@
-// Links and copy shared across the pages. The docs live at /docs/, built from agents-chronicle; the Japanese docs
-// at /docs/ja/, with the same page names.
-const repo = "https://github.com/Chatixia-AI/agents-chronicle";
+// Links and copy shared across the pages. The docs live at /docs/, built from the Interlatch repository (called
+// agents-chronicle until the rename; its old URLs redirect); the Japanese docs at /docs/ja/, with the same page names.
+const repo = "https://github.com/Chatixia-AI/interlatch";
 
 export type Lang = "en" | "ja";
 
@@ -22,6 +22,7 @@ export const links = {
   changelog: `${repo}/blob/main/CHANGELOG.md`,
   pypi: "https://pypi.org/project/interlatch/",
   chatixia: "https://chatixia.net",
+  uv: "https://docs.astral.sh/uv/getting-started/installation/",
 };
 
 /** A docs page in the reader's language: docsPage("ja", "mcp/") is /docs/ja/mcp/. */
@@ -34,3 +35,7 @@ export const movingPage = (lang: Lang) => docsPage(lang, "moving-from-chronicle/
 export const homePath = (lang: Lang) => (lang === "ja" ? "/ja/" : "/");
 
 export const installCommand = "uv tool install --python 3.13 interlatch";
+
+/** Install, then set up: find the agents, import their sessions, start the dashboard. One line to paste. It runs
+ * interlatch from uv's tool folder, so it works before that folder is on PATH (uv from Homebrew doesn't add it). */
+export const setupCommand = `${installCommand} && "$(uv tool dir --bin)/interlatch" install`;

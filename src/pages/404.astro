@@ -1,5 +1,6 @@
 ---
-// GitHub Pages serves this one page for every missing address, so it says so in English and in Japanese.
+// Firebase Hosting serves this one page for every missing address, so it says so in English and in Japanese. It has
+// no address of its own, so it asks search engines not to index it.
 import Base from "../layouts/Base.astro";
 import { docsPage, homePath } from "../data/site";
 import { t } from "../i18n";
@@ -8,7 +9,7 @@ const en = t("en").notFound;
 const ja = t("ja").notFound;
 ---
 
-<Base title={en.title} description={en.description}>
+<Base title={en.title} description={en.description} noindex>
   <section class="mx-auto flex max-w-[720px] flex-col items-center px-5 py-32 text-center">
     <p class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-bp-gold">{en.kicker}</p>
     <h1 class="mt-4 font-display text-5xl font-semibold tracking-[-0.04em]">{en.heading}</h1>
