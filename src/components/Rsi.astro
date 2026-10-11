@@ -1,0 +1,50 @@
+---
+// Record, Search, Increment: the loop that makes each session start ahead of the last, with a nod to the other RSIs.
+import SectionHead from "./SectionHead.astro";
+import type { Lang } from "../data/site";
+import { t } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang).rsi;
+---
+
+<section class="border-b border-bp-rule/70">
+  <div class="mx-auto max-w-[1280px] px-5 py-20 sm:px-10 lg:px-16 lg:py-28">
+    <SectionHead label={s.label} title={s.title} body={s.body} />
+    <div class="relative mt-12">
+      <ol class="grid gap-5 md:grid-cols-3">
+        {
+          s.steps.map((step, i) => (
+            <li class="relative border-t-2 border-bp-teal/80 bg-bp-panel/50 p-6">
+              <p class="flex items-baseline gap-3">
+                <span class="font-display text-6xl font-semibold leading-none tracking-tight text-bp-teal" aria-hidden="true">
+                  {step.letter}
+                </span>
+                <span class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-bp-gold">{step.name}</span>
+              </p>
+              <p class="mt-4 leading-relaxed text-bp-dim">{step.body}</p>
+              {i < s.steps.length - 1 && (
+                <span
+                  class="absolute -right-[18px] top-9 z-10 hidden h-8 w-8 items-center justify-center rounded-full border border-bp-rule2 bg-bp-bg font-plex-mono text-sm text-bp-teal md:flex"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+      <div class="relative mx-[16.66%] hidden h-8 rounded-b-xl border-x border-b border-dashed border-bp-teal/70 md:block" aria-hidden="true">
+        <span class="absolute -left-[7px] -top-[9px] font-plex-mono text-xs leading-none text-bp-teal">▲</span>
+      </div>
+      <p class="mt-5 flex items-center gap-2 font-plex-mono text-sm text-bp-dim md:justify-center">
+        <span class="text-bp-teal" aria-hidden="true">↺</span>
+        {s.loop}
+      </p>
+    </div>
+  </div>
+</section>
