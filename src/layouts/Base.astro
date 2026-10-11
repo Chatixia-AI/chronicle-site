@@ -1,7 +1,7 @@
 ---
 // Every page's shell: head, header and footer, in the Chatixia blueprint style, in English or Japanese.
 import "../styles/global.css";
-import { docsPage, homePath, links, type Lang } from "../data/site";
+import { docsPage, homePath, links, productName, type Lang } from "../data/site";
 import { t } from "../i18n";
 
 interface Props {
@@ -31,6 +31,7 @@ const footer = [
       [s.nav.team, `${home}#team`],
       [s.footer.releases, links.releases],
       [s.footer.changelog, links.changelog],
+      [s.footer.roadmap, lang === "ja" ? links.roadmapJa : links.roadmap],
     ],
   },
   {
@@ -47,6 +48,10 @@ const footer = [
     title: s.footer.elsewhere,
     items: [
       ["GitHub", links.github],
+      [s.footer.community, links.qa],
+      [s.footer.ideas, links.ideas],
+      [s.footer.issues, links.issues],
+      [s.footer.contributing, links.contributing],
       ["PyPI", links.pypi],
       ["chatixia.net", links.chatixia],
     ],
@@ -112,7 +117,7 @@ const footer = [
       <div class="mx-auto flex h-16 max-w-[1280px] items-center gap-3 px-5 sm:gap-6 sm:px-10 lg:px-16">
         <a href={home} class="flex shrink-0 items-center gap-2.5" aria-label={s.home}>
           <img src="/images/icon.webp" alt="" width="28" height="28" class="h-7 w-7" />
-          <span class="font-display text-lg font-semibold tracking-tight">Chronicle</span>
+          <span class="font-display text-lg font-semibold tracking-tight">{productName}</span>
           <span class="hidden font-plex-mono text-[10px] uppercase tracking-[0.18em] text-bp-faint sm:inline">{s.by}</span>
         </a>
         <nav aria-label="Main" class="ml-auto hidden items-center gap-7 text-sm text-bp-dim lg:flex">
@@ -166,7 +171,7 @@ const footer = [
         <div>
           <div class="flex items-center gap-2.5">
             <img src="/images/icon.webp" alt="" width="24" height="24" class="h-6 w-6" />
-            <span class="font-display font-semibold">Chronicle</span>
+            <span class="font-display font-semibold">{productName}</span>
           </div>
           <p class="mt-3 max-w-xs text-sm leading-relaxed text-bp-dim">
             {s.footer.blurb[0]}<a href={links.chatixia} class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold">Chatixia</a>{s.footer.blurb[1]}

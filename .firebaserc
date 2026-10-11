@@ -1,0 +1,13 @@
+{
+  "projects": {
+    "default": "interlatch"
+  },
+  "targets": {
+    "interlatch": {
+      "hosting": {
+        "site": ["interlatch"],
+        "old-domain": ["chronicle-chatixia-net"]
+      }
+    }
+  }
+}

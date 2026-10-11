@@ -4,21 +4,21 @@ import type { Strings } from "./en";
 
 export const ja: Strings = {
   meta: {
-    title: "Chronicle：すべてのコーディングエージェントのセッションを、検索できる記憶に",
+    title: "Interlatch：コーディングエージェントが共有する記憶",
     description:
-      "Chronicle は Claude Code、Codex、Copilot、IBM Bob、Antigravity のすべてのセッションを Mac に保存し、学んだことを書き留めて、あなたとエージェントに返します。",
+      "コーディングエージェントが共有する記憶。すべてのセッションを手元のマシンに記録し、どの教訓も、元のセッション、プロジェクト、エージェントにつながったまま残ります。",
   },
 
   base: {
     skip: "本文へ移動",
-    home: "Chronicle ホーム",
+    home: "Interlatch ホーム",
     by: "by Chatixia",
     nav: { record: "できること", install: "インストール", team: "チーム", docs: "ドキュメント", github: "GitHub" },
     cta: "インストール",
     theme: { light: "ライトテーマに切り替え", dark: "ダークテーマに切り替え" },
     other: { label: "English", title: "Read this page in English" },
     footer: {
-      blurb: ["実行したすべてのコーディングエージェントのセッションを、検索できる記憶に。", " の一部です。"],
+      blurb: ["コーディングエージェントが共有する記憶。学びを残し、次の作業につなぐ。", " の一部です。"],
       license: "MIT ライセンス · テレメトリなし",
       product: "製品",
       releases: "リリース",
@@ -30,21 +30,31 @@ export const ja: Strings = {
       hub: "チームのハブ",
       otherDocs: { label: "English", page: "/docs/" },
       elsewhere: "関連リンク",
+      issues: "不具合を報告",
+      contributing: "貢献ガイド",
+      community: "コミュニティ Q&A",
+      ideas: "機能のリクエスト",
+      roadmap: "ロードマップ",
     },
   },
 
   copy: { copy: "コピー", copied: "コピーしました", select: "選択してください" },
 
+  renamed: {
+    text: ["Interlatch の旧名は Chronicle です。", { code: "chronicle" }, " コマンドもそのまま使え、セッションと設定は自動で引き継がれます。"],
+    link: "Chronicle からの移行",
+  },
+
   hero: {
-    kicker: "コーディングエージェントの作業日誌",
-    title: ["エージェントは忘れる。", "Chronicle は覚えている。"],
-    body: "Claude Code はトランスクリプトを 30 日で削除し、あるセッションで見つけた修正が次のセッションに引き継がれることもありません。Chronicle は Claude Code、Codex、Copilot、IBM Bob、Antigravity のすべてのセッションを Mac に保存し、学んだことを書き留めて、あなたとエージェントに返します。",
-    aside: { lang: "en", text: "A searchable memory of every coding-agent session you run." },
+    kicker: "コーディングエージェントが共有する記憶",
+    title: ["エージェントが変わっても、", "学びは残る。"],
+    body: "Interlatch は、使っているすべてのコーディングエージェントのセッションを手元の Mac に記録します。そこから得た教訓は、元のセッション、プロジェクト、エージェントにつながったまま残り、後の作業で確かめられるたびに信頼度が上がります。",
+    aside: { lang: "en", text: "Different agents. Knowledge that stays." },
     start: "はじめる",
-    see: "保存される内容を見る",
+    see: "学びがつながる仕組みを見る",
     facts: "macOS 13 以降 · 無料のオープンソース · テレメトリなし",
     card: {
-      log: "ログ · billing-api",
+      log: "共有する記憶 · billing-api",
       meta: "今日 14:52 · Claude Code · ",
       title: "Stripe が invoice.paid を再送しても二重請求しないようにする",
       status: "完了 · 教訓を 4 件保存",
@@ -57,16 +67,19 @@ export const ja: Strings = {
         { code: "await request.body()" },
         " をそのまま渡します。",
       ],
-      tink: "Chronicle のガイド、Blueprint Cast の Tink：チェックリストを持った小さなロボットと、ログの行が並ぶ巻物",
-      caption: "すべてのセッションを保存し、読む",
+      tink: "Interlatch のガイド、Blueprint Cast の Tink：クリップボードの項目にチェックを入れる小さなロボット",
+      next: "次のセッション · Codex",
+      reuse: "生のリクエストボディを使います。理由は、前の Claude Code セッションで確認できます。",
+      source: "出典を保存 · Claude Code · billing-api",
+      caption: "例 · Claude Code で学び、Codex で使う",
       keeper: "記録をつけるのは Tink",
     },
   },
 
   install: {
     label: "01 / セットアップ",
-    title: "1 分で動き出す。",
-    body: "Chronicle は uv でインストールし、エージェントのファイルを変更せずに読みます。分析はあなた自身の Claude Code、Codex、IBM Bob、またはあなたのキーで使うモデルプロバイダーの API で行います。Anthropic、Amazon Bedrock、OpenAI、Azure OpenAI、OpenRouter、そして Mac 上の Ollama も使えます。",
+    title: "エージェントをつなぎ、学びを残す。",
+    body: "Interlatch は uv でインストールし、エージェントのセッションファイルを変更せずに読みます。記録を残し、学びを次のセッションに備えます。分析はあなた自身の Claude Code、Codex、IBM Bob、またはあなたのキーで使うモデルプロバイダーの API で行います。Anthropic、Amazon Bedrock、OpenAI、Azure OpenAI、OpenRouter、そして Mac 上の Ollama も使えます。",
     step: "ステップ",
     steps: [
       {
@@ -78,8 +91,8 @@ export const ja: Strings = {
         body: "Claude Code、Codex、Copilot、Bob、Antigravity をいつもどおり使うだけ。各セッションは終わると記録され、バックグラウンドで読まれます。",
       },
       {
-        title: "記録を開く",
-        body: "ダッシュボードは 127.0.0.1:11524 で動きます。⌘K ですべてを検索したり、先週何を学んだかをエージェントに聞いたりできます。",
+        title: "次の作業に引き継ぐ",
+        body: "ダッシュボードは 127.0.0.1:11524 で動きます。⌘K で過去の作業を検索し、MCP で接続したエージェントにもプロジェクトの学びを届けられます。",
       },
     ],
     needs: "必要なもの",
@@ -89,33 +102,33 @@ export const ja: Strings = {
   },
 
   record: {
-    label: "02 / 記録",
-    title: "すべてのセッションが、使えるものになる。",
-    body: "Chronicle は元の記録を保存して読み、必要な場所に返します。ダッシュボードに、エージェントに、そしてコードのそばに。",
+    label: "02 / 引き継がれる記憶",
+    title: "学びを残し、次の作業につなぐ。",
+    body: "セッションが終わっても、学びはプロジェクトと元の記録に結びついたまま残ります。次のエージェントにも、ダッシュボードにも、コードのそばにも。",
     entry: "エントリー",
     entries: [
       {
         tag: "保存",
-        title: "セッションを失わない。",
-        body: "Claude Code はトランスクリプトを 30 日で消去します。Chronicle は接続したすべてのエージェントのセッションを、終わるたびに保管します。先月の障害を直した会話も、来年まで残ります。",
+        title: "元のセッションを残す。",
+        body: "Interlatch は接続したエージェントのセッションを、終わるたびに保管します。修正を見つけた会話がツール側で消えても、判断の根拠をたどれます。",
         more: "記録される内容",
       },
       {
         tag: "学習",
-        title: "教訓を、代わりに書き留める。",
-        body: "Chronicle は終わったセッションを、あなた自身の Claude Code、Codex、IBM Bob、または選んだモデルプロバイダーで読み、修正、落とし穴、決定、コマンドなど、残す価値のあるものを保存します。それらはプロジェクトごとのナレッジベースにまとまり、別のセッションで確かめられるたびに信頼度が上がります。",
+        title: "教訓と根拠を、いっしょに残す。",
+        body: "Interlatch は終わったセッションを、あなた自身の Claude Code、Codex、IBM Bob、または選んだモデルプロバイダーで読み、修正、落とし穴、決定、コマンドをプロジェクトの知識として残します。どの教訓も元のセッションをたどれ、後の作業で確かめられるたびに信頼度が上がります。使う前に、その根拠を確認できます。",
         more: "分析の仕組み",
       },
       {
-        tag: "質問",
-        title: "エージェントから質問できる。",
-        body: "MCP サーバーを通じて、エージェントは一から考え直す前に過去のセッションを検索できます。このエラーは前にも出たか、なぜここで Postgres を選んだのか、このプロジェクトはどうデプロイするのか。Claude Desktop、Cursor、Windsurf、Gemini CLI からも接続できます。",
+        tag: "共有",
+        title: "前のエージェントの学びを、次へ。",
+        body: "Copilot が見つけた落とし穴を、次の Codex セッションで使えます。MCP で接続したエージェントは、過去のセッションとプロジェクトの知識を検索できます。Claude Desktop、Cursor、Windsurf、Gemini CLI からも利用できます。",
         more: "MCP サーバー",
       },
       {
-        tag: "発見",
-        title: "コードのすぐ横に。",
-        body: "VS Code 拡張機能は、開いているファイルの背後にあるセッションと、ワークスペースでエージェントが作業したすべてのファイルを表示します。このコードはなぜこうなっているのか？ワンクリックで、それを書いたセッションが読めます。",
+        tag: "出典",
+        title: "コードから、判断の理由をたどる。",
+        body: "VS Code 拡張機能は、開いているファイルの背後にあるセッションと、ワークスペースでエージェントが作業したファイルを表示します。どのエージェントが変更していても、元の会話を開いて理由を確認できます。",
         more: "VS Code 拡張機能",
       },
     ],
@@ -123,11 +136,11 @@ export const ja: Strings = {
 
   showcase: {
     label: "03 / ダッシュボード",
-    title: "記録のすべてを読む。",
-    body: "すべてを眺められるローカルのダッシュボード。Mac でも、Tailscale 経由のスマートフォンでも、ほかのコンピューターやチームと共有する 1 台のハブでも開けます。",
+    title: "根拠まで読める記憶。",
+    body: "異なるエージェントのセッション、そこから得た教訓、その出典となった会話を確認できます。ダッシュボードはあなた自身のマシンで動き、Mac でも、Tailscale 経由のスマートフォンでも、ほかのコンピューターやチームと共有する 1 台のハブでも開けます。",
     tour: "1 分でわかるツアー",
     tourAlt:
-      "デモデータで見る Chronicle ダッシュボードの 1 分ツアー：ホーム、トランスクリプトと抽出したナレッジを含むセッション、⌘K 検索、用語集のマップ、週次の振り返り",
+      "デモデータで見る Interlatch ダッシュボードの 1 分ツアー：ホーム、トランスクリプトと抽出したナレッジを含むセッション、⌘K 検索、用語集のマップ、週次の振り返り",
     tourText: "ホーム、学んだことつきのセッション、⌘K 検索、マップ、週次の振り返り。",
     demo: "架空のデモデータ（英語）",
     screens: "画面ごとに",
@@ -135,18 +148,18 @@ export const ja: Strings = {
     shots: [
       {
         label: "ホーム",
-        alt: "Chronicle のホーム：今週のセッション、統計、最近のナレッジ",
+        alt: "Interlatch のホーム：今週のセッション、統計、最近のナレッジ",
         text: "今週をひと目で：セッション、そのコスト、そこから学んだこと。",
       },
       {
         label: "セッション",
         alt: "要約、結果、抽出したナレッジ、トランスクリプト全体を表示したセッションページ",
-        text: "どのセッションにも、要約、結果、取り出した教訓、そしてトランスクリプト全体。",
+        text: "教訓と元のセッションをいっしょに読む。要約、結果、トランスクリプト全体まで。",
       },
       {
         label: "⌘K 検索",
         alt: "セッション、ナレッジ、ページをまとめて検索する ⌘K パレット",
-        text: "キーひとつで、すべてのセッション、すべての教訓、すべてのページを検索。",
+        text: "エージェントをまたいで検索。キーひとつで、セッション、教訓、ページへ。",
       },
       {
         label: "マップ",
@@ -155,7 +168,7 @@ export const ja: Strings = {
       },
       {
         label: "プロジェクト",
-        alt: "プロジェクトのページ：セッション、時間とコスト、Chronicle が保つナレッジベース、落とし穴と決定",
+        alt: "プロジェクトのページ：セッション、時間とコスト、Interlatch が保つナレッジベース、落とし穴と決定",
         text: "プロジェクトごとのナレッジベース。落とし穴、決定、コマンドを、セッションが増えるたびに書き直します。",
       },
       {
@@ -190,9 +203,9 @@ export const ja: Strings = {
   },
 
   sources: {
-    label: "04 / ソース",
+    label: "04 / エージェントをまたいで",
     title: "すべてのエージェントを、ひとつの記録に。",
-    body: "どのエージェントも、同じダッシュボード、同じナレッジベース、同じ MCP ツールを共有します。設定から、または chronicle connect でいつでも追加できます。",
+    body: "使うエージェントを変えても、プロジェクトの知識は同じアーカイブに残ります。設定から、または interlatch connect でソースを追加し、MCP で次のエージェントから検索できます。",
     agents: [
       { name: "Claude Code", when: "セッションが終わるたびに" },
       { name: "Codex", when: "15 分ごと（アイドル後）" },
@@ -202,13 +215,13 @@ export const ja: Strings = {
       { name: "Google Antigravity", when: "15 分ごと" },
       { name: "claude.ai と ChatGPT", when: "データのエクスポートから" },
     ],
-    mcp: ["Claude Desktop、Cursor、Windsurf、Gemini CLI も ", "MCP サーバー", " を使えます。"],
+    mcp: ["Claude Desktop、Cursor、Windsurf、Gemini CLI にも ", "MCP サーバー", " を通じて同じ記憶を届けられます。"],
   },
 
   team: {
     label: "05 / チーム",
     title: "ひとりのエージェントが学び、チーム全員が知る。",
-    body: "チームのサーバーでハブを動かせば、各自の Chronicle が学んだことをそこで共有します。トランスクリプトは各自のコンピューターに残せます。ハブが受け取るのは教訓だけで、同じリポジトリでチームメイトが学んだことを、全員のエージェントに返します。",
+    body: "チームのサーバーでハブを動かせば、各自の Interlatch が学んだことをそこで共有します。トランスクリプトは各自のコンピューターに残せます。ハブが受け取るのは教訓だけで、同じリポジトリでチームメイトが学んだことを、全員のエージェントに返します。",
     points: [
       {
         title: "Docker でハブを動かす。",
@@ -236,8 +249,8 @@ export const ja: Strings = {
   },
 
   rules: {
-    label: "06 / ルール",
-    title: "守っている 3 つのルール。",
+    label: "06 / 信頼できる記憶",
+    title: "共有する知識に、確かめられる根拠を。",
     rule: "ルール",
     rules: [
       {
@@ -245,17 +258,17 @@ export const ja: Strings = {
         body: "私たちのサーバーも、テレメトリも、アカウントもありません。アーカイブとそこから学んだことはすべて、あなた自身のマシンにあります。チームのハブも、チームが選んだサーバーで動きます。",
       },
       {
-        title: "あなたのアカウントで動く。",
-        body: "外に送るのは分析だけです。秘密情報を伏せた要約を、あなた自身の Claude Code、Codex、Bob のログイン、またはあなたの API キーで送ります。Ollama なら Mac の外には何も出ません。間に私たちのキーは入りません。",
+        title: "モデルもアカウントも、あなたが選ぶ。",
+        body: "分析は秘密情報を伏せてから、あなた自身の Claude Code、Codex、Bob のログイン、またはあなたの API キーで行います。Ollama なら Mac の外には出ません。MCP で取り出した記憶は、接続先のエージェントとそこで使うモデルに渡ります。間に私たちのキーは入りません。",
       },
       {
-        title: "わからないことは、わからないと言う。",
-        body: "教訓は「1 回のみ」から始まり、後のセッションで確かめられるたびに信頼を得ます。Chronicle は推測するより、そう伝えることを選びます。",
+        title: "根拠を、いつでも確かめられる。",
+        body: "抽出した教訓は元のセッションに結びつき、後のセッションで確かめられるたびに信頼度が上がります。あなたもエージェントも根拠を読み、今の作業に当てはまるか判断できます。",
       },
     ],
     closing: {
-      title: "記録をつけはじめよう。",
-      body: "インストールは一度だけ。それ以降のすべてのセッションと、すでに Mac にあるセッションが記録になります。",
+      title: "次のエージェントに、手がかりを。",
+      body: "インストールして、使っているエージェントを接続。すでに Mac にあるセッションから、これからの作業まで、プロジェクトの知識として残せます。",
       guide: "インストールガイドを読む",
       star: "GitHub でスターする",
     },
@@ -277,7 +290,7 @@ export const ja: Strings = {
     },
     knowledge: {
       caption: "ナレッジ · billing-api",
-      note: "自動で抽出し、後のセッションで確認",
+      note: "元のセッションとともに保存し、後の作業で確認",
       items: [
         {
           kind: "修正",
@@ -297,14 +310,15 @@ export const ja: Strings = {
       ],
     },
     ask: {
-      caption: "ターミナル · infra",
-      note: "エージェントがまず検索し、半日のデバッグを省いた",
+      caption: "例 · Codex · infra",
+      note: "Codex が、前の Copilot セッションの教訓を検索",
       you: "あなた ›",
-      agent: "エージェント ›",
+      agent: "Codex ›",
       question: 'デプロイが "Not authorized to perform sts:AssumeRoleWithWebIdentity" で失敗する。前にも見た？',
-      found: "落とし穴 1 件 · infra · 定着 ×2",
+      found: "落とし穴 1 件 · infra · Copilot · 定着 ×2",
+      source: "出典 · Copilot · アクセスキーの代わりに OIDC で GitHub Actions からデプロイ",
       answer: [
-        "はい、先週 infra で出ています。",
+        "はい、先週の Copilot セッションで見つかっています。",
         { code: "environment:" },
         " を指定したジョブでは OIDC トークンの sub が ",
         { code: "repo:ORG/REPO:environment:NAME" },
@@ -330,13 +344,34 @@ export const ja: Strings = {
       you: "あなたのエージェント、次のセッションで",
     },
     editor: {
-      note: "開いているファイルの背後のセッションと、ワークスペース全体",
+      note: "コードから、元のエージェント、プロジェクト、セッションへ",
       sessions: ["Stripe が invoice.paid を再送しても二重請求しないようにする", "デプロイ後に督促メールが重複して送られないようにする"],
     },
   },
 
+  help: {
+    label: "リソースとコミュニティ",
+    title: "最新情報を知る。一緒につくる。",
+    updates: "最近の更新",
+    viewAll: "すべて見る",
+    changelogFallback: "変更履歴を読む",
+    guides: "ガイド",
+    guideItems: [
+      { title: "はじめに", body: "Interlatch をインストールし、過去のセッションを保存。", page: "install/" },
+      { title: "MCP で接続", body: "次のエージェントに、プロジェクトの学びを届ける。", page: "mcp/" },
+      { title: "スマートフォンとほかのコンピューター", body: "デバイスをまたいでひとつのアーカイブに。", page: "devices/" },
+    ],
+    community: "サポートと貢献",
+    qa: "コミュニティに質問",
+    ideas: "機能を提案・投票",
+    roadmap: "ロードマップを見る",
+    announcements: "お知らせを読む",
+    issues: "不具合を報告",
+    contributing: "コードやドキュメントで貢献",
+  },
+
   notFound: {
-    title: "見つかりません · Chronicle",
+    title: "見つかりません · Interlatch",
     description: "このページは記録にありません。",
     kicker: "404 · 該当なし",
     heading: "このページは記録にありません。",

@@ -156,7 +156,7 @@ html {
   border-width: 0 2px 2px 0;
 }
 
-/* Chronicle's own feel: a logbook. Ruled lines like a ledger page, and a spine the entries hang from. */
+/* Interlatch's own feel: a logbook. Ruled lines like a ledger page, and a spine the entries hang from. */
 .ledger {
   background-image: repeating-linear-gradient(
     to bottom,

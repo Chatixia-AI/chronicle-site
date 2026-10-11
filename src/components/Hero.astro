@@ -1,8 +1,9 @@
 ---
-// The opening: the promise on the left, a deck of logged sessions on the right with Tink keeping the record,
+// The opening: one agent learns, and another reuses the lesson with its source intact. Tink keeps the record,
 // ticking items off the clipboard.
 import CastLoop from "./CastLoop.astro";
 import CopyCommand from "./CopyCommand.astro";
+import Renamed from "./Renamed.astro";
 import Segs from "./Segs.astro";
 import { docsPage, installCommand, type Lang } from "../data/site";
 import { t } from "../i18n";
@@ -45,6 +46,7 @@ const s = t(lang).hero;
         {s.aside.text}
       </p>
       <CopyCommand lang={lang} command={installCommand} class="mt-9 max-w-[570px]" />
+      <Renamed lang={lang} class="mt-2 max-w-[570px]" />
       <div class="mt-5 flex flex-wrap gap-3">
         <a
           href={docsPage(lang, "install/")}
@@ -97,7 +99,14 @@ const s = t(lang).hero;
         />
       </div>
 
-      <figcaption class="mt-10 flex items-center justify-between border-t border-bp-rule/80 pt-3 font-plex-mono text-[10px] uppercase tracking-[0.15em] text-bp-dim">
+      <div class="relative mt-14 rounded-md border border-bp-teal/40 bg-bp-bg/70 p-4">
+        <span class="absolute -top-8 left-5 h-8 border-l border-dashed border-bp-teal/60" aria-hidden="true"></span>
+        <p class="font-plex-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-bp-teal">{s.card.next}</p>
+        <p class="mt-2 text-sm leading-relaxed text-bp-ink">{s.card.reuse}</p>
+        <p class="mt-3 border-t border-bp-rule/70 pt-2 font-plex-mono text-[10px] leading-relaxed text-bp-dim">{s.card.source}</p>
+      </div>
+
+      <figcaption class="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-bp-rule/80 pt-3 font-plex-mono text-[10px] uppercase tracking-[0.15em] text-bp-dim">
         <span>{s.card.caption}</span>
         <span class="text-bp-gold">{s.card.keeper}</span>
       </figcaption>

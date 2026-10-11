@@ -1,0 +1,19 @@
+---
+// One line under the install command for people who know it as Chronicle: the old command still works, and the docs
+// say what moved.
+import Segs from "./Segs.astro";
+import { movingPage, type Lang } from "../data/site";
+import { t } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+const { lang, class: className = "" } = Astro.props;
+const s = t(lang).renamed;
+---
+
+<p class:list={["text-xs leading-relaxed text-bp-faint", className]}>
+  <Segs segs={s.text} codeClass="font-plex-mono text-bp-dim" />
+  <a href={movingPage(lang)} class="text-bp-dim underline decoration-bp-rule2 underline-offset-4 hover:text-bp-ink">{s.link}</a>
+</p>

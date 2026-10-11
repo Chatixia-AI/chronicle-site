@@ -5,14 +5,14 @@ export type Seg = string | { code: string };
 
 export const en = {
   meta: {
-    title: "Chronicle: a searchable memory of every coding-agent session",
+    title: "Interlatch: shared memory for your coding agents",
     description:
-      "Chronicle keeps every Claude Code, Codex, Copilot, IBM Bob and Antigravity session on your Mac, writes down what was learned, and gives it back to you and your agents.",
+      "Shared memory for your coding agents. Every session recorded on your own machines, and every lesson linked to the session, project and agent it came from.",
   },
 
   base: {
     skip: "Skip to content",
-    home: "Chronicle home",
+    home: "Interlatch home",
     by: "by Chatixia",
     nav: { record: "What it does", install: "Install", team: "Teams", docs: "Docs", github: "GitHub" },
     cta: "Install",
@@ -20,7 +20,7 @@ export const en = {
     // The link to the page in the other language, written in that language.
     other: { label: "日本語", title: "日本語のページへ" },
     footer: {
-      blurb: ["A searchable memory of every coding-agent session you run. Part of ", "."],
+      blurb: ["Shared memory for your coding agents. Keep the work. Carry it forward. Part of ", "."],
       license: "MIT license · no telemetry",
       product: "Product",
       releases: "Releases",
@@ -32,22 +32,33 @@ export const en = {
       hub: "A hub for your team",
       otherDocs: { label: "日本語", page: "/docs/ja/" },
       elsewhere: "Elsewhere",
+      issues: "Report a bug",
+      contributing: "Contributing guide",
+      community: "Community Q&A",
+      ideas: "Feature requests",
+      roadmap: "Roadmap",
     },
   },
 
   copy: { copy: "Copy", copied: "Copied", select: "Select it" },
 
+  // Under the install command, for people who know it by its old name.
+  renamed: {
+    text: ["Interlatch was called Chronicle: ", { code: "chronicle" }, " still works, and your sessions and settings move over automatically. "] as Seg[],
+    link: "Moving from Chronicle",
+  },
+
   hero: {
-    kicker: "A logbook for your coding agents",
-    title: ["Your agents forget.", "Chronicle remembers."],
-    body: "Claude Code deletes transcripts after 30 days, and nothing carries a fix from one session to the next. Chronicle keeps every session from Claude Code, Codex, Copilot, IBM Bob and Antigravity on your Mac, writes down what was learned, and hands it back to you and your agents.",
+    kicker: "Shared memory for your coding agents",
+    title: ["Different agents.", "Knowledge that stays."],
+    body: "Interlatch records the sessions of every coding agent you use, on your own Mac. Each lesson it takes from them stays linked to the session, project and agent it came from, and earns trust as later work confirms it.",
     // The tagline in the other language, under the English one.
-    aside: { lang: "ja", text: "コーディングエージェントのすべてのセッションを、検索できる記憶に。" },
+    aside: { lang: "ja", text: "エージェントが変わっても、学びは残る。" },
     start: "Get started",
-    see: "See what it keeps",
+    see: "See how memory carries forward",
     facts: "macOS 13+ · free and open source · no telemetry",
     card: {
-      log: "Log · billing-api",
+      log: "Shared memory · billing-api",
       meta: "Today 14:52 · Claude Code · ",
       title: "Stop double charges when Stripe retries invoice.paid",
       status: "completed · 4 lessons kept",
@@ -60,16 +71,19 @@ export const en = {
         { code: "await request.body()" },
         " and pass that.",
       ] as Seg[],
-      tink: "Tink, Chronicle's guide from the Blueprint Cast: a small robot with a checklist, beside a scroll of log lines",
-      caption: "Every session, kept and read",
+      tink: "Tink, Interlatch's guide from the Blueprint Cast: a small robot ticking items off a clipboard",
+      next: "Next session · Codex",
+      reuse: "I'll use the raw request body. The earlier Claude Code session explains why.",
+      source: "Source kept · Claude Code · billing-api",
+      caption: "Example · learned in Claude Code, used in Codex",
       keeper: "Tink keeps the record",
     },
   },
 
   install: {
     label: "01 / Set up",
-    title: "Running in a minute.",
-    body: "Chronicle installs with uv and reads your agents' files without changing them. The analysis runs through your own Claude Code, Codex or IBM Bob, or a model provider's API with your own key: Anthropic, Amazon Bedrock, OpenAI, Azure OpenAI, OpenRouter, or Ollama on your own Mac.",
+    title: "Connect your agents. Keep what they learn.",
+    body: "Interlatch installs with uv and reads your agents' session files without changing them. It keeps the record and has the lessons ready for the next session. The analysis runs through your own Claude Code, Codex or IBM Bob, or a model provider's API with your own key: Anthropic, Amazon Bedrock, OpenAI, Azure OpenAI, OpenRouter, or Ollama on your own Mac.",
     step: "Step",
     steps: [
       {
@@ -81,8 +95,8 @@ export const en = {
         body: "Use Claude Code, Codex, Copilot, Bob or Antigravity as you always do. Each session is recorded once it ends and read in the background.",
       },
       {
-        title: "Open the record",
-        body: "The dashboard runs at 127.0.0.1:11524. Press ⌘K to search everything, or ask your agent what it learned last week.",
+        title: "Carry the context forward",
+        body: "Search earlier work with ⌘K in the dashboard at 127.0.0.1:11524, or let a connected agent retrieve project knowledge through MCP before it tackles the next problem.",
       },
     ],
     needs: "Needs",
@@ -92,33 +106,33 @@ export const en = {
   },
 
   record: {
-    label: "02 / The record",
-    title: "Every session becomes something you can use.",
-    body: "Chronicle keeps the raw record, reads it, and gives it back where you need it: in a dashboard, to your agents, and beside your code.",
+    label: "02 / Memory that carries forward",
+    title: "Keep the work. Carry it forward.",
+    body: "A session ends. Its lessons stay with the project, linked to the work that produced them and ready for another agent to retrieve.",
     entry: "Entry",
     entries: [
       {
         tag: "Keep",
-        title: "Never lose a session.",
-        body: "Claude Code clears its transcripts after 30 days. Chronicle archives every session as it ends, from every agent you connect, so the conversation that fixed last month's outage is still there next year.",
+        title: "Keep the session behind the fix.",
+        body: "Claude Code clears transcripts after 30 days. Interlatch keeps sessions from the agents you connect, with their project and source, so the conversation behind last month's fix is still there when you need it.",
         more: "What gets recorded",
       },
       {
         tag: "Learn",
-        title: "Lessons, written down for you.",
-        body: "Chronicle reads each finished session with your own Claude Code, Codex or IBM Bob, or a model provider you choose, and keeps what's worth keeping: fixes, gotchas, decisions, commands. They merge into a knowledge base per project, and earn trust each time another session confirms them.",
+        title: "Keep the lesson attached to its evidence.",
+        body: "Interlatch reads each finished session with your own Claude Code, Codex or IBM Bob, or a model provider you choose, and keeps fixes, gotchas, decisions and commands as project knowledge. Each lesson points back to its source session and earns trust as later work confirms it, so you can check the reasoning before reusing the answer.",
         more: "How analysis works",
       },
       {
-        tag: "Ask",
-        title: "Your agents can ask.",
-        body: "Through its MCP server, an agent can search your past sessions before it re-derives anything: have we hit this error before, why did we choose Postgres here, how is this project deployed. Claude Desktop, Cursor, Windsurf and Gemini CLI can connect too.",
+        tag: "Share",
+        title: "Let the next agent use what the last learned.",
+        body: "A Copilot session finds why a deployment failed. Later, Codex can retrieve that lesson through MCP, see the source and use the fix. Connected agents search the same project memory, even when you switch tools or start a fresh session.",
         more: "The MCP server",
       },
       {
-        tag: "Find",
-        title: "Right next to your code.",
-        body: "The VS Code extension shows the sessions behind the file you have open, and every file agents worked on in your workspace. Why is this code like this? One click, and you're reading the session that wrote it.",
+        tag: "Trace",
+        title: "Follow the code back to the decision.",
+        body: "The VS Code extension shows the sessions behind the file you have open, across the agents that worked on it. Open the original conversation to see what changed, why it changed and what the next agent should know.",
         more: "The VS Code extension",
       },
     ],
@@ -126,11 +140,11 @@ export const en = {
 
   showcase: {
     label: "03 / The dashboard",
-    title: "Read the whole record.",
-    body: "A local dashboard for browsing it all: on your Mac, on your phone through Tailscale, or on one hub that your other computers and your team share.",
+    title: "A memory you can inspect.",
+    body: "Browse sessions from different agents, inspect the lessons they produced and open the source conversation. The dashboard runs on your own machines: on your Mac, on your phone through Tailscale, or on one hub that your other computers and your team share.",
     tour: "A one-minute tour",
     tourAlt:
-      "A one-minute tour of the Chronicle dashboard on demo data: Home, a session with its transcript and extracted knowledge, ⌘K search, the glossary Map and a weekly review",
+      "A one-minute tour of the Interlatch dashboard on demo data: Home, a session with its transcript and extracted knowledge, ⌘K search, the glossary Map and a weekly review",
     tourText: "Home, a session with what it taught, ⌘K search, the Map and a weekly review.",
     demo: "Made-up demo data",
     screens: "Screen by screen",
@@ -138,18 +152,18 @@ export const en = {
     shots: [
       {
         label: "Home",
-        alt: "Chronicle's Home page: this week's sessions, stats and recent knowledge",
+        alt: "Interlatch's Home page: this week's sessions, stats and recent knowledge",
         text: "This week at a glance: sessions, what they cost, what they taught.",
       },
       {
         label: "A session",
         alt: "A session page with its summary, outcome, extracted knowledge and full transcript",
-        text: "Every session with its summary, outcome, the lessons taken from it, and the full transcript.",
+        text: "Follow a lesson to its source: the session, its outcome and the full conversation behind it.",
       },
       {
         label: "⌘K search",
         alt: "The ⌘K palette searching sessions, knowledge and pages at once",
-        text: "One keystroke searches every session, every lesson and every page.",
+        text: "Search across agents and sessions for the earlier fix, decision or command you need now.",
       },
       {
         label: "Map",
@@ -158,7 +172,7 @@ export const en = {
       },
       {
         label: "A project",
-        alt: "A project page: its sessions, time and cost, the knowledge base Chronicle keeps for it, and its gotchas and decisions",
+        alt: "A project page: its sessions, time and cost, the knowledge base Interlatch keeps for it, and its gotchas and decisions",
         text: "A knowledge base for each project: its gotchas, decisions and commands, rewritten as sessions add to them.",
       },
       {
@@ -193,9 +207,9 @@ export const en = {
   },
 
   sources: {
-    label: "04 / Sources",
+    label: "04 / Across agents",
     title: "One record for every agent.",
-    body: "All of them share one dashboard, one knowledge base and one set of MCP tools. Connect more any time from Settings, or with chronicle connect.",
+    body: "Bring sessions from the tools you use into one archive and project knowledge base. Keep working in the agent that suits the task; the earlier work stays searchable. Add sources from Settings or with interlatch connect.",
     agents: [
       { name: "Claude Code", when: "as each session ends" },
       { name: "Codex", when: "every 15 minutes, once idle" },
@@ -205,13 +219,13 @@ export const en = {
       { name: "Google Antigravity", when: "every 15 minutes" },
       { name: "claude.ai and ChatGPT", when: "from your data export" },
     ],
-    mcp: ["Claude Desktop, Cursor, Windsurf and Gemini CLI can use the ", "MCP server", " too."],
+    mcp: ["Make that memory available to Claude Desktop, Cursor, Windsurf and Gemini CLI through the ", "MCP server", "."],
   },
 
   team: {
     label: "05 / Your team",
     title: "One agent learns it. The whole team knows it.",
-    body: "Run a hub on a server your team already has, and each person's Chronicle shares what it learned there. Transcripts can stay on each computer: the hub takes the lessons, and hands everyone's agents what their teammates learned in the same repositories.",
+    body: "Run a hub on a server your team already has, and each person's Interlatch shares what it learned there. Transcripts can stay on each computer: the hub takes the lessons, and hands everyone's agents what their teammates learned in the same repositories.",
     points: [
       {
         title: "A hub in Docker.",
@@ -239,8 +253,8 @@ export const en = {
   },
 
   rules: {
-    label: "06 / The rules",
-    title: "Three rules it keeps.",
+    label: "06 / Memory you can trust",
+    title: "Shared context. Grounded in evidence.",
     rule: "Rule",
     rules: [
       {
@@ -248,17 +262,17 @@ export const en = {
         body: "No server of ours, no telemetry, no account. The archive and everything learned from it live on your own machines, and a team's hub runs on a server your team chooses.",
       },
       {
-        title: "It runs on your account.",
-        body: "The one thing sent out is the analysis: a condensed digest, secrets redacted first, through your own Claude Code, Codex or Bob login or your own API key. With Ollama, nothing leaves your Mac at all. No key of ours in the middle.",
+        title: "Your models. Your accounts.",
+        body: "Analysis runs through your own Claude Code, Codex or Bob login or your own API key, with secrets redacted first. With Ollama, it never leaves your Mac. Memory retrieved through MCP goes to the connected agent and the model you use there. No key of ours in the middle.",
       },
       {
-        title: "It says what it doesn't know.",
-        body: "Lessons start as seen once and earn trust as later sessions confirm them. Chronicle would rather say so than guess.",
+        title: "Keep the evidence in reach.",
+        body: "Extracted lessons stay linked to their source sessions and earn trust as later sessions confirm them. You and your agents can check the evidence and judge whether a lesson applies to the work ahead.",
       },
     ],
     closing: {
-      title: "Start keeping the record.",
-      body: "Install it once. Every session from then on, and the ones already on your Mac, becomes part of it.",
+      title: "Give the next agent a head start.",
+      body: "Bring in the sessions already on your Mac and connect the agents you use. Keep what they learn attached to your projects, ready to carry into the next task.",
       guide: "Read the install guide",
       star: "Star it on GitHub",
     },
@@ -280,7 +294,7 @@ export const en = {
     },
     knowledge: {
       caption: "Knowledge · billing-api",
-      note: "Extracted automatically, then confirmed by later sessions",
+      note: "Kept with source sessions, then confirmed by later work",
       items: [
         {
           kind: "Fix",
@@ -300,14 +314,15 @@ export const en = {
       ],
     },
     ask: {
-      caption: "Terminal · infra",
-      note: "The agent searched first, and skipped an afternoon of debugging",
+      caption: "Example · Codex · infra",
+      note: "Codex retrieves a lesson from an earlier Copilot session",
       you: "you ›",
-      agent: "agent ›",
+      agent: "Codex ›",
       question: 'the deploy fails with "Not authorized to perform sts:AssumeRoleWithWebIdentity". seen this before?',
-      found: "1 gotcha · infra · established ×2",
+      found: "1 gotcha · infra · Copilot · established ×2",
+      source: "Source · Copilot · Deploy from GitHub Actions with OIDC instead of access keys",
       answer: [
-        "Yes, in infra last week. For jobs with ",
+        "Yes. A Copilot session in infra found this last week. For jobs with ",
         { code: "environment:" },
         ", the OIDC token's sub is ",
         { code: "repo:ORG/REPO:environment:NAME" },
@@ -334,13 +349,34 @@ export const en = {
     },
     editor: {
       // The extension's own labels stay in English: that's how it looks. Session titles are the user's words.
-      note: "Sessions behind the open file, and the whole workspace",
+      note: "The agent, project and source session behind the code",
       sessions: ["Stop double charges when Stripe retries…", "Stop duplicate dunning emails after deploys"],
     },
   },
 
+  help: {
+    label: "Resources & community",
+    title: "Keep up. Get involved.",
+    updates: "Latest updates",
+    viewAll: "View all",
+    changelogFallback: "Read the changelog",
+    guides: "Guides",
+    guideItems: [
+      { title: "Getting started", body: "Install Interlatch and bring in earlier sessions.", page: "install/" },
+      { title: "Connect through MCP", body: "Give the next agent access to project memory.", page: "mcp/" },
+      { title: "Phone & other computers", body: "Keep one archive across your devices.", page: "devices/" },
+    ],
+    community: "Help & contribute",
+    qa: "Ask the community",
+    ideas: "Suggest or vote on a feature",
+    roadmap: "Explore the roadmap",
+    announcements: "Read announcements",
+    issues: "Report a bug",
+    contributing: "Contribute code or docs",
+  },
+
   notFound: {
-    title: "Not found · Chronicle",
+    title: "Not found · Interlatch",
     description: "This page isn't in the record.",
     kicker: "404 · no entry",
     heading: "This page isn't in the record.",

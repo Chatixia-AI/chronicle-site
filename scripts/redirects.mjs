@@ -21,7 +21,7 @@ const stub = (to) => `<!doctype html>
 <meta charset="utf-8">
 <title>Moved to ${to}</title>
 <meta name="robots" content="noindex">
-<link rel="canonical" href="https://chronicle.chatixia.net${to}">
+<link rel="canonical" href="https://interlatch.com${to}">
 <meta http-equiv="refresh" content="0; url=${to}">
 <script>location.replace(${JSON.stringify(to)} + location.search + location.hash)</script>
 </head>

@@ -1,0 +1,20 @@
+{
+  "hosting": [
+    {
+      "target": "site",
+      "public": "dist",
+      "ignore": ["firebase.json", "**/.*"]
+    },
+    {
+      "target": "old-domain",
+      "public": "old-domain",
+      "redirects": [
+        {
+          "regex": "^/(?P<path>.*)$",
+          "destination": "https://interlatch.com/:path",
+          "type": 301
+        }
+      ]
+    }
+  ]
+}
