@@ -252,8 +252,32 @@ export const en = {
     run: "Running a hub in Docker",
   },
 
+  rsi: {
+    label: "06 / RSI",
+    title: "The good kind of RSI.",
+    body: "Record, Search, Increment. Not the sci-fi kind of recursive self-improvement, and not the sore-wrists kind either: nobody types the same explanation twice.",
+    steps: [
+      {
+        letter: "R",
+        name: "Record",
+        body: "Every session from every agent, kept on your machine with its project, branch and files. Nothing to remember to save.",
+      },
+      {
+        letter: "S",
+        name: "Search",
+        body: "The next agent starts with what earlier ones learned: project knowledge when a session opens, and search over MCP when it needs more, each answer with the session behind it.",
+      },
+      {
+        letter: "I",
+        name: "Increment",
+        body: "Lessons earn trust as later sessions confirm them, and recurring stumbles become suggested rules for CLAUDE.md and AGENTS.md, which you approve one by one.",
+      },
+    ],
+    loop: "And round again, a little better every session, and you can see why.",
+  },
+
   rules: {
-    label: "06 / Memory you can trust",
+    label: "07 / Memory you can trust",
     title: "Shared context. Grounded in evidence.",
     rule: "Rule",
     rules: [
