@@ -1,5 +1,7 @@
 ---
-// A shell command with a copy button, labelled in the page's language.
+// A shell command with a copy button, labelled in the page's language. A long command wraps at its spaces, each
+// line after the first indented past the prompt, so it stays readable on a phone; a step after && stays in one
+// piece, so a line never ends on &&. The button copies all of it.
 import type { Lang } from "../data/site";
 import { t } from "../i18n";
 
@@ -10,6 +12,7 @@ interface Props {
 }
 const { command, lang, class: className = "" } = Astro.props;
 const s = t(lang).copy;
+const [first, ...then] = command.split(" && ");
 ---
 
 <div
@@ -18,29 +21,44 @@ const s = t(lang).copy;
     className,
   ]}
 >
-  <span class="select-none text-bp-gold" aria-hidden="true">$</span>
-  <code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap text-bp-ink">{command}</code>
+  <code class="min-w-0 flex-1 whitespace-pre-wrap pl-[2ch] -indent-[2ch] leading-relaxed text-bp-ink [overflow-wrap:anywhere]"
+    ><span class="select-none text-bp-gold" aria-hidden="true">$ </span>{first}{
+      then.map((step) => [" ", <span class="whitespace-nowrap">{`&& ${step}`}</span>])
+    }</code
+  >
   <button
     type="button"
     data-command={command}
     data-copy={s.copy}
     data-copied={s.copied}
     data-select={s.select}
+    aria-label={`${s.copy}: ${command}`}
     class="shrink-0 rounded border border-bp-rule2/70 px-2.5 py-1 font-plex-mono text-[11px] uppercase tracking-[0.12em] text-bp-dim hover:border-bp-gold hover:text-bp-ink"
     >{s.copy}</button
   >
+  <!-- Says "Copied" to screen readers too: the button's own name stays the command it copies. -->
+  <span class="sr-only" role="status"></span>
 </div>
 
 <script>
   for (const button of document.querySelectorAll<HTMLButtonElement>(".copy-command button")) {
+    const status = button.parentElement!.querySelector<HTMLElement>('[role="status"]')!;
+    let timer = 0;
     button.addEventListener("click", async () => {
+      let message: string;
       try {
         await navigator.clipboard.writeText(button.dataset.command ?? "");
-        button.textContent = button.dataset.copied ?? "";
+        message = button.dataset.copied ?? "";
       } catch {
-        button.textContent = button.dataset.select ?? "";
+        message = button.dataset.select ?? "";
       }
-      setTimeout(() => (button.textContent = button.dataset.copy ?? ""), 1800);
+      button.textContent = message;
+      status.textContent = message;
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        button.textContent = button.dataset.copy ?? "";
+        status.textContent = "";
+      }, 1800);
     });
   }
 </script>

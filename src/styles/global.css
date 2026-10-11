@@ -23,7 +23,8 @@
   --color-bp-cta-ink: #081a31;
 }
 
-/* Dark is the blueprint itself. Light is the same drawing as a whiteprint: navy ink on pale paper.
+/* Small text in --bp-faint and --bp-gold keeps at least 4.5:1 against --bp-bg and --bp-panel in both themes.
+   Dark is the blueprint itself. Light is the same drawing as a whiteprint: navy ink on pale paper.
    The page follows the system until the header toggle picks one (data-theme on <html>). Terminal and editor
    drawings carry .theme-dark, so they stay dark on a light page, as they would on screen. */
 :root,
@@ -37,7 +38,7 @@
   --bp-rule2: #5d86b6;
   --bp-ink: #e8f2ff;
   --bp-dim: #8eb1d8;
-  --bp-faint: #6a8db6;
+  --bp-faint: #7a9cc4;
   --bp-gold: #ffb45e;
   --bp-blue: #7cc7ff;
   --bp-teal: #6fe3c1;
@@ -57,8 +58,8 @@
   --bp-rule2: #8ba6c8;
   --bp-ink: #0b1f38;
   --bp-dim: #3d5878;
-  --bp-faint: #627b99;
-  --bp-gold: #a8620c;
+  --bp-faint: #566f8c;
+  --bp-gold: #975708;
   --bp-blue: #1d5c96;
   --bp-teal: #0c7c60;
   --bp-grid: rgba(29, 92, 150, 0.1);
@@ -78,8 +79,8 @@
     --bp-rule2: #8ba6c8;
     --bp-ink: #0b1f38;
     --bp-dim: #3d5878;
-    --bp-faint: #627b99;
-    --bp-gold: #a8620c;
+    --bp-faint: #566f8c;
+    --bp-gold: #975708;
     --bp-blue: #1d5c96;
     --bp-teal: #0c7c60;
     --bp-grid: rgba(29, 92, 150, 0.1);
@@ -203,6 +204,31 @@ html {
 }
 .deck:hover .card-1 {
   transform: translate(-4px, 4px) rotate(-1deg);
+}
+
+/* A visible ring for keyboard focus, in the theme's blue; on the gold buttons, in ink, which stands out from both
+   the gold and the page. */
+:focus-visible {
+  outline: 2px solid var(--bp-blue);
+  outline-offset: 3px;
+}
+.bg-bp-cta:focus-visible {
+  outline-color: var(--bp-ink);
+}
+
+/* The header's menu on narrow screens is a <details>: its summary is the button, without the disclosure triangle. */
+.site-menu > summary {
+  list-style: none;
+}
+.site-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.site-menu .close,
+.site-menu[open] .open {
+  display: none;
+}
+.site-menu[open] .close {
+  display: block;
 }
 
 /* The header toggle shows where it will take you: a sun on the dark page, a moon on the light one. */

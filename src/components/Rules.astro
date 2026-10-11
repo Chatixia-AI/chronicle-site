@@ -2,7 +2,7 @@
 // The three rules from the roadmap, and the closing call to install.
 import CopyCommand from "./CopyCommand.astro";
 import SectionHead from "./SectionHead.astro";
-import { docsPage, installCommand, links, type Lang } from "../data/site";
+import { docsPage, links, setupCommand, type Lang } from "../data/site";
 import { t } from "../i18n";
 
 interface Props {
@@ -39,7 +39,12 @@ const s = t(lang).rules;
     <p class="mt-4 max-w-[560px] text-lg leading-relaxed text-bp-dim">
       {s.closing.body}
     </p>
-    <CopyCommand lang={lang} command={installCommand} class="mt-8 w-full max-w-[560px] text-left" />
+    <CopyCommand lang={lang} command={setupCommand} class="mt-8 w-full max-w-[560px] text-left" />
+    <p class="mt-2 text-xs leading-relaxed text-bp-faint">
+      {s.closing.needs[0]}<a href={links.uv} class="font-plex-mono text-bp-dim underline decoration-bp-rule2 underline-offset-4 hover:text-bp-ink"
+        >{s.closing.needs[1]}</a
+      >{s.closing.needs[2]}
+    </p>
     <div class="mt-5 flex flex-wrap justify-center gap-3">
       <a href={docsPage(lang, "install/")} class="inline-flex min-h-12 items-center gap-2 rounded-md bg-bp-cta px-5 py-3 font-semibold text-bp-cta-ink hover:bg-bp-cta-hover"
         >{s.closing.guide} <span aria-hidden="true">→</span></a

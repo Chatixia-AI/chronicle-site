@@ -40,7 +40,7 @@ const shots = s.shots.map((shot, i) => ({ ...shot, ...images[i] }));
         muted
         loop
         playsinline
-        preload="metadata"
+        preload="none"
         aria-label={s.tourAlt}
       ></video>
       <figcaption class="mt-3 flex flex-wrap items-center justify-between gap-2 font-plex-mono text-[11px] uppercase tracking-[0.12em] text-bp-dim">
@@ -79,7 +79,7 @@ const shots = s.shots.map((shot, i) => ({ ...shot, ...images[i] }));
                 alt={shot.alt}
                 width="1440"
                 height="900"
-                loading={i === 0 ? "eager" : "lazy"}
+                loading="lazy"
                 class="w-full rounded border border-bp-rule/70"
               />
               <figcaption class="mt-3 flex flex-wrap items-center justify-between gap-2 font-plex-mono text-[11px] uppercase tracking-[0.12em] text-bp-dim">
@@ -133,13 +133,15 @@ const shots = s.shots.map((shot, i) => ({ ...shot, ...images[i] }));
 </script>
 
 <script>
-  // Play the tour while it's on screen, muted; leave it still for visitors who asked for less motion.
+  // Play the tour while it's on screen, muted; leave it still for visitors who asked for less motion, and on a phone
+  // (below sm), where it waits for a tap on play rather than downloading on its own.
   const video = document.querySelector<HTMLVideoElement>(".demo-video");
+  const wide = matchMedia("(min-width: 640px)");
   if (video && !matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) {
     new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) video.play().catch(() => {});
-        else video.pause();
+        if (entry.isIntersecting && wide.matches) video.play().catch(() => {});
+        else if (!entry.isIntersecting) video.pause();
       },
       { threshold: 0.4 },
     ).observe(video);
