@@ -260,12 +260,12 @@ export const en = {
       {
         letter: "R",
         name: "Record",
-        body: "Every session from every agent, kept on your machine with its project, branch and files. Nothing to remember to save.",
+        body: "Every session from the agents you connect, kept on your machine with its project, branch and files. Nothing to remember to save.",
       },
       {
         letter: "S",
         name: "Search",
-        body: "The next agent starts with what earlier ones learned: project knowledge when a session opens, and search over MCP when it needs more, each answer with the session behind it.",
+        body: "The next agent looks up what earlier ones learned through MCP, each answer with the session behind it. Turn on start-of-session notes and Claude Code also gets the project's digest as it opens.",
       },
       {
         letter: "I",
