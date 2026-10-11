@@ -55,13 +55,12 @@ full changelog. Release headlines stay in their source language; dates and the s
 | `src/styles/global.css` | Blueprint tokens (as on chatixia.net) and the logbook styling |
 | `docs-theme/` | Layered over the docs' `mkdocs.yml`: served under `/docs/`, Plex fonts, navy header; `overrides/` gives the `/docs/ja/` pages Japanese labels, their own navigation and an English/日本語 link per page |
 | `scripts/` | The docs build and the redirect pages |
-| `old-domain/` | Not part of this site: the Firebase site behind chronicle.chatixia.net, which sends every path to interlatch.com with a 301 (`firebase.json`); its two pages are only a fallback |
+| `old-domain/` | Not part of this site: the Hosting site `chatixia-chronicle` in the Chatixia Firebase project (`chatixia-ai`), behind chronicle.chatixia.net, which sends every path to interlatch.com with a 301 (`old-domain/firebase.json`); its two pages are only a fallback. It never changes, so it's deployed by hand: `cd old-domain && firebase deploy --only hosting --project chatixia-ai` |
 
 ## Publishing
 
 `.github/workflows/deploy.yml` builds on every push and pull request, and publishes from `main` to Firebase Hosting,
-project `interlatch` (`.firebaserc`): the site to the Hosting site `interlatch`, and `old-domain/` to the Hosting site
-`chronicle-chatixia-net`. It also runs when `agents-chronicle` sends a `docs-updated` event, and once a day. The
+project `interlatch` (`.firebaserc`), Hosting site `interlatch`. It also runs when `agents-chronicle` sends a `docs-updated` event, and once a day. The
 upstream repository sends `docs-updated` with a fine-grained token that has Contents: write on this repository.
 Publishing uses the repository secret `FIREBASE_SERVICE_ACCOUNT_INTERLATCH`, a service account key that
 `firebase init hosting:github` creates and stores.
@@ -72,9 +71,9 @@ Add custom domain), which shows the DNS records each one needs:
 
 - **interlatch.com** and **www.interlatch.com** (redirecting to interlatch.com) on the site `interlatch`; their DNS is
   at Namecheap (Advanced DNS). Leave the mail forwarding records alone.
-- **chronicle.chatixia.net** on the site `chronicle-chatixia-net`, which answers every path with a 301 to the same
+- **chronicle.chatixia.net** on the site `chatixia-chronicle` in the Chatixia project (`chatixia-ai`), which answers every path with a 301 to the same
   path on interlatch.com (query included; browsers keep the `#anchor`), and the old docs paths then follow this
   site's own redirects into `/docs/`. Its DNS is at dnsv.jp.
 
-To try a change on a temporary address first: `firebase hosting:channel:deploy preview --only site` after a full
+To try a change on a temporary address first: `firebase hosting:channel:deploy preview` after a full
 build (see Work on it).

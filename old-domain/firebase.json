@@ -1,0 +1,13 @@
+{
+  "hosting": {
+    "site": "chatixia-chronicle",
+    "public": "public",
+    "redirects": [
+      {
+        "regex": "^/(?P<path>.*)$",
+        "destination": "https://interlatch.com/:path",
+        "type": 301
+      }
+    ]
+  }
+}

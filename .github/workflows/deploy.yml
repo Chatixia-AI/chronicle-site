@@ -1,7 +1,6 @@
 # Builds interlatch.com: the landing page (Astro, this repo) and the docs (MkDocs, from agents-chronicle,
-# served under /docs/), then publishes them to Firebase Hosting (project interlatch, see README), together with the
-# site that redirects chronicle.chatixia.net. Pull requests only build, so a broken page or docs link fails before
-# it reaches main.
+# served under /docs/), then publishes them to Firebase Hosting (project interlatch, see README). Pull requests only
+# build, so a broken page or docs link fails before it reaches main.
 name: Deploy
 
 on:
@@ -74,10 +73,3 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_INTERLATCH }}
           projectId: interlatch
           channelId: live
-          target: site
-      - uses: FirebaseExtended/action-hosting-deploy@500ac625ca2dd40cbd15f7659af953801858032a  # v0.11.0
-        with:
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_INTERLATCH }}
-          projectId: interlatch
-          channelId: live
-          target: old-domain
