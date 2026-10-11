@@ -1,7 +1,7 @@
 ---
 // A shell command with a copy button, labelled in the page's language. A long command wraps at its spaces, each
-// line after the first indented past the prompt, so it stays readable on a phone; a step after && stays in one
-// piece, so a line never ends on &&. The button copies all of it.
+// line after the first indented past the prompt, so it stays readable on a phone. Words never split (not even at
+// the hyphens of --bin) and && stays with the word after it, so a line never ends on &&. The button copies all of it.
 import type { Lang } from "../data/site";
 import { t } from "../i18n";
 
@@ -12,7 +12,11 @@ interface Props {
 }
 const { command, lang, class: className = "" } = Astro.props;
 const s = t(lang).copy;
-const [first, ...then] = command.split(" && ");
+const words: string[] = [];
+for (const word of command.split(" ")) {
+  if (words.at(-1) === "&&") words[words.length - 1] += ` ${word}`;
+  else words.push(word);
+}
 ---
 
 <div
@@ -22,8 +26,8 @@ const [first, ...then] = command.split(" && ");
   ]}
 >
   <code class="min-w-0 flex-1 whitespace-pre-wrap pl-[2ch] -indent-[2ch] leading-relaxed text-bp-ink [overflow-wrap:anywhere]"
-    ><span class="select-none text-bp-gold" aria-hidden="true">$ </span>{first}{
-      then.map((step) => [" ", <span class="whitespace-nowrap">{`&& ${step}`}</span>])
+    ><span class="select-none text-bp-gold" aria-hidden="true">$ </span>{
+      words.map((word, i) => [i ? " " : "", <span class="whitespace-nowrap">{word}</span>])
     }</code
   >
   <button

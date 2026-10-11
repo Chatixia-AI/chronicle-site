@@ -36,5 +36,6 @@ export const homePath = (lang: Lang) => (lang === "ja" ? "/ja/" : "/");
 
 export const installCommand = "uv tool install --python 3.13 interlatch";
 
-/** Install, then set up: find the agents, import their sessions, start the dashboard. One line to paste. */
-export const setupCommand = `${installCommand} && interlatch install`;
+/** Install, then set up: find the agents, import their sessions, start the dashboard. One line to paste. It runs
+ * interlatch from uv's tool folder, so it works before that folder is on PATH (uv from Homebrew doesn't add it). */
+export const setupCommand = `${installCommand} && "$(uv tool dir --bin)/interlatch" install`;
