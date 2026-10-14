@@ -33,16 +33,22 @@ pnpm install
 pnpm run dev                 # http://localhost:4321, the landing page only
 ```
 
-To see the whole site, docs included (needs [uv](https://docs.astral.sh/uv/)):
+The default build includes the landing pages and documentation (needs [uv](https://docs.astral.sh/uv/)):
 
 ```bash
-pnpm run build && scripts/build-docs.sh
+pnpm run build
+pnpm run preview                                        # the complete site at http://localhost:4321
 python3 -m http.server 4321 -d dist                       # the pages only
 firebase emulators:start --only hosting --project interlatch   # with firebase.json's redirects and headers
 ```
 
-`scripts/build-docs.sh` clones the Interlatch repository into `.cache/agents-chronicle` the first time; set `CHRONICLE_SRC` to use another
-checkout, such as one with unmerged docs changes.
+`scripts/build-docs.sh` clones the Interlatch repository into `.cache/agents-chronicle` the first time and refreshes
+that managed cache on later builds. Set `CHRONICLE_SRC` to build a specific checkout without updating it, such as
+one with unmerged docs changes. The complete build also checks that documentation links on both landing pages
+have corresponding pages in the output.
+
+`pnpm run dev` and `pnpm run build:landing` serve/build only the landing pages. Documentation links need the
+complete build above; `pnpm run build:docs` can refresh documentation after a landing-page build.
 
 The home page's resource cards link to GitHub Discussions (Q&A, Ideas and Announcements), the roadmap and guides.
 The three latest dated releases come from `CHANGELOG.md` in `CHRONICLE_SRC` when set (CI uses its docs checkout),

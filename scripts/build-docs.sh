@@ -7,7 +7,7 @@
 # pages (/docs/ja/) Japanese labels, a navigation of their own and a link to each page in the other language.
 #
 # CHRONICLE_SRC: a checkout of that repository (CI checks it out there); cloned from GitHub when missing.
-# Needs uv. Run after `pnpm run build`, which writes the rest of dist/.
+# Needs uv. The default `pnpm run build` runs this after Astro; for a manual build, run `pnpm run build:landing` first.
 set -euo pipefail
 
 here="$(cd "$(dirname "$0")/.." && pwd)"
@@ -15,8 +15,16 @@ src="${CHRONICLE_SRC:-$here/.cache/agents-chronicle}"
 case "$src" in /*) ;; *) src="$PWD/$src" ;; esac
 out="$here/dist/docs"
 
-if [ ! -d "$src/.git" ]; then
+if [ ! -e "$src/.git" ]; then
   git clone --depth 1 https://github.com/Chatixia-AI/interlatch "$src"
+elif [ -z "${CHRONICLE_SRC:-}" ]; then
+  # Refresh the managed cache; an explicitly selected checkout keeps the user's chosen revision.
+  if [ "$(git -C "$src" rev-parse --is-shallow-repository)" = "true" ]; then
+    git -C "$src" fetch --unshallow origin main
+  else
+    git -C "$src" fetch origin main
+  fi
+  git -C "$src" merge --ff-only origin/main
 fi
 [ -d "$here/dist" ] || { echo "dist/ is missing: run pnpm run build first" >&2; exit 1; }
 
@@ -29,3 +37,4 @@ rm -rf "$src/site-overrides" && cp -R "$here/docs-theme/overrides" "$src/site-ov
 rm -rf "$out"
 (cd "$src" && NO_MKDOCS_2_WARNING=1 uv run --locked --only-group docs mkdocs build --strict -f mkdocs.site.yml -d "$out")
 node "$here/scripts/redirects.mjs" "$here/dist"
+node "$here/scripts/check-links.mjs" "$here/dist"

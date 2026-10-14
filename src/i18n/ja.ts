@@ -13,7 +13,7 @@ export const ja: Strings = {
     skip: "本文へ移動",
     home: "Interlatch ホーム",
     by: "by Chatixia",
-    nav: { label: "メイン", record: "できること", install: "インストール", team: "チーム", docs: "ドキュメント", github: "GitHub" },
+    nav: { label: "メイン", record: "できること", install: "インストール", team: "チーム", faq: "よくある質問", docs: "ドキュメント", github: "GitHub" },
     menu: "メニュー",
     cta: "インストール",
     theme: { light: "ライトテーマに切り替え", dark: "ダークテーマに切り替え" },
@@ -374,6 +374,63 @@ export const ja: Strings = {
       note: "コードから、元のエージェント、プロジェクト、セッションへ",
       sessions: ["Stripe が invoice.paid を再送しても二重請求しないようにする", "デプロイ後に督促メールが重複して送られないようにする"],
     },
+  },
+
+  faq: {
+    label: "FAQ",
+    title: "よくある質問。",
+    body: "設定、プライバシー、エージェントへの学びの引き継ぎについて。",
+    more: "コミュニティに質問",
+    items: [
+      {
+        question: "どのエージェントを接続できますか？",
+        answer: ["Claude Code、Codex、GitHub Copilot、IBM Bob、Google Antigravity のセッションを記録できます。claude.ai と ChatGPT のデータエクスポートも取り込めます。Claude Desktop、Cursor、Windsurf、Gemini CLI は MCP で記憶を検索できますが、そのセッションは記録されません。"],
+        page: "sources/",
+        link: "対応するソース",
+      },
+      {
+        question: "Claude Code は必要ですか？",
+        answer: ["いいえ。分析には Claude Code、Codex、IBM Bob、モデルプロバイダーの API を選べます。Ollama のローカルモデルも使えます。分析用のモデルがなくても記録と閲覧はでき、接続するまでセッションは分析待ちのキューに残ります。"],
+        page: "analysis/",
+        link: "分析とモデルプロバイダー",
+      },
+      {
+        question: "費用はかかりますか？",
+        answer: ["個人向けのアプリと CLI は MIT ライセンスの無料オープンソースです。Claude Code や Codex による分析は既存プランの利用枠を使い、API プロバイダーはあなたのアカウントに課金します。ローカルの Ollama モデルにはプロバイダーの利用料はかかりません。表示されるセッションのコストは推計で、サブスクリプションの請求額ではありません。"],
+        page: "analysis/",
+        link: "分析の仕組み",
+      },
+      {
+        question: "データはコンピューターの外に送られますか？",
+        answer: ["セッションはローカルに保存されます。分析時は秘密情報を伏せた要約を、選んだエージェントかプロバイダーに送ります。ローカルの Ollama モデルなら分析もコンピューター内で完結します。テレメトリはありません。ハブ共有を有効にすると、knowledge モードでは要約と教訓を、everything モードでは秘密情報を伏せていない元のセッションファイルを自分のハブに送ります。"],
+        page: "privacy/",
+        link: "データとプライバシー",
+      },
+      {
+        question: "Windows や Linux でも使えますか？",
+        answer: ["はい。Python 3.11 以降があれば Windows と Linux でも動きます。", { code: "pip install interlatch" }, " で PyPI からパッケージをインストールするか uv を使い、", { code: "interlatch install" }, " を実行してブラウザーでダッシュボードを開けます。Interlatch 自体に Node.js は不要ですが、接続するエージェントには別の動作要件がある場合があります。バックグラウンドジョブは Windows のタスクスケジューラや Linux の systemd で動きます。ネイティブのデスクトップウィンドウは現在 macOS 専用ですが、ブラウザーのダッシュボードは 3 つのプラットフォームで使えます。"],
+        page: "install/",
+        link: "プラットフォーム別のインストール",
+      },
+      {
+        question: "次のエージェントにはどう引き継がれますか？",
+        answer: ["Interlatch の MCP サーバーにエージェントを接続すると、別のエージェントの過去のセッションやプロジェクトのナレッジを検索し、教訓の出典をたどれます。過去のエラーや決定を調べるよう頼めます。MCP の接続は検索を可能にするもので、すべての教訓を毎回のプロンプトに自動で追加するものではありません。"],
+        page: "mcp/",
+        link: "MCP で接続",
+      },
+      {
+        question: "プロジェクトを除外したりセッションを削除できますか？",
+        answer: ["はい。設定の ", { code: "sources.exclude_projects" }, " にプロジェクトのパスのパターンを加えると、対象を記録から除外できます。すでに記録されたセッションを削除するには ", { code: "interlatch forget <id>" }, " を使います。"],
+        page: "configuration/",
+        link: "設定オプション",
+      },
+      {
+        question: "アンインストールするとデータはどうなりますか？",
+        answer: [{ code: "interlatch uninstall" }, " はフック、バックグラウンドジョブ、MCP 登録を削除し、記録したデータは残します。", { code: "--purge" }, " を加えると、アーカイブと設定も削除します。"],
+        page: "install/",
+        link: "Interlatch のアンインストール",
+      },
+    ],
   },
 
   help: {

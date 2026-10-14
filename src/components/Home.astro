@@ -9,6 +9,7 @@ import Sources from "./Sources.astro";
 import Team from "./Team.astro";
 import Rsi from "./Rsi.astro";
 import Rules from "./Rules.astro";
+import Faq from "./Faq.astro";
 import Help from "./Help.astro";
 import type { Lang } from "../data/site";
 import { t } from "../i18n";
@@ -29,5 +30,6 @@ const { meta } = t(lang);
   <Team lang={lang} />
   <Rsi lang={lang} />
   <Rules lang={lang} />
+  <Faq lang={lang} />
   <Help lang={lang} />
 </Base>
