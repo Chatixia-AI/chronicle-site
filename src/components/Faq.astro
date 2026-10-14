@@ -1,0 +1,44 @@
+---
+import { docsPage, links, type Lang } from "../data/site";
+import { t } from "../i18n";
+import Segs from "./Segs.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang).faq;
+---
+
+<section id="faq" aria-labelledby="faq-heading" class="scroll-mt-20 border-t border-bp-rule/70">
+  <div class="mx-auto grid max-w-[1280px] gap-10 px-5 py-14 sm:px-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16 lg:px-16 lg:py-20">
+    <div>
+      <p class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-bp-gold">{s.label}</p>
+      <h2 id="faq-heading" class="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">{s.title}</h2>
+      <p class="mt-5 max-w-sm text-lg leading-relaxed text-bp-dim">{s.body}</p>
+      <a href={links.qa} class="mt-6 inline-flex min-h-11 items-center gap-3 text-sm text-bp-teal underline underline-offset-4 hover:text-bp-ink">
+        {s.more}<span aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="min-w-0 border-y border-bp-rule2/60">
+      {s.items.map((item, index) => (
+        <details class="group border-b border-bp-rule/70 last:border-b-0">
+          <summary class="flex min-h-16 cursor-pointer list-none items-center gap-4 py-5 hover:text-bp-teal [&::-webkit-details-marker]:hidden">
+            <span aria-hidden="true" class="shrink-0 font-plex-mono text-[11px] text-bp-gold">{String(index + 1).padStart(2, "0")}</span>
+            <span class="flex-1 font-display text-base font-semibold leading-relaxed sm:text-lg">{item.question}</span>
+            <svg aria-hidden="true" class="h-4 w-4 shrink-0 text-bp-faint" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <path d="M3 8h10"></path>
+              <path class="group-open:opacity-0" d="M8 3v10"></path>
+            </svg>
+          </summary>
+          <div class="pb-6 pl-8 pr-8">
+            <p class="text-sm leading-7 text-bp-dim sm:text-base"><Segs segs={item.answer} codeClass="break-words font-plex-mono text-[0.9em] text-bp-ink" /></p>
+            <a href={docsPage(lang, item.page)} class="mt-3 inline-flex min-h-11 items-center gap-2 text-sm text-bp-teal underline underline-offset-4 hover:text-bp-ink">
+              {item.link}<span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

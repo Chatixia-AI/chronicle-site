@@ -14,7 +14,7 @@ export const en = {
     skip: "Skip to content",
     home: "Interlatch home",
     by: "by Chatixia",
-    nav: { label: "Main", record: "What it does", install: "Install", team: "Teams", docs: "Docs", github: "GitHub" },
+    nav: { label: "Main", record: "What it does", install: "Install", team: "Teams", faq: "FAQ", docs: "Docs", github: "GitHub" },
     // The header's menu button on narrow screens, where the links above don't fit.
     menu: "Menu",
     cta: "Install",
@@ -382,6 +382,63 @@ export const en = {
       note: "The agent, project and source session behind the code",
       sessions: ["Stop double charges when Stripe retries…", "Stop duplicate dunning emails after deploys"],
     },
+  },
+
+  faq: {
+    label: "FAQ",
+    title: "Frequently asked questions.",
+    body: "Setup, privacy, and how your agents use the memory.",
+    more: "Ask the community",
+    items: [
+      {
+        question: "Which agents can I connect?",
+        answer: ["Interlatch records Claude Code, Codex, GitHub Copilot, IBM Bob, and Google Antigravity sessions. You can also import claude.ai and ChatGPT data exports. Claude Desktop, Cursor, Windsurf, and Gemini CLI can search the memory through MCP; their sessions are not recorded."] as Seg[],
+        page: "sources/",
+        link: "Supported sources",
+      },
+      {
+        question: "Do I need Claude Code?",
+        answer: ["No. Choose Claude Code, Codex, IBM Bob, or a model provider's API for analysis. You can also use a local model through Ollama. Recording and browsing work without an analyzer; your sessions wait in the queue until you connect one."] as Seg[],
+        page: "analysis/",
+        link: "Analysis and model providers",
+      },
+      {
+        question: "How much does it cost?",
+        answer: ["The personal app and CLI are free and open source under the MIT license. Analysis through Claude Code or Codex uses your existing plan's allowance; API providers bill your own account. A local Ollama model has no provider fee. Interlatch's displayed session costs are estimates, not your subscription bill."] as Seg[],
+        page: "analysis/",
+        link: "How analysis works",
+      },
+      {
+        question: "Does my data leave my computer?",
+        answer: ["Sessions are stored locally. Analysis sends a condensed digest, with secrets redacted, to the agent or provider you choose; a local Ollama model keeps analysis on your computer. Interlatch has no telemetry. If you enable hub sharing, knowledge mode sends summaries and lessons, while everything mode sends raw, unredacted session files to your hub."] as Seg[],
+        page: "privacy/",
+        link: "Data and privacy",
+      },
+      {
+        question: "Can I use it on Windows or Linux?",
+        answer: ["Yes. Interlatch runs on Windows and Linux with Python 3.11 or newer. Install the package from PyPI with ", { code: "pip install interlatch" }, " (or use uv), then run ", { code: "interlatch install" }, " and open the dashboard in your browser. Node.js is not required by Interlatch itself; an agent you connect may have its own requirements. Background jobs use Task Scheduler on Windows and systemd on Linux. The native desktop window is currently macOS-only; the browser dashboard works on all three platforms."] as Seg[],
+        page: "install/",
+        link: "Installation by platform",
+      },
+      {
+        question: "How does my next agent use what was learned?",
+        answer: ["Connect the agent to Interlatch's MCP server. It can search earlier sessions and project knowledge across agents, and follow each lesson back to its source. You can ask it to look up a past error or decision; connecting MCP gives it access to search, rather than automatically adding every lesson to every prompt."] as Seg[],
+        page: "mcp/",
+        link: "Connect through MCP",
+      },
+      {
+        question: "Can I exclude a project or delete a session?",
+        answer: ["Yes. Add project-path patterns to ", { code: "sources.exclude_projects" }, " in your configuration to keep those projects out. To remove an already recorded session, use ", { code: "interlatch forget <id>" }, "."] as Seg[],
+        page: "configuration/",
+        link: "Configuration options",
+      },
+      {
+        question: "What happens when I uninstall?",
+        answer: [{ code: "interlatch uninstall" }, " removes hooks, background jobs, and MCP registrations while keeping your recorded data. Add ", { code: "--purge" }, " to delete the archive and settings too."] as Seg[],
+        page: "install/",
+        link: "Uninstalling Interlatch",
+      },
+    ],
   },
 
   help: {

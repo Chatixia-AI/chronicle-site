@@ -8,7 +8,9 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && scripts/build-docs.sh",
+    "build:landing": "astro build",
+    "build:docs": "scripts/build-docs.sh",
     "preview": "astro preview",
     "check": "astro check"
   },

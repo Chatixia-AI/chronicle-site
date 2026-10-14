@@ -20,11 +20,12 @@ const home = homePath(lang);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // The social preview image, at its real size. https://interlatch.com/... works only once the domain is connected.
 const ogImage = { url: new URL("/images/home.webp", Astro.site), width: 1440, height: 900 };
-// In the order the sections come on the page; the header shows them inline from lg up and in its menu below that.
+// In page order; show links inline from xl up so both languages fit, and in the menu below that.
 const nav = [
   { label: s.nav.install, href: `${home}#install` },
   { label: s.nav.record, href: `${home}#record` },
   { label: s.nav.team, href: `${home}#team` },
+  { label: s.nav.faq, href: `${home}#faq` },
   { label: s.nav.docs, href: docsPage(lang) },
   { label: s.nav.github, href: links.github },
 ];
@@ -35,6 +36,7 @@ const footer = [
       [s.nav.install, `${home}#install`],
       [s.nav.record, `${home}#record`],
       [s.nav.team, `${home}#team`],
+      [s.nav.faq, `${home}#faq`],
       [s.footer.releases, links.releases],
       [s.footer.changelog, links.changelog],
       [s.footer.roadmap, lang === "ja" ? links.roadmapJa : links.roadmap],
@@ -133,13 +135,13 @@ const footer = [
           <span class="font-display text-lg font-semibold tracking-tight">{productName}</span>
           <span class="hidden font-plex-mono text-[10px] uppercase tracking-[0.18em] text-bp-faint sm:inline">{s.by}</span>
         </a>
-        <nav aria-label={s.nav.label} class="ml-auto hidden items-center gap-7 text-sm text-bp-dim lg:flex">
+        <nav aria-label={s.nav.label} class="ml-auto hidden items-center gap-7 text-sm text-bp-dim xl:flex">
           {nav.map((item) => <a href={item.href} class="whitespace-nowrap hover:text-bp-ink">{item.label}</a>)}
         </nav>
-        <div class="ml-auto flex items-center gap-3 lg:ml-0">
-          <!-- Below lg the links above don't fit: the same links in a menu. A <details> opens and closes from the
+        <div class="ml-auto flex items-center gap-3 xl:ml-0">
+          <!-- Below xl the links above don't fit: the same links in a menu. A <details> opens and closes from the
                keyboard as well as the mouse; the script below closes it on Escape, on a click outside and on a link. -->
-          <details class="site-menu lg:hidden">
+          <details class="site-menu xl:hidden">
             <summary
               aria-label={s.menu}
               title={s.menu}
