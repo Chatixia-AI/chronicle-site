@@ -1,4 +1,4 @@
-# Layered over agents-chronicle's mkdocs.yml by scripts/build-docs.sh: the same docs, served under /docs/ of
+# Layered over Interlatch's mkdocs.yml by scripts/build-docs.sh: the same docs, served under /docs/ of
 # interlatch.com, in this site's type and colours, with the logo leading back to the home page, and the
 # Japanese pages under /docs/ja/ in Japanese throughout.
 INHERIT: mkdocs.yml
@@ -17,9 +17,9 @@ theme:
     code: IBM Plex Mono
 
 extra_css:
-  - assets/chronicle-site.css
+  - assets/interlatch-site.css
 
 extra:
-  # The logo's link (partials/chronicle-lang.html adds ja/ on the Japanese pages). A path, not a full URL, so it stays
+  # The logo's link (partials/interlatch-lang.html adds ja/ on the Japanese pages). A path, not a full URL, so it stays
   # on whichever address serves the docs: interlatch.com, interlatch.web.app or a preview channel.
   homepage: /

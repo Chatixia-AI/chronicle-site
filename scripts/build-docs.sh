@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
 # Builds Interlatch's documentation into dist/docs/, then checks that firebase.json redirects each of its old URLs.
 #
-# The docs are written and reviewed in Chatixia-AI/interlatch (agents-chronicle before the rename), next to the code
+# The docs are written and reviewed in Chatixia-AI/interlatch, next to the code
 # they describe. This builds them as they are, with a small config on top (docs-theme/mkdocs.site.yml) that serves
 # them under /docs/, matches this site's look, points the docs logo back at the home page, and gives the Japanese
 # pages (/docs/ja/) Japanese labels, a navigation of their own and a link to each page in the other language.
 #
-# CHRONICLE_SRC: a checkout of that repository (CI checks it out there); cloned from GitHub when missing.
+# INTERLATCH_SRC: a checkout of that repository (CI checks it out there); cloned from GitHub when missing.
+# CHRONICLE_SRC is still accepted for existing local build scripts.
 # Needs uv. The default `pnpm run build` runs this after Astro; for a manual build, run `pnpm run build:landing` first.
 set -euo pipefail
 
 here="$(cd "$(dirname "$0")/.." && pwd)"
-src="${CHRONICLE_SRC:-$here/.cache/agents-chronicle}"
+src="${INTERLATCH_SRC:-${CHRONICLE_SRC:-$here/.cache/interlatch}}"
 case "$src" in /*) ;; *) src="$PWD/$src" ;; esac
 out="$here/dist/docs"
 
 if [ ! -e "$src/.git" ]; then
   git clone --depth 1 https://github.com/Chatixia-AI/interlatch "$src"
-elif [ -z "${CHRONICLE_SRC:-}" ]; then
+elif [ -z "${INTERLATCH_SRC:-${CHRONICLE_SRC:-}}" ]; then
   # Refresh the managed cache; an explicitly selected checkout keeps the user's chosen revision.
   if [ "$(git -C "$src" rev-parse --is-shallow-repository)" = "true" ]; then
     git -C "$src" fetch --unshallow origin main
@@ -30,7 +31,7 @@ fi
 
 cp "$here/docs-theme/mkdocs.site.yml" "$src/mkdocs.site.yml"
 mkdir -p "$src/docs/assets"
-cp "$here/docs-theme/chronicle-site.css" "$src/docs/assets/chronicle-site.css"
+cp "$here/docs-theme/interlatch-site.css" "$src/docs/assets/interlatch-site.css"
 cp "$here/public/favicon-32.png" "$src/docs/assets/favicon.png"
 rm -rf "$src/site-overrides" && cp -R "$here/docs-theme/overrides" "$src/site-overrides"
 

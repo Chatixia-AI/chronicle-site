@@ -1,5 +1,5 @@
-{#- Chronicle: which language a docs page is in, and its twin in the other language.
-    The Japanese docs are the pages under ja/ (docs/ja/ in agents-chronicle), with the same file names. -#}
+{#- Interlatch: which language a docs page is in, and its twin in the other language.
+    The Japanese docs are the pages under ja/ (docs/ja/ in Interlatch), with the same file names. -#}
 {% macro code(page) -%}
   {{ "ja" if page and page.file and page.file.src_uri.startswith("ja/") else "en" }}
 {%- endmacro %}

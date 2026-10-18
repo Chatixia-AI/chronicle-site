@@ -42,16 +42,17 @@ python3 -m http.server 4321 -d dist                       # the pages only
 firebase emulators:start --only hosting --project interlatch   # with firebase.json's redirects and headers
 ```
 
-`scripts/build-docs.sh` clones the Interlatch repository into `.cache/agents-chronicle` the first time and refreshes
-that managed cache on later builds. Set `CHRONICLE_SRC` to build a specific checkout without updating it, such as
+`scripts/build-docs.sh` clones the Interlatch repository into `.cache/interlatch` the first time and refreshes
+that managed cache on later builds. Set `INTERLATCH_SRC` to build a specific checkout without updating it, such as
 one with unmerged docs changes. The complete build also checks that documentation links on both landing pages
-have corresponding pages in the output.
+have corresponding pages in the output. The old `CHRONICLE_SRC` variable remains a fallback; `INTERLATCH_SRC`
+takes precedence when both are set.
 
 `pnpm run dev` and `pnpm run build:landing` serve/build only the landing pages. Documentation links need the
 complete build above; `pnpm run build:docs` can refresh documentation after a landing-page build.
 
 The home page's resource cards link to GitHub Discussions (Q&A, Ideas and Announcements), the roadmap and guides.
-The three latest dated releases come from `CHANGELOG.md` in `CHRONICLE_SRC` when set (CI uses its docs checkout),
+The three latest dated releases come from `CHANGELOG.md` in `INTERLATCH_SRC` when set (CI uses its docs checkout),
 or from GitHub during a local build. Unreleased work is omitted. If that read fails, the card keeps a link to the
 full changelog. Release headlines stay in their source language; dates and the surrounding UI are localized.
 

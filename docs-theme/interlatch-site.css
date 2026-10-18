@@ -50,7 +50,7 @@
 }
 
 /* The link to the same page in the other language (overrides/partials/header.html), like the site's own. */
-.md-header__button.chronicle-lang {
+.md-header__button.interlatch-lang {
   margin: 0 0.4rem;
   padding: 0.15rem 0.55rem;
   border: 1px solid rgba(142, 177, 216, 0.5);
@@ -60,7 +60,7 @@
   opacity: 0.85;
 }
 
-.md-header__button.chronicle-lang:hover {
+.md-header__button.interlatch-lang:hover {
   opacity: 1;
   border-color: #ffb45e;
 }

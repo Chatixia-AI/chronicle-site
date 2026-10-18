@@ -106,7 +106,10 @@ const footer = [
       // Set the theme before the first paint: the visitor's choice if they made one, else the system's.
       (() => {
         let stored = null;
-        try { stored = localStorage.getItem("chronicle-theme"); } catch {}
+        try {
+          stored = localStorage.getItem("interlatch-theme") ?? localStorage.getItem("chronicle-theme");
+          if (stored === "light" || stored === "dark") localStorage.setItem("interlatch-theme", stored);
+        } catch {}
         const system = matchMedia("(prefers-color-scheme: light)");
         const apply = (t) => (document.documentElement.dataset.theme = t);
         apply(stored === "light" || stored === "dark" ? stored : system.matches ? "light" : "dark");
@@ -251,7 +254,7 @@ const footer = [
       toggle.addEventListener("click", () => {
         const next = document.documentElement.dataset.theme === "light" ? "dark" : "light";
         document.documentElement.dataset.theme = next;
-        try { localStorage.setItem("chronicle-theme", next); } catch {}
+        try { localStorage.setItem("interlatch-theme", next); } catch {}
         label();
       });
       new MutationObserver(label).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });

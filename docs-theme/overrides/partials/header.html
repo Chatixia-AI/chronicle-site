@@ -1,8 +1,8 @@
 {#-
-  Chronicle: Material 9.7.7's partials/header.html, with the logo leading to the home page in the page's language, and a link to the same page in the other language.
+  Interlatch: Material 9.7.7's partials/header.html, with the logo leading to the home page in the page's language, and a link to the same page in the other language.
   Compare with the original when Material is updated.
 -#}
-{% import "partials/chronicle-lang.html" as chronicle with context %}
+{% import "partials/interlatch-lang.html" as interlatch with context %}
 {% set class = "md-header" %}
 {% if "navigation.tabs.sticky" in features %}
   {% set class = class ~ " md-header--shadow md-header--lifted" %}
@@ -11,7 +11,7 @@
 {% endif %}
 <header class="{{ class }}" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
-    <a href="{{ chronicle.home(config, page) }}" title="{{ config.site_name | e }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
+    <a href="{{ interlatch.home(config, page) }}" title="{{ config.site_name | e }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
       {% include "partials/logo.html" %}
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -44,8 +44,8 @@
     {% if not config.theme.palette is mapping %}
       {% include "partials/javascripts/palette.html" %}
     {% endif %}
-    {% set ja = chronicle.code(page) == "ja" %}
-    <a href="{{ chronicle.twin(page, nav) | url }}" hreflang="{{ 'en' if ja else 'ja' }}" lang="{{ 'en' if ja else 'ja' }}" class="md-header__button chronicle-lang" title="{{ 'Read this page in English' if ja else 'このページを日本語で読む' }}">{{ "English" if ja else "日本語" }}</a>
+    {% set ja = interlatch.code(page) == "ja" %}
+    <a href="{{ interlatch.twin(page, nav) | url }}" hreflang="{{ 'en' if ja else 'ja' }}" lang="{{ 'en' if ja else 'ja' }}" class="md-header__button interlatch-lang" title="{{ 'Read this page in English' if ja else 'このページを日本語で読む' }}">{{ "English" if ja else "日本語" }}</a>
     {% if config.extra.alternate %}
       {% include "partials/alternate.html" %}
     {% endif %}

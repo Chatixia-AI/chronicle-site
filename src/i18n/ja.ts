@@ -1,5 +1,5 @@
 // The home page's words in Japanese, in the same shape as en.ts. The terms follow the dashboard's own Japanese
-// (agents-chronicle src/chronicle/web/ja.js): 修正, 落とし穴, 決定, 定着, 1 回のみ, and so on.
+// (Interlatch src/interlatch/web/ja.js): 修正, 落とし穴, 決定, 定着, 1 回のみ, and so on.
 import type { Strings } from "./en";
 
 export const ja: Strings = {

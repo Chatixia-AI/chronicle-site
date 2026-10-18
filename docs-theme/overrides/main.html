@@ -1,10 +1,10 @@
-{#- Chronicle: tell search engines which page is the same page in the other language. -#}
+{#- Interlatch: tell search engines which page is the same page in the other language. -#}
 {% extends "base.html" %}
-{% import "partials/chronicle-lang.html" as chronicle with context %}
+{% import "partials/interlatch-lang.html" as interlatch with context %}
 {% block extrahead %}
   {% if page and page.url is string %}
-    {% set other = chronicle.twin(page, nav) %}
-    {% set here_ja = chronicle.code(page) == "ja" %}
+    {% set other = interlatch.twin(page, nav) %}
+    {% set here_ja = interlatch.code(page) == "ja" %}
     <link rel="alternate" hreflang="{{ 'ja' if here_ja else 'en' }}" href="{{ page.canonical_url }}">
     <link rel="alternate" hreflang="{{ 'en' if here_ja else 'ja' }}" href="{{ config.site_url ~ other }}">
   {% endif %}

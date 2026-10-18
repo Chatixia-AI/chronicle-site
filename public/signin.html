@@ -11,7 +11,7 @@
   later open https://interlatch.firebaseapp.com/signin.html, so it has to ship with every deploy of this site. This is
   its only copy: Chatixia-AI/interlatch's leaderboard/ deploys only the Firestore rules.
 
-  The leaderboard's sign-in (src/chronicle/leaderboard.py in Chatixia-AI/interlatch). Interlatch opens this page with ?return=<its own dashboard on
+  The leaderboard's sign-in (src/interlatch/leaderboard.py in Chatixia-AI/interlatch). Interlatch opens this page with ?return=<its own dashboard on
   this computer>&state=<a one-time value>. After Google sign-in, the page goes back to that dashboard with the Firebase
   refresh token in the URL fragment (never sent to a server), and the dashboard keeps it only if the state matches the
   one it made. Nothing is stored here: the session lives in memory, and only a loopback address is accepted as return.

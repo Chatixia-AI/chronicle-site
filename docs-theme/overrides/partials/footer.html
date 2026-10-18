@@ -1,13 +1,13 @@
 {#-
-  Chronicle: Material 9.7.7's partials/footer.html, with the previous and next links kept within the page's language.
+  Interlatch: Material 9.7.7's partials/footer.html, with the previous and next links kept within the page's language.
   Compare with the original when Material is updated.
 -#}
-{% import "partials/chronicle-lang.html" as chronicle with context %}
+{% import "partials/interlatch-lang.html" as interlatch with context %}
 <footer class="md-footer">
   {% if "navigation.footer" in features %}
-    {% set here = chronicle.code(page) %}
-    {% set prev = page.previous_page if page.previous_page and chronicle.code(page.previous_page) == here else none %}
-    {% set next = page.next_page if page.next_page and chronicle.code(page.next_page) == here else none %}
+    {% set here = interlatch.code(page) %}
+    {% set prev = page.previous_page if page.previous_page and interlatch.code(page.previous_page) == here else none %}
+    {% set next = page.next_page if page.next_page and interlatch.code(page.next_page) == here else none %}
     {% if prev or next %}
       {% if page.meta and page.meta.hide %}
         {% set hidden = "hidden" if "footer" in page.meta.hide %}

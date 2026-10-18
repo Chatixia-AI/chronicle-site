@@ -4,7 +4,7 @@
     "ignore": ["firebase.json", "**/.*"],
     "redirects": [
       {
-        "regex": "^/(?P<page>(?:ja/)?(?:analysis|cli|configuration|dashboard|development|devices|docker|install|join-a-hub|mcp|moving-from-chronicle|postgres|privacy|sources|suggestions|troubleshooting|vscode))/?$",
+        "regex": "^/(?P<page>(?:ja/)?(?:analysis|cli|configuration|dashboard|development|devices|docker|faq|install|join-a-hub|mcp|moving-from-chronicle|party|postgres|privacy|sources|suggestions|troubleshooting|vscode))/?$",
         "destination": "/docs/:page/",
         "type": 301
       }
