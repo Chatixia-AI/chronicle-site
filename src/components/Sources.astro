@@ -9,6 +9,11 @@ interface Props {
 }
 const { lang } = Astro.props;
 const s = t(lang).sources;
+// The docs' section on the extension; the Japanese page's anchor is its Japanese heading.
+const extensionPage: Record<Lang, string> = {
+  en: "sources/#saving-chats-as-you-use-the-sites",
+  ja: "sources/#ブラウザ拡張でチャットを保存する",
+};
 ---
 
 <section class="border-b border-bp-rule/70">
@@ -24,6 +29,14 @@ const s = t(lang).sources;
         ))
       }
       <li class="mt-2 flex items-center border border-dashed border-bp-rule2/60 px-4 py-3.5 text-sm text-bp-dim">
+        <span>
+          {s.extension[0]}<a
+            href={docsPage(lang, extensionPage[lang])}
+            class="text-bp-ink underline decoration-bp-rule2 underline-offset-4 hover:decoration-bp-gold">{s.extension[1]}</a
+          >{s.extension[2]}
+        </span>
+      </li>
+      <li class="flex items-center border border-dashed border-bp-rule2/60 px-4 py-3.5 text-sm text-bp-dim">
         <span>
           {s.mcp[0]}<a
             href={docsPage(lang, "mcp/")}
