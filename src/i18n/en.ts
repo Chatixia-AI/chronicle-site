@@ -221,8 +221,9 @@ export const en = {
       { name: "GitHub Copilot", when: "VS Code and Copilot CLI" },
       { name: "IBM Bob", when: "every 15 minutes" },
       { name: "Google Antigravity", when: "every 15 minutes" },
-      { name: "claude.ai and ChatGPT", when: "from your data export" },
+      { name: "claude.ai and ChatGPT", when: "as you use the sites, or from your data export" },
     ],
+    extension: ["The ", "browser extension", " reads chats only on those two sites, with your own sign-in, and sends them only to Interlatch on your computer. It isn't in the Chrome Web Store: you load it from a folder Interlatch keeps for it."],
     mcp: ["Make that memory available to Claude Desktop, Cursor, Windsurf and Gemini CLI through the ", "MCP server", "."],
   },
 
@@ -392,7 +393,7 @@ export const en = {
     items: [
       {
         question: "Which agents can I connect?",
-        answer: ["Interlatch records Claude Code, Codex, GitHub Copilot, IBM Bob, and Google Antigravity sessions. You can also import claude.ai and ChatGPT data exports. Claude Desktop, Cursor, Windsurf, and Gemini CLI can search the memory through MCP; their sessions are not recorded."] as Seg[],
+        answer: ["Interlatch records Claude Code, Codex, GitHub Copilot, IBM Bob, and Google Antigravity sessions. claude.ai and ChatGPT chats come in through the browser extension as you use the sites, or from their data exports. Claude Desktop, Cursor, Windsurf, and Gemini CLI can search the memory through MCP; their sessions are not recorded."] as Seg[],
         page: "sources/",
         link: "Supported sources",
       },

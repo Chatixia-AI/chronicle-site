@@ -215,8 +215,9 @@ export const ja: Strings = {
       { name: "GitHub Copilot", when: "VS Code と Copilot CLI" },
       { name: "IBM Bob", when: "15 分ごと" },
       { name: "Google Antigravity", when: "15 分ごと" },
-      { name: "claude.ai と ChatGPT", when: "データのエクスポートから" },
+      { name: "claude.ai と ChatGPT", when: "サイトを使うたびに、またはデータのエクスポートから" },
     ],
+    extension: ["", "ブラウザ拡張", " が読むのはこの 2 つのサイトのチャットだけで、あなたのサインインで読み、送り先はこのコンピューターの Interlatch だけです。Chrome ウェブストアにはないため、Interlatch が用意するフォルダーから読み込みます。"],
     mcp: ["Claude Desktop、Cursor、Windsurf、Gemini CLI にも ", "MCP サーバー", " を通じて同じ記憶を届けられます。"],
   },
 
@@ -384,7 +385,7 @@ export const ja: Strings = {
     items: [
       {
         question: "どのエージェントを接続できますか？",
-        answer: ["Claude Code、Codex、GitHub Copilot、IBM Bob、Google Antigravity のセッションを記録できます。claude.ai と ChatGPT のデータエクスポートも取り込めます。Claude Desktop、Cursor、Windsurf、Gemini CLI は MCP で記憶を検索できますが、そのセッションは記録されません。"],
+        answer: ["Claude Code、Codex、GitHub Copilot、IBM Bob、Google Antigravity のセッションを記録できます。claude.ai と ChatGPT のチャットは、サイトを使うたびにブラウザ拡張で保存するか、データエクスポートから取り込めます。Claude Desktop、Cursor、Windsurf、Gemini CLI は MCP で記憶を検索できますが、そのセッションは記録されません。"],
         page: "sources/",
         link: "対応するソース",
       },
