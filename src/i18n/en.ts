@@ -223,7 +223,7 @@ export const en = {
       { name: "Google Antigravity", when: "every 15 minutes" },
       { name: "claude.ai and ChatGPT", when: "as you use the sites, or from your data export" },
     ],
-    extension: ["The ", "browser extension", " reads chats only on those two sites, with your own sign-in, and sends them only to Interlatch on your computer. It isn't in the Chrome Web Store: you load it from a folder Interlatch keeps for it."],
+    extension: ["The ", "browser extension", " reads chats only on those two sites, with your own sign-in, and sends them only to Interlatch on your computer. Add it from the ", "Chrome Web Store", "."],
     mcp: ["Make that memory available to Claude Desktop, Cursor, Windsurf and Gemini CLI through the ", "MCP server", "."],
   },
 
