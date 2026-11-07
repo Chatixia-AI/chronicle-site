@@ -21,6 +21,7 @@ export const links = {
   releases: `${repo}/releases/latest`,
   changelog: `${repo}/blob/main/CHANGELOG.md`,
   pypi: "https://pypi.org/project/interlatch/",
+  chromeWebStore: "https://chromewebstore.google.com/detail/dfoaabcfgmpgkfjaemipocpjhmenlheb",
   chatixia: "https://chatixia.net",
   uv: "https://docs.astral.sh/uv/getting-started/installation/",
 };

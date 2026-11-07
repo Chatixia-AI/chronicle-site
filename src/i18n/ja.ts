@@ -217,7 +217,7 @@ export const ja: Strings = {
       { name: "Google Antigravity", when: "15 分ごと" },
       { name: "claude.ai と ChatGPT", when: "サイトを使うたびに、またはデータのエクスポートから" },
     ],
-    extension: ["", "ブラウザ拡張", " が読むのはこの 2 つのサイトのチャットだけで、あなたのサインインで読み、送り先はこのコンピューターの Interlatch だけです。Chrome ウェブストアにはないため、Interlatch が用意するフォルダーから読み込みます。"],
+    extension: ["", "ブラウザ拡張", " が読むのはこの 2 つのサイトのチャットだけで、あなたのサインインで読み、送り先はこのコンピューターの Interlatch だけです。", "Chrome ウェブストア", "から追加できます。"],
     mcp: ["Claude Desktop、Cursor、Windsurf、Gemini CLI にも ", "MCP サーバー", " を通じて同じ記憶を届けられます。"],
   },
 
