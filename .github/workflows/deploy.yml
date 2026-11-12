@@ -47,6 +47,7 @@ jobs:
       - run: pnpm run build
         env:
           INTERLATCH_SRC: .cache/interlatch
+          GITHUB_TOKEN: ${{ github.token }}  # the header's star and fork counts (src/data/repo.ts), read-only
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         if: github.event_name != 'pull_request'
         with:

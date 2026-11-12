@@ -1,0 +1,69 @@
+---
+// The one-line setup command for the visitor's system: a macOS or Linux shell, or Windows PowerShell. Radio buttons
+// switch it, so it works without JavaScript; the script below picks Windows for Windows visitors, remembers a choice,
+// and keeps every copy on the page on the same system. The Setup commands workflow runs both lines on each platform.
+import CopyCommand from "./CopyCommand.astro";
+import { setupCommands, type Lang } from "../data/site";
+import { t } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  /** Names this copy's radio group; one per copy on the page. */
+  id: string;
+  class?: string;
+}
+const { lang, id, class: className = "" } = Astro.props;
+const s = t(lang).setup;
+const systems = [
+  { value: "posix", label: s.posix },
+  { value: "windows", label: s.windows },
+];
+---
+
+<div class:list={["setup-command", className]}>
+  <div
+    role="radiogroup"
+    aria-label={s.label}
+    class="mb-2 inline-flex rounded-md border border-bp-rule2/70 bg-bp-bg/60 p-0.5 font-plex-mono text-[11px] uppercase tracking-[0.12em]"
+  >
+    {
+      systems.map(({ value, label }) => (
+        <label class="cursor-pointer rounded px-3 py-1 text-bp-dim hover:text-bp-ink has-[:checked]:bg-bp-panel2 has-[:checked]:text-bp-ink has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-bp-gold">
+          <input type="radio" name={`setup-${id}`} value={value} checked={value === "posix"} class="sr-only" />
+          {label}
+        </label>
+      ))
+    }
+  </div>
+  <CopyCommand lang={lang} command={setupCommands.posix} class="setup-posix" />
+  <CopyCommand lang={lang} command={setupCommands.windows} prompt="PS>" class="setup-windows" />
+</div>
+
+<style>
+  .setup-command:has(input[value="posix"]:checked) :global(.setup-windows),
+  .setup-command:has(input[value="windows"]:checked) :global(.setup-posix) {
+    display: none;
+  }
+</style>
+
+<script>
+  const key = "interlatch-setup-system";
+  const radios = document.querySelectorAll<HTMLInputElement>(".setup-command input[type='radio']");
+  const show = (system: string) => {
+    for (const radio of radios) radio.checked = radio.value === system;
+  };
+  let saved: string | null = null;
+  try {
+    saved = localStorage.getItem(key);
+  } catch {}
+  const platform = (navigator as Navigator & { userAgentData?: { platform: string } }).userAgentData?.platform ?? navigator.platform;
+  show(saved === "posix" || saved === "windows" ? saved : /^win/i.test(platform) ? "windows" : "posix");
+  for (const radio of radios) {
+    radio.addEventListener("change", () => {
+      show(radio.value);
+      try {
+        localStorage.setItem(key, radio.value);
+      } catch {}
+    });
+  }
+</script>

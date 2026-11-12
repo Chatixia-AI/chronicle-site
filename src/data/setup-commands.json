@@ -1,0 +1,4 @@
+{
+  "posix": "uv tool install --python 3.13 interlatch && \"$(uv tool dir --bin)/interlatch\" install",
+  "windows": "uv tool install --python 3.13 interlatch; & \"$(uv tool dir --bin)\\interlatch.exe\" install"
+}
