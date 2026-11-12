@@ -1,0 +1,16 @@
+---
+// One line under the setup command: it runs in a macOS or Linux terminal, and Windows has steps of its own.
+import { docsPage, type Lang } from "../data/site";
+import { t } from "../i18n";
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+const { lang, class: className = "" } = Astro.props;
+const s = t(lang).platforms;
+---
+
+<p class:list={["text-xs leading-relaxed text-bp-faint", className]}>
+  {s.text}<a href={docsPage(lang, "install/#windows")} class="text-bp-dim underline decoration-bp-rule2 underline-offset-4 hover:text-bp-ink">{s.link}</a>{s.after}
+</p>

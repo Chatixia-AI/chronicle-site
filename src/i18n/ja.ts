@@ -42,19 +42,20 @@ export const ja: Strings = {
 
   copy: { copy: "コピー", copied: "コピーしました", select: "選択してください" },
 
-  renamed: {
-    text: ["Interlatch の旧名は Chronicle です。", { code: "chronicle" }, " コマンドもそのまま使え、セッションと設定は自動で引き継がれます。"],
-    link: "Chronicle からの移行",
+  platforms: {
+    text: "macOS と Linux 用です。Windows では",
+    link: "PowerShell の手順",
+    after: "に従ってください。",
   },
 
   hero: {
     kicker: "コーディングエージェントが共有する記憶",
     title: ["エージェントが変わっても、", "学びは残る。"],
-    body: "新しいセッションのエージェントは、前回わかったことを知りません。Interlatch は Claude Code、Codex、Copilot、Bob、Antigravity のセッションを手元の Mac に記録します。得られたナレッジは元のセッション、プロジェクト、エージェントとつながったまま残り、後の作業で確かめられるたびに信頼度が上がります。",
+    body: "新しいセッションのエージェントは、前回わかったことを知りません。Interlatch は Claude Code、Codex、Copilot、Bob、Antigravity、OpenCode のセッションを手元のコンピューターに記録します。得られたナレッジは元のセッション、プロジェクト、エージェントとつながったまま残り、後の作業で確かめられるたびに信頼度が上がります。",
     aside: { lang: "en", text: "Different agents. Knowledge that stays." },
     start: "はじめる",
     see: "学びがつながる仕組みを見る",
-    facts: "macOS 13 以降 · uv が必要 · 無料のオープンソース · テレメトリなし",
+    facts: "macOS · Windows · Linux · uv が必要 · 無料のオープンソース · テレメトリなし",
     card: {
       log: "共有する記憶 · billing-api",
       meta: "今日 14:52 · Claude Code · ",
@@ -81,16 +82,16 @@ export const ja: Strings = {
   install: {
     label: "01 / セットアップ",
     title: "エージェントをつなぎ、学びを残す。",
-    body: "Interlatch は uv でインストールし、エージェントのセッションファイルを変更せずに読みます。記録を残し、学んだことを次のセッションですぐ使えるようにします。分析には、あなた自身の Claude Code か Codex のログイン、Bob の API キーを使う IBM Bob、またはあなたのキーで使うモデルプロバイダーの API を使います。Anthropic、Amazon Bedrock、OpenAI、Azure OpenAI、OpenRouter、そして Mac 上の Ollama も使えます。分析の利用分はあなたのプランやキーに計上されます。インストール前のセッションは、新しいものから 15 分ごとに 6 件ずつ、バックグラウンドで分析します。",
+    body: "Interlatch は uv でインストールし、エージェントのセッションファイルを変更せずに読みます。記録を残し、学んだことを次のセッションですぐ使えるようにします。分析には、あなた自身の Claude Code か Codex のログイン、Bob の API キーを使う IBM Bob、またはあなたのキーで使うモデルプロバイダーの API を使います。Anthropic、Amazon Bedrock、OpenAI、Azure OpenAI、OpenRouter、そして手元のコンピューター上の Ollama も使えます。分析の利用分はあなたのプランやキーに計上されます。インストール前のセッションは、新しいものから 15 分ごとに 6 件ずつ、バックグラウンドで分析します。",
     step: "ステップ",
     steps: [
       {
         title: "インストール",
-        body: "コマンドラインツールをインストールすると、Mac にあるコーディングエージェントを見つけ、過去のセッションを取り込み、ログイン時に起動するよう設定します。",
+        body: "コマンドラインツールをインストールすると、コンピューターにあるコーディングエージェントを見つけ、過去のセッションを取り込み、ログイン時に起動するよう設定します。",
       },
       {
         title: "いつもどおりに作業",
-        body: "Claude Code、Codex、Copilot、Bob、Antigravity をいつもどおり使うだけ。各セッションは終わると記録され、バックグラウンドで読まれます。",
+        body: "Claude Code、Codex、Copilot、Bob、Antigravity、OpenCode をいつもどおり使うだけ。各セッションは終わると記録され、バックグラウンドで読まれます。",
       },
       {
         title: "次の作業に引き継ぐ",
@@ -98,8 +99,8 @@ export const ja: Strings = {
       },
     ],
     needs: "必要なもの",
-    requirements: "macOS 13 以降、uv、そして分析に使うエージェントのログインか API キー",
-    app: "アプリがよければ、Apple シリコン版をダウンロード",
+    requirements: "macOS、Windows または Linux、uv、そして分析に使うエージェントのログインか API キー",
+    app: "アプリがよければ、Apple シリコンの Mac 用（macOS 13 以降）をダウンロード",
     setsUp: "インストールで設定されるもの",
   },
 
@@ -139,7 +140,7 @@ export const ja: Strings = {
   showcase: {
     label: "03 / ダッシュボード",
     title: "根拠まで読める記憶。",
-    body: "異なるエージェントのセッション、そこから得た教訓、その出典となった会話を確認できます。ダッシュボードはあなた自身のマシンで動き、Mac でも、Tailscale 経由のスマートフォンでも、ほかのコンピューターやチームと共有する 1 台のハブでも開けます。",
+    body: "異なるエージェントのセッション、そこから得た教訓、その出典となった会話を確認できます。ダッシュボードはあなた自身のマシンで動き、手元のコンピューターでも、Tailscale 経由のスマートフォンでも、ほかのコンピューターやチームと共有する 1 台のハブでも開けます。",
     tour: "1 分でわかるツアー",
     tourAlt:
       "デモデータで見る Interlatch ダッシュボードの 1 分ツアー：ホーム、トランスクリプトと抽出したナレッジを含むセッション、⌘K 検索、用語集のマップ、週次の振り返り",
@@ -286,7 +287,7 @@ export const ja: Strings = {
       },
       {
         title: "モデルもアカウントも、あなたが選ぶ。",
-        body: "分析は秘密情報を伏せてから、あなた自身の Claude Code か Codex のログイン、Bob の API キー、またはあなたのプロバイダーキーで行います。Ollama なら Mac の外には出ません。MCP で取り出した記憶は、接続したエージェントとそのモデルにだけ渡ります。間に私たちのキーは入りません。",
+        body: "分析は秘密情報を伏せてから、あなた自身の Claude Code か Codex のログイン、Bob の API キー、またはあなたのプロバイダーキーで行います。Ollama ならコンピューターの外には出ません。MCP で取り出した記憶は、接続したエージェントとそのモデルにだけ渡ります。間に私たちのキーは入りません。",
       },
       {
         title: "根拠を、いつでも確かめられる。",
@@ -295,8 +296,8 @@ export const ja: Strings = {
     ],
     closing: {
       title: "次のエージェントに、手がかりを。",
-      body: "インストールして、使っているエージェントを接続。すでに Mac にあるセッションから、これからの作業まで、プロジェクトの知識として残せます。",
-      needs: ["", "uv", " と macOS 13 以降が必要です。"],
+      body: "インストールして、使っているエージェントを接続。すでにコンピューターにあるセッションから、これからの作業まで、プロジェクトの知識として残せます。",
+      needs: ["", "uv", " が必要です。"],
       guide: "インストールガイドを読む",
       star: "GitHub でスターする",
     },
@@ -305,7 +306,7 @@ export const ja: Strings = {
   visuals: {
     kept: {
       caption: "アーカイブ · すべてのエージェント",
-      note: "元のトランスクリプトを Mac にずっと保存",
+      note: "元のトランスクリプトを手元のコンピューターにずっと保存",
       rows: [
         { when: "今日", agent: "Claude Code", project: "billing-api", title: "Stripe が invoice.paid を再送しても二重請求しないようにする" },
         { when: "今日", agent: "Codex", project: "storefront", title: "チェックアウトの配送日のハイドレーション不一致を修正" },
@@ -409,7 +410,7 @@ export const ja: Strings = {
       },
       {
         question: "Windows や Linux でも使えますか？",
-        answer: ["はい。Python 3.11 以降があれば Windows と Linux でも動きます。", { code: "pip install interlatch" }, " で PyPI からパッケージをインストールするか uv を使い、", { code: "interlatch install" }, " を実行してブラウザーでダッシュボードを開けます。Interlatch 自体に Node.js は不要ですが、接続するエージェントには別の動作要件がある場合があります。バックグラウンドジョブは Windows のタスクスケジューラや Linux の systemd で動きます。ネイティブのデスクトップウィンドウは現在 macOS 専用ですが、ブラウザーのダッシュボードは 3 つのプラットフォームで使えます。"],
+        answer: ["はい。Windows 10・11 と Linux では、uv を入れてから ", { code: "uv tool install --python 3.13 interlatch" }, " と ", { code: "interlatch install" }, " を実行し、ブラウザーでダッシュボードを開きます。バックグラウンドジョブは Windows ではタスク スケジューラ、Linux では systemd のユーザーユニットで動きます。デスクトップアプリは Apple シリコンの Mac 専用ですが、ブラウザーのダッシュボードは 3 つのプラットフォームで使えます。"],
         page: "install/",
         link: "プラットフォーム別のインストール",
       },
