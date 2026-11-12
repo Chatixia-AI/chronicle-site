@@ -2,15 +2,19 @@
 // A shell command with a copy button, labelled in the page's language. A long command wraps at its spaces, each
 // line after the first indented past the prompt, so it stays readable on a phone. Words never split (not even at
 // the hyphens of --bin) and && stays with the word after it, so a line never ends on &&. The button copies all of it.
+// The prompt says which shell it is for ($ for macOS and Linux, PS> for Windows PowerShell); it isn't copied.
 import type { Lang } from "../data/site";
 import { t } from "../i18n";
 
 interface Props {
   command: string;
   lang: Lang;
+  prompt?: string;
   class?: string;
 }
-const { command, lang, class: className = "" } = Astro.props;
+const { command, lang, prompt = "$", class: className = "" } = Astro.props;
+// Lines after the first start past the prompt and its space.
+const indent = `padding-left:${prompt.length + 1}ch;text-indent:-${prompt.length + 1}ch`;
 const s = t(lang).copy;
 const words: string[] = [];
 for (const word of command.split(" ")) {
@@ -25,8 +29,8 @@ for (const word of command.split(" ")) {
     className,
   ]}
 >
-  <code class="min-w-0 flex-1 whitespace-pre-wrap pl-[2ch] -indent-[2ch] leading-relaxed text-bp-ink [overflow-wrap:anywhere]"
-    ><span class="select-none text-bp-gold" aria-hidden="true">$ </span>{
+  <code class="min-w-0 flex-1 whitespace-pre-wrap leading-relaxed text-bp-ink [overflow-wrap:anywhere]" style={indent}
+    ><span class="select-none text-bp-gold" aria-hidden="true">{prompt} </span>{
       words.map((word, i) => [i ? " " : "", <span class="whitespace-nowrap">{word}</span>])
     }</code
   >

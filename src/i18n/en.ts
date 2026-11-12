@@ -15,6 +15,8 @@ export const en = {
     home: "Interlatch home",
     by: "by Chatixia",
     nav: { label: "Main", record: "What it does", install: "Install", team: "Teams", faq: "FAQ", docs: "Docs", github: "GitHub" },
+    // The header's link to the repository; {stars} and {forks} are its counts.
+    github: { label: "Interlatch on GitHub", counted: "Interlatch on GitHub (stars: {stars}, forks: {forks})" },
     // The header's menu button on narrow screens, where the links above don't fit.
     menu: "Menu",
     cta: "Install",
@@ -46,12 +48,8 @@ export const en = {
 
   copy: { copy: "Copy", copied: "Copied", select: "Select it" },
 
-  // Under the setup command, which is for a macOS or Linux terminal; the link goes to the Windows install steps.
-  platforms: {
-    text: "For macOS and Linux. On Windows, follow the ",
-    link: "PowerShell steps",
-    after: ".",
-  },
+  // The switch above the setup command: which system's line it shows.
+  setup: { label: "Your system", posix: "macOS / Linux", windows: "Windows" },
 
   hero: {
     kicker: "Shared memory for your coding agents",

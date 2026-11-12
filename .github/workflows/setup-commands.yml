@@ -1,0 +1,73 @@
+# Runs the landing page's one-line setup commands (src/data/setup-commands.json) as a visitor pastes them, on a fresh
+# runner of each platform: the posix line in bash on Linux and macOS, the windows line in Windows PowerShell 5.1 and
+# PowerShell 7. uv is installed into a folder of its own, so uv's tool folder (~/.local/bin) is not on PATH, as with uv
+# from Homebrew: the commands must find interlatch without it. Without a terminal, `interlatch install` takes its
+# defaults.
+name: Setup commands
+
+on:
+  pull_request:
+    paths:
+      - src/data/setup-commands.json
+      - .github/workflows/setup-commands.yml
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  posix:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install uv on its own
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR="$HOME/uv" UV_NO_MODIFY_PATH=1 sh
+          echo "$HOME/uv" >> "$GITHUB_PATH"
+      - name: Run the macOS and Linux command
+        run: |
+          command -v interlatch && { echo "interlatch is already on PATH"; exit 1; }
+          cmd="$(jq -r .posix src/data/setup-commands.json)"
+          echo "$cmd"
+          bash -c "$cmd" < /dev/null
+          "$(uv tool dir --bin)/interlatch" --version
+
+  windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        shell: [powershell, pwsh]
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install uv on its own
+        run: |
+          $env:UV_INSTALL_DIR = "$env:USERPROFILE\uv"
+          $env:UV_NO_MODIFY_PATH = "1"
+          irm https://astral.sh/uv/install.ps1 | iex
+          Add-Content -Path $env:GITHUB_PATH -Value "$env:USERPROFILE\uv"
+      - name: Run the Windows command
+        run: |
+          # A visitor's console keeps going after an error; CI's default would stop at uv's progress on stderr.
+          $ErrorActionPreference = "Continue"
+          if (Get-Command interlatch -ErrorAction SilentlyContinue) { throw "interlatch is already on PATH" }
+          $command = (Get-Content -Raw src/data/setup-commands.json | ConvertFrom-Json).windows
+          Write-Output $PSVersionTable.PSVersion.ToString() $command
+          Invoke-Expression $command
+          if ($LASTEXITCODE -ne 0) { throw "the command exited with $LASTEXITCODE" }
+          & "$(uv tool dir --bin)\interlatch.exe" --version
+          if ($LASTEXITCODE -ne 0) { throw "interlatch --version exited with $LASTEXITCODE" }

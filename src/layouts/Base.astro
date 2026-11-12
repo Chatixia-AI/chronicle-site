@@ -1,6 +1,7 @@
 ---
 // Every page's shell: head, header and footer, in the Chatixia blueprint style, in English or Japanese.
 import "../styles/global.css";
+import { repoStats } from "../data/repo";
 import { docsPage, homePath, links, productName, type Lang } from "../data/site";
 import { t } from "../i18n";
 
@@ -20,7 +21,8 @@ const home = homePath(lang);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // The social preview image, at its real size. https://interlatch.com/... works only once the domain is connected.
 const ogImage = { url: new URL("/images/home.webp", Astro.site), width: 1440, height: 900 };
-// In page order; show links inline from xl up so both languages fit, and in the menu below that.
+// In page order; show links inline from xl up so both languages fit, and in the menu below that. GitHub is inline as
+// the icon with its stars and forks at the right instead.
 const nav = [
   { label: s.nav.install, href: `${home}#install` },
   { label: s.nav.record, href: `${home}#record` },
@@ -29,6 +31,11 @@ const nav = [
   { label: s.nav.docs, href: docsPage(lang) },
   { label: s.nav.github, href: links.github },
 ];
+const stats = await repoStats;
+const count = new Intl.NumberFormat(lang, { notation: "compact" });
+const github = stats
+  ? s.github.counted.replace("{stars}", String(stats.stars)).replace("{forks}", String(stats.forks))
+  : s.github.label;
 const footer = [
   {
     title: s.footer.product,
@@ -138,7 +145,7 @@ const footer = [
           <span class="hidden font-plex-mono text-[10px] uppercase tracking-[0.18em] text-bp-faint sm:inline">{s.by}</span>
         </a>
         <nav aria-label={s.nav.label} class="ml-auto hidden items-center gap-7 text-sm text-bp-dim xl:flex">
-          {nav.map((item) => <a href={item.href} class="whitespace-nowrap hover:text-bp-ink">{item.label}</a>)}
+          {nav.filter((item) => item.href !== links.github).map((item) => <a href={item.href} class="whitespace-nowrap hover:text-bp-ink">{item.label}</a>)}
         </nav>
         <div class="ml-auto flex items-center gap-3 xl:ml-0">
           <!-- Below xl the links above don't fit: the same links in a menu. A <details> opens and closes from the
@@ -175,6 +182,38 @@ const footer = [
             class="hidden min-h-10 items-center whitespace-nowrap rounded-md bg-bp-cta px-4 text-sm font-semibold text-bp-cta-ink hover:bg-bp-cta-hover min-[400px]:inline-flex"
             >{s.cta}</a
           >
+          <!-- The repository, with its stars and forks from sm up (read at build time; the mark alone if that failed). -->
+          <a
+            href={links.github}
+            aria-label={github}
+            title={github}
+            class="flex h-8 items-center divide-x divide-bp-rule2/50 rounded-md border border-bp-rule2/50 text-bp-faint hover:text-bp-ink"
+          >
+            <span class="flex h-full w-8 items-center justify-center">
+              <svg class="h-[15px] w-[15px]" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"
+                ><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
+                ></path></svg
+              >
+            </span>
+            {
+              stats && (
+                <>
+                  <span class="hidden h-full items-center gap-1.5 px-2.5 font-plex-mono text-xs sm:flex">
+                    <svg class="h-[13px] w-[13px]" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                      <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-.528 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z" />
+                    </svg>
+                    {count.format(stats.stars)}
+                  </span>
+                  <span class="hidden h-full items-center gap-1.5 px-2.5 font-plex-mono text-xs sm:flex">
+                    <svg class="h-[13px] w-[13px]" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                      <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z" />
+                    </svg>
+                    {count.format(stats.forks)}
+                  </span>
+                </>
+              )
+            }
+          </a>
           <!-- The language link and the theme toggle: one small control at the far right, the same size on every page,
                so after switching language the way back is right under the pointer. -->
           <div class="flex h-8 items-center divide-x divide-bp-rule2/50 rounded-md border border-bp-rule2/50 text-bp-faint">

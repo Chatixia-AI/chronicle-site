@@ -1,5 +1,6 @@
 // Links and copy shared across the pages. The docs live at /docs/, built from the Interlatch repository; the Japanese
 // docs at /docs/ja/, with the same page names.
+import setupCommandsJson from "./setup-commands.json";
 const repo = "https://github.com/Chatixia-AI/interlatch";
 
 export type Lang = "en" | "ja";
@@ -33,6 +34,8 @@ export const homePath = (lang: Lang) => (lang === "ja" ? "/ja/" : "/");
 
 export const installCommand = "uv tool install --python 3.13 interlatch";
 
-/** Install, then set up: find the agents, import their sessions, start the dashboard. One line to paste. It runs
- * interlatch from uv's tool folder, so it works before that folder is on PATH (uv from Homebrew doesn't add it). */
-export const setupCommand = `${installCommand} && "$(uv tool dir --bin)/interlatch" install`;
+/** Install, then set up: find the agents, import their sessions, start the dashboard. One line to paste, for a macOS
+ * or Linux shell (posix) and for Windows PowerShell 5.1 or 7 (windows). Each runs interlatch from uv's tool folder, so
+ * it works before that folder is on PATH (uv from Homebrew doesn't add it). They live in a JSON file so the Setup
+ * commands workflow can run exactly these lines on each platform. */
+export const setupCommands: { posix: string; windows: string } = setupCommandsJson;

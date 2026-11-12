@@ -14,6 +14,7 @@ export const ja: Strings = {
     home: "Interlatch ホーム",
     by: "by Chatixia",
     nav: { label: "メイン", record: "できること", install: "インストール", team: "チーム", faq: "よくある質問", docs: "ドキュメント", github: "GitHub" },
+    github: { label: "GitHub の Interlatch", counted: "GitHub の Interlatch：スター {stars}、フォーク {forks}" },
     menu: "メニュー",
     cta: "インストール",
     theme: { light: "ライトテーマに切り替え", dark: "ダークテーマに切り替え" },
@@ -42,11 +43,7 @@ export const ja: Strings = {
 
   copy: { copy: "コピー", copied: "コピーしました", select: "選択してください" },
 
-  platforms: {
-    text: "macOS と Linux 用です。Windows では",
-    link: "PowerShell の手順",
-    after: "に従ってください。",
-  },
+  setup: { label: "お使いのシステム", posix: "macOS / Linux", windows: "Windows" },
 
   hero: {
     kicker: "コーディングエージェントが共有する記憶",

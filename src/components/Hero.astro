@@ -2,10 +2,9 @@
 // The opening: one agent learns, and another reuses the lesson with its source intact. Tink keeps the record,
 // ticking items off the clipboard.
 import CastLoop from "./CastLoop.astro";
-import CopyCommand from "./CopyCommand.astro";
-import Platforms from "./Platforms.astro";
 import Segs from "./Segs.astro";
-import { docsPage, setupCommand, type Lang } from "../data/site";
+import SetupCommand from "./SetupCommand.astro";
+import { docsPage, type Lang } from "../data/site";
 import { t } from "../i18n";
 
 interface Props {
@@ -45,8 +44,7 @@ const s = t(lang).hero;
       <p lang={s.aside.lang} class:list={["mt-3 max-w-[570px] text-[15px] leading-relaxed text-bp-faint", s.aside.lang === "ja" && "break-keep"]}>
         {s.aside.text}
       </p>
-      <CopyCommand lang={lang} command={setupCommand} class="mt-9 max-w-[570px]" />
-      <Platforms lang={lang} class="mt-2 max-w-[570px]" />
+      <SetupCommand lang={lang} id="hero" class="mt-9 max-w-[570px]" />
       <div class="mt-5 flex flex-wrap gap-3">
         <a
           href={docsPage(lang, "install/")}
