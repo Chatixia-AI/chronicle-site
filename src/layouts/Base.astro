@@ -1,7 +1,7 @@
 ---
 // Every page's shell: head, header and footer, in the Chatixia blueprint style, in English or Japanese.
 import "../styles/global.css";
-import { repoStats } from "../data/repo";
+import { minStarsShown, repoStats } from "../data/repo";
 import { docsPage, homePath, links, productName, type Lang } from "../data/site";
 import { t } from "../i18n";
 
@@ -31,7 +31,8 @@ const nav = [
   { label: s.nav.docs, href: docsPage(lang) },
   { label: s.nav.github, href: links.github },
 ];
-const stats = await repoStats;
+const read = await repoStats;
+const stats = read && read.stars >= minStarsShown ? read : null;
 const count = new Intl.NumberFormat(lang, { notation: "compact" });
 const github = stats
   ? s.github.counted.replace("{stars}", String(stats.stars)).replace("{forks}", String(stats.forks))
@@ -182,7 +183,8 @@ const footer = [
             class="hidden min-h-10 items-center whitespace-nowrap rounded-md bg-bp-cta px-4 text-sm font-semibold text-bp-cta-ink hover:bg-bp-cta-hover min-[400px]:inline-flex"
             >{s.cta}</a
           >
-          <!-- The repository, with its stars and forks from sm up (read at build time; the mark alone if that failed). -->
+          <!-- The repository, with its stars and forks from sm up once it has minStarsShown stars (read at build time);
+               before that, or if the read failed, the mark and "GitHub". -->
           <a
             href={links.github}
             aria-label={github}
@@ -213,6 +215,7 @@ const footer = [
                 </>
               )
             }
+            {!stats && <span class="hidden h-full items-center px-2.5 text-xs sm:flex">GitHub</span>}
           </a>
           <!-- The language link and the theme toggle: one small control at the far right, the same size on every page,
                so after switching language the way back is right under the pointer. -->

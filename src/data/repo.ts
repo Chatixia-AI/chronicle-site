@@ -1,5 +1,9 @@
 import { links } from "./site";
 
+/** Below this many stars the header shows the GitHub link without its counts: a handful reads as nobody uses it. The
+ * counts appear by themselves on the first build past it. */
+export const minStarsShown = 100;
+
 export interface RepoStats {
   stars: number;
   forks: number;
