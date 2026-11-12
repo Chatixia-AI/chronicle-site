@@ -1,5 +1,5 @@
-// Links and copy shared across the pages. The docs live at /docs/, built from the Interlatch repository (called
-// agents-chronicle until the rename; its old URLs redirect); the Japanese docs at /docs/ja/, with the same page names.
+// Links and copy shared across the pages. The docs live at /docs/, built from the Interlatch repository; the Japanese
+// docs at /docs/ja/, with the same page names.
 const repo = "https://github.com/Chatixia-AI/interlatch";
 
 export type Lang = "en" | "ja";
@@ -27,9 +27,6 @@ export const links = {
 
 /** A docs page in the reader's language: docsPage("ja", "mcp/") is /docs/ja/mcp/. */
 export const docsPage = (lang: Lang, page = "") => `${links.docs}${lang === "ja" ? "ja/" : ""}${page}`;
-
-/** The docs page for people coming from Chronicle: what changed, and that existing installs move by themselves. */
-export const movingPage = (lang: Lang) => docsPage(lang, "moving-from-chronicle/");
 
 /** The home page in each language. */
 export const homePath = (lang: Lang) => (lang === "ja" ? "/ja/" : "/");

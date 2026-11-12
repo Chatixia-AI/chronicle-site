@@ -107,8 +107,7 @@ const footer = [
       (() => {
         let stored = null;
         try {
-          stored = localStorage.getItem("interlatch-theme") ?? localStorage.getItem("chronicle-theme");
-          if (stored === "light" || stored === "dark") localStorage.setItem("interlatch-theme", stored);
+          stored = localStorage.getItem("interlatch-theme");
         } catch {}
         const system = matchMedia("(prefers-color-scheme: light)");
         const apply = (t) => (document.documentElement.dataset.theme = t);

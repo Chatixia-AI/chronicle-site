@@ -46,21 +46,22 @@ export const en = {
 
   copy: { copy: "Copy", copied: "Copied", select: "Select it" },
 
-  // Under the install command, for people who know it by its old name.
-  renamed: {
-    text: ["Interlatch was called Chronicle: ", { code: "chronicle" }, " still works, and your sessions and settings move over automatically. "] as Seg[],
-    link: "Moving from Chronicle",
+  // Under the setup command, which is for a macOS or Linux terminal; the link goes to the Windows install steps.
+  platforms: {
+    text: "For macOS and Linux. On Windows, follow the ",
+    link: "PowerShell steps",
+    after: ".",
   },
 
   hero: {
     kicker: "Shared memory for your coding agents",
     title: ["Different agents.", "Knowledge that stays."],
-    body: "Each new session starts without what the last one figured out. Interlatch records your Claude Code, Codex, Copilot, Bob and Antigravity sessions on your own Mac. Each lesson stays linked to the session, project and agent it came from, and earns trust as later work confirms it.",
+    body: "Each new session starts without what the last one figured out. Interlatch records your Claude Code, Codex, Copilot, Bob, Antigravity and OpenCode sessions on your own computer. Each lesson stays linked to the session, project and agent it came from, and earns trust as later work confirms it.",
     // The tagline in the other language, under the English one.
     aside: { lang: "ja", text: "エージェントが変わっても、学びは残る。" },
     start: "Get started",
     see: "See how memory carries forward",
-    facts: "macOS 13+ · needs uv · free and open source · no telemetry",
+    facts: "macOS · Windows · Linux · needs uv · free and open source · no telemetry",
     card: {
       log: "Shared memory · billing-api",
       meta: "Today 14:52 · Claude Code · ",
@@ -87,16 +88,16 @@ export const en = {
   install: {
     label: "01 / Set up",
     title: "Connect your agents. Keep what they learn.",
-    body: "Interlatch installs with uv and reads your agents' session files without changing them. It keeps the record and has the lessons ready for the next session. The analysis runs through your own Claude Code or Codex login, IBM Bob with a Bob API key, or a model provider's API with your own key: Anthropic, Amazon Bedrock, OpenAI, Azure OpenAI, OpenRouter, or Ollama on your own Mac. It counts toward your own plan or key, and the sessions from before you installed are analyzed in the background, newest first, six every 15 minutes.",
+    body: "Interlatch installs with uv and reads your agents' session files without changing them. It keeps the record and has the lessons ready for the next session. The analysis runs through your own Claude Code or Codex login, IBM Bob with a Bob API key, or a model provider's API with your own key: Anthropic, Amazon Bedrock, OpenAI, Azure OpenAI, OpenRouter, or Ollama on your own computer. It counts toward your own plan or key, and the sessions from before you installed are analyzed in the background, newest first, six every 15 minutes.",
     step: "Step",
     steps: [
       {
         title: "Install",
-        body: "Install the command line, then let it find the coding agents on your Mac, import their past sessions and start from login.",
+        body: "Install the command line, then let it find the coding agents on your computer, import their past sessions and start from login.",
       },
       {
         title: "Work as usual",
-        body: "Use Claude Code, Codex, Copilot, Bob or Antigravity as you always do. Each session is recorded once it ends and read in the background.",
+        body: "Use Claude Code, Codex, Copilot, Bob, Antigravity or OpenCode as you always do. Each session is recorded once it ends and read in the background.",
       },
       {
         title: "Carry the context forward",
@@ -104,8 +105,8 @@ export const en = {
       },
     ],
     needs: "Needs",
-    requirements: "macOS 13 or later, uv, and an agent login or API key for the analysis",
-    app: "Prefer an app? Download it for Apple silicon",
+    requirements: "macOS, Windows or Linux, uv, and an agent login or API key for the analysis",
+    app: "Prefer an app? Download it for Macs with Apple silicon (macOS 13+)",
     setsUp: "What the install sets up",
   },
 
@@ -145,7 +146,7 @@ export const en = {
   showcase: {
     label: "03 / The dashboard",
     title: "A memory you can inspect.",
-    body: "Browse sessions from different agents, inspect the lessons they produced and open the source conversation. The dashboard runs on your own machines: on your Mac, on your phone through Tailscale, or on one hub that your other computers and your team share.",
+    body: "Browse sessions from different agents, inspect the lessons they produced and open the source conversation. The dashboard runs on your own machines: on your computer, on your phone through Tailscale, or on one hub that your other computers and your team share.",
     tour: "A one-minute tour",
     tourAlt:
       "A one-minute tour of the Interlatch dashboard on demo data: Home, a session with its transcript and extracted knowledge, ⌘K search, the glossary Map and a weekly review",
@@ -292,7 +293,7 @@ export const en = {
       },
       {
         title: "Your models. Your accounts.",
-        body: "Analysis runs through your own Claude Code or Codex login, a Bob API key or your own provider key, with secrets redacted first. With Ollama, it never leaves your Mac. Memory retrieved through MCP goes only to the agent you connected and its model. No key of ours in the middle.",
+        body: "Analysis runs through your own Claude Code or Codex login, a Bob API key or your own provider key, with secrets redacted first. With Ollama, it never leaves your computer. Memory retrieved through MCP goes only to the agent you connected and its model. No key of ours in the middle.",
       },
       {
         title: "Keep the evidence in reach.",
@@ -301,9 +302,9 @@ export const en = {
     ],
     closing: {
       title: "Give the next agent a head start.",
-      body: "Bring in the sessions already on your Mac and connect the agents you use. Keep what they learn attached to your projects, ready to carry into the next task.",
+      body: "Bring in the sessions already on your computer and connect the agents you use. Keep what they learn attached to your projects, ready to carry into the next task.",
       // Under the command, which installs Interlatch and then sets it up; the middle part links to uv's install page.
-      needs: ["Needs ", "uv", " and macOS 13 or later."],
+      needs: ["Needs ", "uv", "."],
       guide: "Read the install guide",
       star: "Star it on GitHub",
     },
@@ -312,7 +313,7 @@ export const en = {
   visuals: {
     kept: {
       caption: "Archive · all agents",
-      note: "Raw transcripts kept for good, on your Mac",
+      note: "Raw transcripts kept for good, on your computer",
       rows: [
         { when: "today", agent: "Claude Code", project: "billing-api", title: "Stop double charges when Stripe retries invoice.paid" },
         { when: "today", agent: "Codex", project: "storefront", title: "Fix the checkout hydration mismatch on delivery dates" },
@@ -417,7 +418,7 @@ export const en = {
       },
       {
         question: "Can I use it on Windows or Linux?",
-        answer: ["Yes. Interlatch runs on Windows and Linux with Python 3.11 or newer. Install the package from PyPI with ", { code: "pip install interlatch" }, " (or use uv), then run ", { code: "interlatch install" }, " and open the dashboard in your browser. Node.js is not required by Interlatch itself; an agent you connect may have its own requirements. Background jobs use Task Scheduler on Windows and systemd on Linux. The native desktop window is currently macOS-only; the browser dashboard works on all three platforms."] as Seg[],
+        answer: ["Yes. On Windows 10 and 11 and on Linux, install uv, then run ", { code: "uv tool install --python 3.13 interlatch" }, " and ", { code: "interlatch install" }, ", and open the dashboard in your browser. Background jobs use Task Scheduler on Windows and systemd user units on Linux. The desktop app is for Macs with Apple silicon only; the browser dashboard works on all three platforms."] as Seg[],
         page: "install/",
         link: "Installation by platform",
       },

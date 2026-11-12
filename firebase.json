@@ -4,8 +4,18 @@
     "ignore": ["firebase.json", "**/.*"],
     "redirects": [
       {
-        "regex": "^/(?P<page>(?:ja/)?(?:analysis|cli|configuration|dashboard|development|devices|docker|faq|install|join-a-hub|mcp|moving-from-chronicle|party|postgres|privacy|profiles|sources|suggestions|troubleshooting|vscode))/?$",
+        "regex": "^/(?P<page>(?:ja/)?(?:analysis|cli|configuration|dashboard|development|devices|docker|faq|install|join-a-hub|mcp|party|postgres|privacy|profiles|sources|suggestions|troubleshooting|vscode))/?$",
         "destination": "/docs/:page/",
+        "type": 301
+      },
+      {
+        "regex": "^/(?:docs/)?moving-from-chronicle/?$",
+        "destination": "/docs/install/",
+        "type": 301
+      },
+      {
+        "regex": "^/(?:docs/)?ja/moving-from-chronicle/?$",
+        "destination": "/docs/ja/install/",
         "type": 301
       }
     ],

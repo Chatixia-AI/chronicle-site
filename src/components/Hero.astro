@@ -3,7 +3,7 @@
 // ticking items off the clipboard.
 import CastLoop from "./CastLoop.astro";
 import CopyCommand from "./CopyCommand.astro";
-import Renamed from "./Renamed.astro";
+import Platforms from "./Platforms.astro";
 import Segs from "./Segs.astro";
 import { docsPage, setupCommand, type Lang } from "../data/site";
 import { t } from "../i18n";
@@ -46,7 +46,7 @@ const s = t(lang).hero;
         {s.aside.text}
       </p>
       <CopyCommand lang={lang} command={setupCommand} class="mt-9 max-w-[570px]" />
-      <Renamed lang={lang} class="mt-2 max-w-[570px]" />
+      <Platforms lang={lang} class="mt-2 max-w-[570px]" />
       <div class="mt-5 flex flex-wrap gap-3">
         <a
           href={docsPage(lang, "install/")}

@@ -1,6 +1,7 @@
 ---
 // The three rules from the roadmap, and the closing call to install.
 import CopyCommand from "./CopyCommand.astro";
+import Platforms from "./Platforms.astro";
 import SectionHead from "./SectionHead.astro";
 import { docsPage, links, setupCommand, type Lang } from "../data/site";
 import { t } from "../i18n";
@@ -45,6 +46,7 @@ const s = t(lang).rules;
         >{s.closing.needs[1]}</a
       >{s.closing.needs[2]}
     </p>
+    <Platforms lang={lang} />
     <div class="mt-5 flex flex-wrap justify-center gap-3">
       <a href={docsPage(lang, "install/")} class="inline-flex min-h-12 items-center gap-2 rounded-md bg-bp-cta px-5 py-3 font-semibold text-bp-cta-ink hover:bg-bp-cta-hover"
         >{s.closing.guide} <span aria-hidden="true">→</span></a
