@@ -1,12 +1,12 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
-import { links } from "./site";
+import { changelogMarkdown, releaseId } from "./changelog";
+import { changelogPage, type Lang } from "./site";
 
 export interface Update {
   version: string;
   date: string;
   title: string;
-  href: string;
+  /** The release's place on the changelog page, without the language prefix. */
+  anchor: string;
 }
 
 /** Only dated, released sections belong on the home page; skip Unreleased. */
@@ -20,26 +20,12 @@ export function parseUpdates(markdown: string): Update[] {
       ?? `Interlatch ${version}`;
     const title = headline.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
       .replace(/[*`]/g, "").replace(/\s+/g, " ").replace(/:$/, "").trim();
-    const anchor = `${version} (${date})`.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-");
-    return [{ version, date, title, href: `${links.changelog}#${anchor}` }];
+    return [{ version, date, title, anchor: releaseId(version) }];
   }).slice(0, 3);
 }
 
-async function loadUpdates(): Promise<Update[]> {
-  try {
-    // CI uses the same checkout as the docs. Local builds fetch the published changelog.
-    const source = process.env.INTERLATCH_SRC || process.env.CHRONICLE_SRC;
-    if (source) return parseUpdates(await readFile(join(source, "CHANGELOG.md"), "utf8"));
-    const response = await fetch("https://raw.githubusercontent.com/Chatixia-AI/interlatch/main/CHANGELOG.md", {
-      signal: AbortSignal.timeout(10_000),
-    });
-    if (!response.ok) throw new Error(`Changelog returned HTTP ${response.status}`);
-    return parseUpdates(await response.text());
-  } catch (error) {
-    console.warn("Home page changelog unavailable; showing the changelog link instead.", error);
-    return [];
-  }
-}
+/** A release's link on the changelog page in the reader's language. */
+export const updateHref = (lang: Lang, update: Update) => `${changelogPage(lang)}#${update.anchor}`;
 
-// Both languages share one build-time read; visitors make no API requests.
-export const updates = loadUpdates();
+// Both languages share the changelog's one build-time read; visitors make no API requests.
+export const updates = changelogMarkdown.then((markdown) => (markdown ? parseUpdates(markdown) : []));

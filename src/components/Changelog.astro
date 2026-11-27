@@ -1,0 +1,181 @@
+---
+// The changelog page, in either language: every dated release from Interlatch's CHANGELOG.md, newest first. The
+// entries stay in English, the language they're written in; the page around them follows the reader's.
+import Base from "../layouts/Base.astro";
+import CopyCommand from "./CopyCommand.astro";
+import { releases } from "../data/changelog";
+import { changelogPage, links, type Lang } from "../data/site";
+import { t } from "../i18n";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang).changelog;
+const all = await releases;
+const dateFormat = new Intl.DateTimeFormat(lang === "ja" ? "ja-JP" : "en-US", {
+  year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
+});
+const monthFormat = new Intl.DateTimeFormat(lang === "ja" ? "ja-JP" : "en-US", { year: "numeric", month: "long", timeZone: "UTC" });
+const day = (date: string) => new Date(`${date}T00:00:00Z`);
+const count = (n: number) => (n === 1 ? s.count.one : s.count.other).replace("{n}", String(n));
+// The release list beside the page, grouped by month.
+const months = [...Map.groupBy(all, (r) => r.date.slice(0, 7)).entries()];
+---
+
+<Base lang={lang} title={s.title} description={s.description} translated path={changelogPage}>
+  <link slot="head" rel="alternate" type="application/rss+xml" title={s.feed} href="/changelog/rss.xml" />
+  <section class="border-b border-bp-rule/70">
+    <div class="mx-auto max-w-[1280px] px-5 pb-12 pt-16 sm:px-10 lg:px-16 lg:pb-14 lg:pt-20">
+      <p class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-bp-gold">{s.kicker}</p>
+      <h1 class="mt-4 font-display text-[clamp(2.4rem,5vw,4rem)] font-semibold leading-[1.02] tracking-[-0.04em]">{s.heading}</h1>
+      <p class="mt-5 max-w-[680px] text-lg leading-relaxed text-bp-dim">{s.lead}{s.english && <> {s.english}</>}</p>
+      <div class="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div class="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+          <span class="shrink-0 text-sm text-bp-faint">{s.update}</span>
+          <CopyCommand command="uv tool upgrade interlatch" lang={lang} class="min-w-0 sm:w-[340px]" />
+        </div>
+        <div class="flex flex-wrap gap-x-6 gap-y-2 font-plex-mono text-xs">
+          <a href="/changelog/rss.xml" class="flex items-center gap-2 text-bp-dim hover:text-bp-ink">
+            <svg class="h-[13px] w-[13px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"
+              ><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1.2" fill="currentColor"></circle></svg
+            >{s.feed}</a
+          >
+          <a href={links.releases} class="text-bp-dim hover:text-bp-ink">{s.releases} →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-[1280px] px-5 sm:px-10 lg:grid lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-16 lg:px-16">
+    <div class="min-w-0">
+      {
+        all.length === 0 && (
+          <p class="py-16 text-bp-dim">
+            {s.unavailable} <a href={links.changelog} class="text-bp-ink underline underline-offset-4">{s.readOnGithub}</a>
+          </p>
+        )
+      }
+      {
+        all.map((release, index) => (
+          <section id={release.id} aria-labelledby={`${release.id}-h`} class="scroll-mt-20 border-b border-bp-rule/70 py-12 md:grid md:grid-cols-[180px_minmax(0,1fr)] md:gap-10 lg:py-14">
+            <header class="mb-6 md:mb-0">
+              <div class="md:sticky md:top-24">
+                <h2 id={`${release.id}-h`} class="flex items-center gap-2.5 font-plex-mono text-lg font-semibold text-bp-ink">
+                  <a href={`#${release.id}`} class="hover:text-bp-gold">{release.version}</a>
+                  {index === 0 && (
+                    <span class="rounded-sm border border-bp-gold/60 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-bp-gold">{s.latest}</span>
+                  )}
+                </h2>
+                <p class="mt-1.5 text-sm text-bp-dim">
+                  <time datetime={release.date}>{dateFormat.format(day(release.date))}</time>
+                </p>
+                <p class="mt-1 font-plex-mono text-[11px] text-bp-faint">{count(release.entries.length)}</p>
+              </div>
+            </header>
+            <div lang="en" class="space-y-9">
+              {release.entries.filter((e) => e.title).map((entry) => (
+                <article id={entry.id} class="changelog-entry group scroll-mt-20">
+                  <h3 class="changelog-text font-display text-xl font-semibold leading-snug tracking-tight sm:text-[1.35rem]">
+                    <Fragment set:html={entry.titleHtml} />
+                    <a href={`#${entry.id}`} aria-label={s.permalink} title={s.permalink} class="ml-1.5 font-plex-mono text-base font-normal text-bp-faint opacity-0 transition-opacity hover:text-bp-gold focus:opacity-100 group-hover:opacity-100">#</a>
+                  </h3>
+                  {entry.html && <p class="changelog-text mt-2.5 max-w-[72ch] leading-relaxed text-bp-dim" set:html={entry.html} />}
+                  {entry.items.length > 0 && (
+                    <ul class="changelog-text mt-3 max-w-[72ch] space-y-2 border-l border-bp-rule pl-5 leading-relaxed text-bp-dim">
+                      {entry.items.map((item) => <li set:html={item} />)}
+                    </ul>
+                  )}
+                </article>
+              ))}
+              {release.entries.some((e) => !e.title) && (
+                <ul class="changelog-text max-w-[72ch] list-disc space-y-2.5 pl-5 leading-relaxed text-bp-dim marker:text-bp-rule2">
+                  {release.entries.filter((e) => !e.title).map((entry) => (
+                    <li id={entry.id} class="scroll-mt-20">
+                      <span set:html={entry.html} />
+                      {entry.items.length > 0 && (
+                        <ul class="mt-2 list-[circle] space-y-1.5 pl-5">{entry.items.map((item) => <li set:html={item} />)}</ul>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+
+    {
+      all.length > 0 && (
+        <nav aria-label={s.jump} class="hidden lg:block">
+          <div class="sticky top-16 max-h-[calc(100vh-4rem)] overflow-y-auto py-12 lg:py-14">
+            <p class="font-plex-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-bp-gold">{s.jump}</p>
+            {months.map(([month, list]) => (
+              <div class="mt-5">
+                <p class="text-xs text-bp-faint">{monthFormat.format(day(`${month}-01`))}</p>
+                <ul class="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 font-plex-mono text-[12px]">
+                  {list.map((r) => (
+                    <li><a href={`#${r.id}`} class="release-link text-bp-dim hover:text-bp-ink" data-id={r.id}>{r.version}</a></li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </nav>
+      )
+    }
+  </div>
+</Base>
+
+<style is:global>
+  .changelog-text a {
+    color: var(--bp-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--bp-rule2);
+    text-underline-offset: 4px;
+  }
+  .changelog-text a:hover {
+    text-decoration-color: var(--bp-gold);
+  }
+  .changelog-text strong {
+    color: var(--bp-ink);
+    font-weight: 600;
+  }
+  .changelog-text code {
+    font-family: var(--font-plex-mono);
+    font-size: 0.86em;
+    color: var(--bp-ink);
+    background: var(--bp-panel2);
+    border: 1px solid var(--bp-rule);
+    border-radius: 3px;
+    padding: 0.05em 0.35em;
+    overflow-wrap: anywhere;
+  }
+  .release-link.is-current {
+    color: var(--bp-gold);
+  }
+</style>
+
+<script>
+  // Mark the release being read in the list beside the page.
+  const links = new Map([...document.querySelectorAll<HTMLAnchorElement>(".release-link")].map((a) => [a.dataset.id, a]));
+  if (links.size) {
+    let current: HTMLAnchorElement | undefined;
+    const observer = new IntersectionObserver(
+      (seen) => {
+        for (const entry of seen) {
+          if (!entry.isIntersecting) continue;
+          current?.classList.remove("is-current");
+          current = links.get(entry.target.id);
+          current?.classList.add("is-current");
+        }
+      },
+      { rootMargin: "-20% 0px -70% 0px" },
+    );
+    for (const id of links.keys()) {
+      const section = id && document.getElementById(id);
+      if (section) observer.observe(section);
+    }
+  }
+</script>

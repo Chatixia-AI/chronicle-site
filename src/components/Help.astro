@@ -1,6 +1,6 @@
 ---
-import { docsPage, links, type Lang } from "../data/site";
-import { updates } from "../data/updates";
+import { changelogPage, docsPage, links, type Lang } from "../data/site";
+import { updateHref, updates } from "../data/updates";
 import { t } from "../i18n";
 
 interface Props {
@@ -30,12 +30,12 @@ const community = [
       <article aria-labelledby="updates-heading" class="min-w-0 border border-bp-rule2/60 bg-bp-panel/60 p-6">
         <div class="flex items-baseline justify-between gap-4">
           <h3 id="updates-heading" class="font-display text-xl font-semibold">{s.updates}</h3>
-          <a href={links.changelog} class="shrink-0 font-plex-mono text-[11px] text-bp-dim underline underline-offset-4 hover:text-bp-ink">{s.viewAll}</a>
+          <a href={changelogPage(lang)} class="shrink-0 font-plex-mono text-[11px] text-bp-dim underline underline-offset-4 hover:text-bp-ink">{s.viewAll}</a>
         </div>
         <ul class="mt-5 space-y-5">
           {latest.map((update) => (
             <li>
-              <a href={update.href} lang="en" class="leading-relaxed text-bp-dim hover:text-bp-ink">{update.title}</a>
+              <a href={updateHref(lang, update)} lang="en" class="leading-relaxed text-bp-dim hover:text-bp-ink">{update.title}</a>
               <p class="mt-1 font-plex-mono text-[11px] text-bp-faint">
                 <span>{update.version}</span> · <time datetime={update.date}>{dateFormat.format(new Date(`${update.date}T00:00:00Z`))}</time>
               </p>

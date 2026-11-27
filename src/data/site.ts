@@ -32,6 +32,9 @@ export const docsPage = (lang: Lang, page = "") => `${links.docs}${lang === "ja"
 /** The home page in each language. */
 export const homePath = (lang: Lang) => (lang === "ja" ? "/ja/" : "/");
 
+/** The changelog page in each language: the same releases, in English, with the page around them translated. */
+export const changelogPage = (lang: Lang) => `${homePath(lang)}changelog/`;
+
 export const installCommand = "uv tool install --python 3.13 interlatch";
 
 /** Install, then set up: find the agents, import their sessions, start the dashboard. One line to paste, for a macOS

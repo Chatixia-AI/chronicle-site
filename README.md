@@ -14,6 +14,9 @@ The site serves:
 
 - `/`: the landing page, built here with [Astro](https://astro.build) and Tailwind, in the Chatixia blueprint style
   shared with [chatixia.net](https://chatixia.net).
+- `/changelog/` and `/ja/changelog/`: every dated release in Interlatch's `CHANGELOG.md`, newest first, one entry
+  per bullet (its bold headline is the title), with a feed at `/changelog/rss.xml`. The entries stay in English;
+  the page around them follows the language.
 - `/ja/`: the same landing page in Japanese. The words live in `src/i18n/`: change a sentence in `en.ts`, then its
   twin in `ja.ts` (TypeScript checks that both have the same keys). The header links the two; the docs have their own
   Japanese pages at `/docs/ja/`.
@@ -52,9 +55,9 @@ takes precedence when both are set.
 complete build above; `pnpm run build:docs` can refresh documentation after a landing-page build.
 
 The home page's resource cards link to GitHub Discussions (Q&A, Ideas and Announcements), the roadmap and guides.
-The three latest dated releases come from `CHANGELOG.md` in `INTERLATCH_SRC` when set (CI uses its docs checkout),
-or from GitHub during a local build. Unreleased work is omitted. If that read fails, the card keeps a link to the
-full changelog. Release headlines stay in their source language; dates and the surrounding UI are localized.
+The three latest dated releases, and the changelog page, come from `CHANGELOG.md` in `INTERLATCH_SRC` when set (CI
+uses its docs checkout), or from GitHub during a local build; the card links to each release on `/changelog/`.
+Unreleased work is omitted. If that read fails, the card and the page keep a link to the changelog on GitHub. Release headlines stay in their source language; dates and the surrounding UI are localized.
 
 ## Layout
 
@@ -65,7 +68,8 @@ full changelog. Release headlines stay in their source language; dates and the s
 | `public/media/cast/` | The Blueprint Cast loops (Chatixia Studio's characters) and a still of each, rendered in the Interlatch repository under `packaging/icons3d`; `CastLoop.astro` plays one only while it's on screen, and never for reduced motion |
 | `src/i18n/` | Every word on the home page: `en.ts` and `ja.ts`, the same shape in each language |
 | `src/data/site.ts` | Links and the install commands, shared by every page |
-| `src/data/updates.ts` | Build-time changelog loading and release highlights for the home page |
+| `src/data/changelog.ts` | Build-time changelog loading, shared by the home page card, the changelog pages and the feed; parses releases and their inline Markdown, and points docs links at `/docs/` |
+| `src/data/updates.ts` | The home page card's release highlights |
 | `src/styles/global.css` | Blueprint tokens (as on chatixia.net) and the logbook styling |
 | `docs-theme/` | Layered over the docs' `mkdocs.yml`: served under `/docs/`, Plex fonts, navy header; `overrides/` gives the `/docs/ja/` pages Japanese labels, their own navigation and an English/日本語 link per page |
 | `scripts/` | The docs build and the check that `firebase.json` redirects every old docs address |
