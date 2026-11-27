@@ -13,7 +13,7 @@ export const ja: Strings = {
     skip: "本文へ移動",
     home: "Interlatch ホーム",
     by: "by Chatixia",
-    nav: { label: "メイン", record: "できること", install: "インストール", team: "チーム", faq: "よくある質問", docs: "ドキュメント", github: "GitHub" },
+    nav: { label: "メイン", record: "できること", install: "インストール", team: "チーム", faq: "よくある質問", docs: "ドキュメント", changelog: "変更履歴", github: "GitHub" },
     github: { label: "GitHub の Interlatch", counted: "GitHub の Interlatch：スター {stars}、フォーク {forks}" },
     menu: "メニュー",
     cta: "インストール",
@@ -451,6 +451,24 @@ export const ja: Strings = {
     announcements: "お知らせを読む",
     issues: "不具合を報告",
     contributing: "コードやドキュメントで貢献",
+  },
+
+  changelog: {
+    title: "変更履歴 · Interlatch",
+    description: "Interlatch のすべてのリリースを新しい順に。新機能、変更点、修正点。",
+    kicker: "変更履歴",
+    heading: "Interlatch の新機能",
+    lead: "すべてのリリースを新しい順に。各変更から、それを説明するガイドへ移動できます。",
+    update: "インストール済みなら、次のコマンドで更新できます",
+    feed: "RSS フィード",
+    releases: "GitHub のリリース",
+    latest: "最新",
+    jump: "リリースへ移動",
+    count: { one: "{n} 件の変更", other: "{n} 件の変更" },
+    permalink: "この変更へのリンク",
+    unavailable: "このビルドでは変更履歴を読み込めませんでした。",
+    readOnGithub: "GitHub で読む",
+    english: "各リリースの内容は英語で書かれています。",
   },
 
   notFound: {

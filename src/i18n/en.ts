@@ -14,7 +14,7 @@ export const en = {
     skip: "Skip to content",
     home: "Interlatch home",
     by: "by Chatixia",
-    nav: { label: "Main", record: "What it does", install: "Install", team: "Teams", faq: "FAQ", docs: "Docs", github: "GitHub" },
+    nav: { label: "Main", record: "What it does", install: "Install", team: "Teams", faq: "FAQ", docs: "Docs", changelog: "Changelog", github: "GitHub" },
     // The header's link to the repository; {stars} and {forks} are its counts.
     github: { label: "Interlatch on GitHub", counted: "Interlatch on GitHub (stars: {stars}, forks: {forks})" },
     // The header's menu button on narrow screens, where the links above don't fit.
@@ -460,6 +460,24 @@ export const en = {
     announcements: "Read announcements",
     issues: "Report a bug",
     contributing: "Contribute code or docs",
+  },
+
+  changelog: {
+    title: "Changelog · Interlatch",
+    description: "Every Interlatch release, newest first: what's new, what changed and what was fixed.",
+    kicker: "Changelog",
+    heading: "What's new in Interlatch",
+    lead: "Every release, newest first. Each change links to the guide that covers it.",
+    update: "Already installed? Update with",
+    feed: "RSS feed",
+    releases: "Releases on GitHub",
+    latest: "Latest",
+    jump: "Jump to a release",
+    count: { one: "{n} change", other: "{n} changes" },
+    permalink: "Link to this change",
+    unavailable: "The changelog couldn't be read for this build.",
+    readOnGithub: "Read it on GitHub",
+    english: "",
   },
 
   notFound: {

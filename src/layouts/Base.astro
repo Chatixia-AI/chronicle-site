@@ -2,7 +2,7 @@
 // Every page's shell: head, header and footer, in the Chatixia blueprint style, in English or Japanese.
 import "../styles/global.css";
 import { minStarsShown, repoStats } from "../data/repo";
-import { docsPage, homePath, links, productName, type Lang } from "../data/site";
+import { changelogPage, docsPage, homePath, links, productName, type Lang } from "../data/site";
 import { t } from "../i18n";
 
 interface Props {
@@ -13,8 +13,10 @@ interface Props {
   translated?: boolean;
   /** Keep the page out of search results (the 404 page): no canonical or og:url, which it has no address of its own for. */
   noindex?: boolean;
+  /** This page's address in each language, for the language link and hreflang; the home page by default. */
+  path?: (lang: Lang) => string;
 }
-const { title, description, lang = "en", translated = false, noindex = false } = Astro.props;
+const { title, description, lang = "en", translated = false, noindex = false, path = homePath } = Astro.props;
 const s = t(lang).base;
 const other: Lang = lang === "ja" ? "en" : "ja";
 const home = homePath(lang);
@@ -29,6 +31,7 @@ const nav = [
   { label: s.nav.team, href: `${home}#team` },
   { label: s.nav.faq, href: `${home}#faq` },
   { label: s.nav.docs, href: docsPage(lang) },
+  { label: s.nav.changelog, href: changelogPage(lang) },
   { label: s.nav.github, href: links.github },
 ];
 const read = await repoStats;
@@ -46,7 +49,7 @@ const footer = [
       [s.nav.team, `${home}#team`],
       [s.nav.faq, `${home}#faq`],
       [s.footer.releases, links.releases],
-      [s.footer.changelog, links.changelog],
+      [s.footer.changelog, changelogPage(lang)],
       [s.footer.roadmap, lang === "ja" ? links.roadmapJa : links.roadmap],
     ],
   },
@@ -86,9 +89,9 @@ const footer = [
     {
       translated && (
         <>
-          <link rel="alternate" hreflang="en" href={new URL(homePath("en"), Astro.site)} />
-          <link rel="alternate" hreflang="ja" href={new URL(homePath("ja"), Astro.site)} />
-          <link rel="alternate" hreflang="x-default" href={new URL(homePath("en"), Astro.site)} />
+          <link rel="alternate" hreflang="en" href={new URL(path("en"), Astro.site)} />
+          <link rel="alternate" hreflang="ja" href={new URL(path("ja"), Astro.site)} />
+          <link rel="alternate" hreflang="x-default" href={new URL(path("en"), Astro.site)} />
         </>
       )
     }
@@ -131,6 +134,7 @@ const footer = [
       href={`https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400${lang === "ja" ? "&family=IBM+Plex+Sans+JP:wght@400;500;600" : ""}&family=IBM+Plex+Mono:wght@400;500;600&display=swap`}
       rel="stylesheet"
     />
+    <slot name="head" />
   </head>
   <body class="bp-paper min-h-screen font-body text-bp-ink">
     <a
@@ -221,7 +225,7 @@ const footer = [
                so after switching language the way back is right under the pointer. -->
           <div class="flex h-8 items-center divide-x divide-bp-rule2/50 rounded-md border border-bp-rule2/50 text-bp-faint">
             <a
-              href={homePath(other)}
+              href={path(other)}
               hreflang={other}
               lang={other}
               title={s.other.title}
